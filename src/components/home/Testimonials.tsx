@@ -55,10 +55,10 @@ export default function Testimonials() {
         <div className="relative max-w-5xl mx-auto mb-16">
           {/* Decorative Elements */}
           <div className="absolute -top-12 -left-12 text-9xl text-primary-200 opacity-30 select-none font-serif">
-            "
+            &quot;
           </div>
           <div className="absolute -bottom-12 -right-12 text-9xl text-primary-200 opacity-30 select-none font-serif rotate-180">
-            "
+            &quot;
           </div>
 
           {/* Testimonial Cards */}

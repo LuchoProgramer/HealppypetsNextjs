@@ -1,15 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Home, Heart, Star, Sparkles, PawPrint } from "lucide-react";
+import { Home, Heart, Star } from "lucide-react";
 import { STORY_SECTIONS } from "@/lib/constants";
+import Image from "next/image";
 
 // Mapeo de nombres de iconos a componentes
-const iconMap: Record<string, any> = {
+import type { FC, SVGProps } from "react";
+const iconMap: Record<string, FC<SVGProps<SVGSVGElement>>> = {
   Home,
   Heart,
   Star,
-  Sparkles
 };
 
 export default function StorySection() {
@@ -103,9 +104,11 @@ export default function StorySection() {
                       
                       {/* Image */}
                       <div className="relative overflow-hidden rounded-3xl shadow-strong">
-                        <img
+                        <Image
                           src={section.image}
                           alt={section.title}
+                          width={600}
+                          height={400}
                           className="w-full h-auto transform group-hover:scale-105 transition-transform duration-700"
                         />
                         {/* Overlay on hover */}
@@ -155,7 +158,7 @@ export default function StorySection() {
                     {/* Quote or Additional Info */}
                     <div className="bg-primary-50 border-l-4 border-primary-400 p-6 rounded-r-xl">
                       <p className="text-dark-700 italic">
-                        "En HealppyPets, cada mascota recibe el cuidado que le daríamos a nuestra propia familia."
+                        &quot;En HealppyPets, cada mascota recibe el cuidado que le daríamos a nuestra propia familia.&quot;
                       </p>
                     </div>
 

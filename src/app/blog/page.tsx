@@ -2,22 +2,23 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Calendar, Clock, Tag, ArrowRight, Search } from "lucide-react";
+import { BLOG_POSTS } from "@/data/blog-posts";
 import { BLOG_CATEGORIES } from "@/lib/constants";
-import { BLOG_POSTS, BlogPost } from "@/data/blog-posts";
 
 export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredPosts = BLOG_POSTS.filter((post: BlogPost) => {
+  const filteredPosts = BLOG_POSTS.filter(post => {
     const matchesCategory = selectedCategory === "all" || post.category === selectedCategory;
     const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
-  const featuredPost = BLOG_POSTS.find((post: BlogPost) => post.featured);
+  const featuredPost = BLOG_POSTS.find(post => post.featured);
 
   return (
     <div className="min-h-screen bg-gradient-soft">
@@ -91,10 +92,13 @@ export default function BlogPage() {
               <div className="bg-white rounded-3xl shadow-strong overflow-hidden group hover:-translate-y-2 transition-all duration-500">
                 <div className="grid md:grid-cols-2 gap-0">
                   <div className="relative h-64 md:h-auto overflow-hidden">
-                    <img
+                    <Image
                       src={featuredPost.image}
                       alt={featuredPost.title}
+                      width={800}
+                      height={400}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      priority
                     />
                     <div className="absolute top-6 left-6">
                       <span className="inline-block bg-accent-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
@@ -141,13 +145,15 @@ export default function BlogPage() {
 
         {/* Blog Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredPosts.map((post: BlogPost) => (
+          {filteredPosts.map((post) => (
             <Link key={post.slug} href={`/blog/${post.slug}`}>
               <article className="bg-white rounded-3xl shadow-soft overflow-hidden group hover:shadow-strong hover:-translate-y-2 transition-all duration-500 h-full flex flex-col">
                 <div className="relative h-56 overflow-hidden">
-                  <img
+                  <Image
                     src={post.image}
                     alt={post.title}
+                    width={400}
+                    height={200}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute top-4 left-4">
@@ -182,7 +188,7 @@ export default function BlogPage() {
 
                   {/* Tags */}
                   <div className="flex flex-wrap gap-2 mt-4">
-                    {post.tags.slice(0, 3).map((tag: string) => (
+                    {post.tags.slice(0, 3).map((tag) => (
                       <span
                         key={tag}
                         className="inline-flex items-center text-xs bg-gray-100 text-dark-600 px-2 py-1 rounded-full"

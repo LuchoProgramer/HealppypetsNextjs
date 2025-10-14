@@ -1,3 +1,5 @@
+// src/data/blog-posts.ts
+
 export interface BlogPost {
   slug: string;
   title: string;

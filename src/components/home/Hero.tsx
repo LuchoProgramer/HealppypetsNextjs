@@ -6,7 +6,6 @@ import { SITE_CONFIG } from "@/lib/constants";
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
 
   const slides = [
     {
@@ -36,13 +35,12 @@ export default function Hero() {
   ];
 
   useEffect(() => {
-    setIsVisible(true);
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 6000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [slides.length]);
 
   const goToSlide = (index: number) => {
     setCurrentSlide(index);

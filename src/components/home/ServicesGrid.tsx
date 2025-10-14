@@ -3,9 +3,11 @@
 import { useState, useEffect, useRef } from "react";
 import { Sparkles, Syringe, Stethoscope, Pill, Clock, Gift, Car, Smartphone, Heart } from "lucide-react";
 import { SERVICES } from "@/lib/constants";
+import Image from "next/image";
 
 // Mapeo de iconos
-const iconMap: Record<string, any> = {
+import type { FC, SVGProps } from "react";
+const iconMap: Record<string, FC<SVGProps<SVGSVGElement>>> = {
   Sparkles,
   Syringe,
   Stethoscope,
@@ -120,11 +122,13 @@ export default function ServicesGrid() {
                 }`}>
                   {/* Image Section */}
                   <div className="relative h-72 overflow-hidden">
-                    <img
-                      src={service.image}
-                      alt={service.title}
-                      className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-                    />
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        width={400}
+                        height={224}
+                        className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                      />
                     
                     {/* Gradient Overlay */}
                     <div className={`absolute inset-0 ${colors.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-500`} />

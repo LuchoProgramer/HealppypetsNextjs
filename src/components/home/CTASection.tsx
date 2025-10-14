@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Phone, Mail, MapPin, Calendar, MessageCircle, ArrowRight, Sparkles, PawPrint } from "lucide-react";
+import { Phone, Mail, MapPin, Calendar, MessageCircle, ArrowRight } from "lucide-react";
 import { SITE_CONFIG } from "@/lib/constants";
 
 export default function ContactSection() {
