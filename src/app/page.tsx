@@ -10,11 +10,11 @@ export default function Home() {
       {/* Hero Section - Primera impresión con storytelling */}
       <Hero />
 
-      {/* Story Section - Nuestra historia emocional */}
-      <StorySection />
-
       {/* Services Grid - Servicios principales */}
       <ServicesGrid />
+
+      {/* Story Section - Nuestra historia emocional */}
+      <StorySection />
 
       {/* Testimonials - Historias de éxito */}
       <Testimonials />

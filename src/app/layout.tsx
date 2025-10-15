@@ -79,6 +79,8 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${inter.variable} ${poppins.variable}`}>
       <head>
+        {/* Google Search Console Verification */}
+        <meta name="google-site-verification" content="c7a222bfc56de06a" />
         {/* Google Analytics */}
         <Script
           strategy="afterInteractive"

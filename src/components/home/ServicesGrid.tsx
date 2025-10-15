@@ -1,21 +1,116 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Sparkles, Syringe, Stethoscope, Pill, Clock, Gift, Car, Smartphone, Heart } from "lucide-react";
-import { SERVICES } from "@/lib/constants";
-import Image from "next/image";
 
-// Mapeo de iconos
-import type { FC, SVGProps } from "react";
-const iconMap: Record<string, FC<SVGProps<SVGSVGElement>>> = {
-  Sparkles,
-  Syringe,
-  Stethoscope,
-  Pill,
-  Clock
+const SITE_CONFIG = {
+  whatsapp: "593987005084",
+  whatsappMessage: "Hola! Quisiera agendar una cita para mi mascota"
 };
 
-export default function ServicesGrid() {
+const SERVICES = [
+  {
+    id: "grooming",
+    title: "Grooming Express",
+    price: "$20",
+    duration: "2 horas",
+    description: "Tu peludo sale impecable y feliz. Servicio completo con todo lo necesario para que luzca radiante.",
+    image: "https://res.cloudinary.com/tu-cloud/image/upload/grooming.jpg",
+    imagePlaceholder: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800&q=80",
+    icon: "✂️",
+    color: "from-[#F2C9E7] to-[#F2C2EA]",
+    features: [
+      "Baño con shampoo premium",
+      "Corte de pelo profesional",
+      "Corte de uñas",
+      "Cepillado completo",
+      "Limpieza de oídos",
+      "Desparasitación externa"
+    ],
+    whatsappMsg: "Hola! Quiero agendar un servicio de Grooming Express para mi mascota 🐕✂️"
+  },
+  {
+    id: "consultas",
+    title: "Consulta Veterinaria",
+    price: "$15",
+    duration: "30 min",
+    description: "Atención profesional para el bienestar de tu mascota. Diagnóstico y recomendaciones personalizadas.",
+    image: "https://res.cloudinary.com/tu-cloud/image/upload/consulta.jpg",
+    imagePlaceholder: "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?w=800&q=80",
+    icon: "🩺",
+    color: "from-[#F2D8EE] to-[#F2C2EA]",
+    features: [
+      "Examen físico completo",
+      "Diagnóstico profesional",
+      "Recomendaciones de cuidado",
+      "Orientación nutricional",
+      "Plan de tratamiento",
+      "Seguimiento incluido"
+    ],
+    whatsappMsg: "Hola! Necesito agendar una consulta veterinaria para mi mascota 🩺"
+  },
+  {
+    id: "vacunacion",
+    title: "Vacunación",
+    price: "$20",
+    duration: "15 min",
+    description: "Protege a tu mascota con nuestro plan de vacunación completo. Consulta veterinaria incluida.",
+    image: "https://res.cloudinary.com/tu-cloud/image/upload/vacunas.jpg",
+    imagePlaceholder: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=800&q=80",
+    icon: "💉",
+    color: "from-[#F2C2EA] to-[#F2DFED]",
+    features: [
+      "Consulta veterinaria incluida",
+      "Vacunas importadas de calidad",
+      "Carnet de vacunación",
+      "Recordatorio de refuerzos",
+      "Plan personalizado",
+      "Seguimiento post-vacuna"
+    ],
+    whatsappMsg: "Hola! Quiero vacunar a mi mascota. ¿Cuál es el plan de vacunación? 💉"
+  },
+  {
+    id: "desparasitacion",
+    title: "Desparasitación",
+    price: "$20",
+    duration: "15 min",
+    description: "Elimina parásitos internos y externos. Mantén a tu mascota saludable y protegida.",
+    image: "https://res.cloudinary.com/tu-cloud/image/upload/desparasitacion.jpg",
+    imagePlaceholder: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&q=80",
+    icon: "🪱",
+    color: "from-[#F2DFED] to-[#F2D8EE]",
+    features: [
+      "Desparasitante interno",
+      "Desparasitante externo",
+      "Consulta incluida",
+      "Recomendaciones de prevención",
+      "Calendario de refuerzos",
+      "Productos de calidad garantizada"
+    ],
+    whatsappMsg: "Hola! Necesito desparasitar a mi mascota 🐾"
+  },
+  {
+    id: "farmacia",
+    title: "Farmacia Veterinaria",
+    price: "Consulta",
+    duration: "Variable",
+    description: "Medicamentos, suplementos y productos de calidad para el cuidado de tu mascota.",
+    image: "https://res.cloudinary.com/tu-cloud/image/upload/farmacia.jpg",
+    imagePlaceholder: "https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=800&q=80",
+    icon: "💊",
+    color: "from-[#F2C9E7] to-[#F2D8EE]",
+    features: [
+      "Medicamentos veterinarios",
+      "Suplementos nutricionales",
+      "Productos de higiene",
+      "Antiparasitarios",
+      "Productos para piel y pelo",
+      "Asesoría profesional incluida"
+    ],
+    whatsappMsg: "Hola! Necesito consultar sobre medicamentos para mi mascota 💊"
+  }
+];
+
+export default function ServicesSection() {
   const [activeService, setActiveService] = useState<string | null>(null);
   const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -30,7 +125,7 @@ export default function ServicesGrid() {
             if (entry.isIntersecting) {
               setTimeout(() => {
                 setVisibleCards((prev) => new Set(prev).add(index));
-              }, index * 150);
+              }, index * 100);
             }
           });
         },
@@ -46,61 +141,27 @@ export default function ServicesGrid() {
     };
   }, []);
 
-  const colorClasses = {
-    primary: {
-      gradient: "bg-gradient-primary",
-      shadow: "shadow-primary",
-      text: "text-primary-600",
-      bg: "bg-primary-50",
-      border: "border-primary-300"
-    },
-    secondary: {
-      gradient: "bg-gradient-secondary",
-      shadow: "shadow-secondary",
-      text: "text-secondary-600",
-      bg: "bg-secondary-50",
-      border: "border-secondary-300"
-    },
-    accent: {
-      gradient: "bg-gradient-warm",
-      shadow: "shadow-medium",
-      text: "text-accent-600",
-      bg: "bg-accent-50",
-      border: "border-accent-300"
-    },
-    success: {
-      gradient: "bg-gradient-to-r from-success-400 to-success-600",
-      shadow: "shadow-medium",
-      text: "text-success-600",
-      bg: "bg-success-50",
-      border: "border-success-300"
-    }
-  };
-
   return (
-    <section id="servicios" className="section-padding bg-white">
-      <div className="container-custom">
+    <section id="servicios" className="relative py-16 lg:py-24 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-20">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-primary rounded-full mb-4 animate-bounce-slow">
-            <Sparkles className="w-10 h-10 text-white" />
+        <div className="text-center mb-12 lg:mb-16">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] rounded-full mb-4 animate-bounce shadow-lg">
+            <span className="text-3xl">✨</span>
           </div>
-          <h2 className="section-title mb-6">
-            Servicios que <span className="text-gradient">Transforman Vidas</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            Servicios para tu <span className="bg-gradient-to-r from-[#F2C9E7] via-[#F2C2EA] to-[#F2D8EE] bg-clip-text text-transparent">Mejor Amigo</span>
           </h2>
-          <p className="section-subtitle">
-            Cada servicio está diseñado con amor y profesionalismo para que tu mascota
-            se sienta como en casa
+          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
+            Cuidado profesional y rápido en Carcelén. Primera visita con 20% de descuento 🎁
           </p>
         </div>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
           {SERVICES.map((service, index) => {
             const isVisible = visibleCards.has(index);
             const isActive = activeService === service.id;
-            const colors = colorClasses[service.color as keyof typeof colorClasses];
-            const IconComponent = iconMap[service.icon];
 
             return (
               <div
@@ -108,73 +169,71 @@ export default function ServicesGrid() {
                 ref={(el) => {
                   cardRefs.current[index] = el;
                 }}
-                className={`group relative transition-all duration-700 ${
+                className={`group transition-all duration-700 ${
                   isVisible
                     ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-20"
+                    : "opacity-0 translate-y-10"
                 }`}
                 onMouseEnter={() => setActiveService(service.id)}
                 onMouseLeave={() => setActiveService(null)}
               >
                 {/* Card */}
-                <div className={`relative bg-white rounded-3xl overflow-hidden shadow-soft hover:shadow-strong transition-all duration-500 hover:-translate-y-2 ${
-                  isActive ? "ring-4 ring-offset-4 " + colors.border : ""
+                <div className={`relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col ${
+                  isActive ? "ring-2 ring-[#F2C2EA] ring-offset-2" : ""
                 }`}>
                   {/* Image Section */}
-                  <div className="relative h-72 overflow-hidden">
-                      <Image
-                        src={service.image}
-                        alt={service.title}
-                        width={400}
-                        height={224}
-                        className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-                      />
+                  <div className="relative h-48 overflow-hidden">
+                    <img
+                      src={service.imagePlaceholder}
+                      alt={service.title}
+                      className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                    />
                     
                     {/* Gradient Overlay */}
-                    <div className={`absolute inset-0 ${colors.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-500`} />
+                    <div className={`absolute inset-0 bg-gradient-to-r ${service.color} opacity-0 group-hover:opacity-30 transition-opacity duration-500`} />
                     
                     {/* Icon Badge */}
-                    <div className={`absolute top-6 right-6 w-16 h-16 ${colors.gradient} rounded-2xl shadow-strong flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500`}>
-                      <IconComponent className="w-8 h-8 text-white" />
+                    <div className={`absolute top-4 right-4 w-12 h-12 bg-gradient-to-r ${service.color} rounded-xl shadow-lg flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500`}>
+                      <span className="text-2xl">{service.icon}</span>
                     </div>
 
                     {/* Price Badge */}
-                    <div className="absolute bottom-6 left-6 bg-white rounded-full px-4 py-2 shadow-medium">
-                      <span className={`font-bold text-lg ${colors.text}`}>
+                    <div className="absolute bottom-4 left-4 bg-white rounded-full px-3 py-1.5 shadow-lg">
+                      <span className="font-bold text-lg text-gray-900">
                         {service.price}
                       </span>
                     </div>
                   </div>
 
                   {/* Content Section */}
-                  <div className="p-8 space-y-4">
+                  <div className="p-6 space-y-3 flex-grow flex flex-col">
                     {/* Title & Duration */}
-                    <div className="flex items-start justify-between">
-                      <h3 className="text-2xl font-heading font-bold text-dark-800 group-hover:text-primary-600 transition-colors">
+                    <div className="flex items-start justify-between gap-2">
+                      <h3 className="text-xl font-bold text-gray-900 group-hover:text-[#F2C2EA] transition-colors">
                         {service.title}
                       </h3>
-                      <span className={`flex items-center space-x-1 ${colors.text} text-sm font-medium whitespace-nowrap ml-4`}>
-                        <Clock className="w-4 h-4" />
+                      <span className="flex items-center gap-1 text-gray-600 text-sm font-medium whitespace-nowrap">
+                        <span>⏱️</span>
                         <span>{service.duration}</span>
                       </span>
                     </div>
 
                     {/* Description */}
-                    <p className="text-dark-600 leading-relaxed">
+                    <p className="text-gray-600 text-sm leading-relaxed flex-grow">
                       {service.description}
                     </p>
 
-                    {/* Features - Show on Hover */}
+                    {/* Features - Show on Hover/Active */}
                     <div className={`space-y-2 transition-all duration-500 overflow-hidden ${
                       isActive ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
                     }`}>
-                      <p className="font-semibold text-dark-800 text-sm pt-4 flex items-center">
-                        <Sparkles className="w-4 h-4 mr-1" /> Lo que incluye:
+                      <p className="font-semibold text-gray-800 text-sm pt-2 flex items-center gap-1">
+                        <span>✨</span> Incluye:
                       </p>
                       <ul className="space-y-1">
-                        {service.features.slice(0, 4).map((feature, i) => (
-                          <li key={i} className="flex items-start space-x-2 text-sm text-dark-600">
-                            <span className={colors.text}>•</span>
+                        {service.features.map((feature, i) => (
+                          <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
+                            <span className="text-[#F2C2EA] mt-0.5">•</span>
                             <span>{feature}</span>
                           </li>
                         ))}
@@ -182,56 +241,54 @@ export default function ServicesGrid() {
                     </div>
 
                     {/* CTA Button */}
-                    <button
-                      className={`w-full ${colors.gradient} text-white py-3 rounded-full font-semibold ${colors.shadow} transition-all duration-300 hover:scale-105 active:scale-95 mt-4`}
+                    <a
+                      href={`https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent(service.whatsappMsg)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`block w-full bg-gradient-to-r ${service.color} text-gray-900 py-3 rounded-xl font-semibold text-center shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 mt-4`}
                     >
-                      Agendar {service.title}
-                    </button>
+                      Agendar Ahora →
+                    </a>
                   </div>
-
-                  {/* Decorative Corner */}
-                  <div className={`absolute top-0 left-0 w-32 h-32 ${colors.bg} rounded-br-full opacity-50 -translate-x-16 -translate-y-16 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-700`} />
-                </div>
-
-                {/* Floating Elements */}
-                <div className="absolute -top-4 -right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-float">
-                  <IconComponent className="w-10 h-10 text-primary-400" />
                 </div>
               </div>
             );
           })}
         </div>
 
-        {/* Additional Info Section */}
-        <div className="grid md:grid-cols-3 gap-6 mt-16">
+        {/* Additional Info Cards */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
           {[
             {
-              icon: Gift,
-              title: "Promociones Especiales",
-              description: "Descuentos en paquetes y servicios combinados"
+              icon: "🎁",
+              title: "Primera Visita",
+              description: "20% de descuento en tu primera cita",
+              color: "from-green-400 to-green-500"
             },
             {
-              icon: Car,
-              title: "Retiro y Entrega",
-              description: "Servicio de transporte para grooming disponible"
+              icon: "💬",
+              title: "Agenda por WhatsApp",
+              description: "Respuesta rápida y atención personalizada",
+              color: "from-blue-400 to-blue-500"
             },
             {
-              icon: Smartphone,
-              title: "Agenda Online",
-              description: "Reserva tu cita fácilmente por WhatsApp"
+              icon: "📍",
+              title: "En Carcelén",
+              description: "Fácil acceso y estacionamiento disponible",
+              color: "from-purple-400 to-purple-500"
             }
           ].map((item, index) => (
             <div
               key={index}
-              className="text-center p-6 bg-gradient-soft rounded-2xl hover:shadow-medium transition-all duration-300 group"
+              className="text-center p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 group"
             >
-              <div className="flex justify-center mb-4 group-hover:scale-110 transition-transform">
-                <item.icon className="w-12 h-12 text-primary-500" />
+              <div className={`inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r ${item.color} rounded-full mb-3 group-hover:scale-110 transition-transform shadow-md`}>
+                <span className="text-2xl">{item.icon}</span>
               </div>
-              <h4 className="text-lg font-heading font-bold text-dark-800 mb-2">
+              <h4 className="text-lg font-bold text-gray-900 mb-2">
                 {item.title}
               </h4>
-              <p className="text-dark-600 text-sm">
+              <p className="text-gray-600 text-sm">
                 {item.description}
               </p>
             </div>
@@ -239,26 +296,36 @@ export default function ServicesGrid() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-16 space-y-6">
-          <div className="inline-block bg-primary-100 rounded-full px-6 py-2">
-            <p className="text-primary-700 font-semibold flex items-center justify-center">
-              <Heart className="w-5 h-5 mr-2" /> Tu primera consulta tiene descuento especial
+        <div className="text-center mt-12 lg:mt-16 space-y-4">
+          <div className="inline-block bg-gradient-to-r from-green-50 to-green-100 rounded-full px-6 py-2 border border-green-200">
+            <p className="text-green-700 font-semibold flex items-center justify-center gap-2">
+              <span>❤️</span> 
+              ¿Primera vez? Obtén 20% de descuento
             </p>
           </div>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a href="#contacto" className="btn-primary">
-              Ver Todas las Promociones
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <a 
+              href={`https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent("Hola! Quiero mi 20% de descuento en la primera visita 🐾")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] text-gray-900 font-semibold rounded-full hover:shadow-xl transition-all duration-300 hover:scale-105"
+            >
+              <span className="mr-2">💬</span>
+              Agendar Mi Primera Cita
             </a>
-            <a href="#nosotros" className="btn-outline">
-              Conocer Más
+            <a 
+              href="#contacto"
+              className="inline-flex items-center justify-center px-8 py-3 bg-white border-2 border-gray-300 text-gray-700 font-semibold rounded-full hover:bg-gray-50 transition-all duration-300"
+            >
+              Ver Más Información
             </a>
           </div>
         </div>
       </div>
 
       {/* Background Decorations */}
-      <div className="absolute top-0 left-0 w-64 h-64 bg-primary-200/20 rounded-full blur-3xl -z-10" />
-      <div className="absolute bottom-0 right-0 w-64 h-64 bg-secondary-200/20 rounded-full blur-3xl -z-10" />
+      <div className="absolute top-0 left-0 w-64 h-64 bg-[#F2C9E7]/20 rounded-full blur-3xl -z-10" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#F2D8EE]/20 rounded-full blur-3xl -z-10" />
     </section>
   );
 }

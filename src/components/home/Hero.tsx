@@ -2,35 +2,52 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { SITE_CONFIG } from "@/lib/constants";
+
+const SITE_CONFIG = {
+  whatsapp: "593987005084",
+  whatsappMessage: "Hola! Quisiera agendar una cita para mi mascota",
+  whatsappPromo: "Hola! Quiero mi 20% de descuento en la primera visita 🐾"
+};
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
     {
-      title: "Donde cada cola cuenta una historia",
-      subtitle: "Tu mascota no es solo un animal, es familia",
-      description: "En HealppyPets transformamos el cuidado veterinario en una experiencia llena de amor, profesionalismo y dedicación.",
-      image: "https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=1920&q=80",
-      cta: "Conoce Nuestra Historia",
-      ctaLink: "#nosotros"
+      title: "Cuidado Veterinario de Confianza",
+      titleHighlight: "en Carcelén",
+      subtitle: "Grooming rápido, vacunas y más",
+      description: "Tu mascota merece atención profesional sin complicaciones. Agenda por WhatsApp y obtén 20% OFF en tu primera visita.",
+      image: "https://res.cloudinary.com/tu-cloud/image/upload/hero-principal.jpg", // Reemplaza con tu URL
+      imagePlaceholder: "https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=1920&q=80",
+      cta: "Agendar Mi Cita",
+      ctaLink: `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent(SITE_CONFIG.whatsappPromo)}`,
+      badge: "🎁 20% OFF Primera Visita",
+      badgeColor: "bg-green-500/90"
     },
     {
-      title: "Grooming que enamora",
-      subtitle: "Porque tu peludo merece sentirse especial",
-      description: "Desde un baño relajante hasta un corte de revista, cada servicio está diseñado para que tu mascota brille.",
-      image: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1920&q=80",
-      cta: "Ver Servicios de Grooming",
-      ctaLink: "#servicios"
+      title: "Grooming Express",
+      titleHighlight: "desde $20",
+      subtitle: "Tu peludo listo en menos de 2 horas",
+      description: "Baño, corte, corte de uñas y limpieza de oídos. Todo lo que necesita para verse y sentirse increíble.",
+      image: "https://res.cloudinary.com/tu-cloud/image/upload/grooming-hero.jpg",
+      imagePlaceholder: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1920&q=80",
+      cta: "Ver Paquetes de Grooming",
+      ctaLink: "/servicios/grooming",
+      badge: "⚡ Servicio Rápido",
+      badgeColor: "bg-orange-500/90"
     },
     {
-      title: "Salud que tranquiliza",
-      subtitle: "Expertos que aman lo que hacen",
-      description: "Vacunación, consultas y farmacia veterinaria. Todo lo que necesitas para mantener a tu mascota saludable y feliz.",
-      image: "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?w=1920&q=80",
-      cta: "Agenda tu Cita",
-      ctaLink: "#contacto"
+      title: "Vacunación Completa",
+      titleHighlight: "desde $20",
+      subtitle: "Protege a tu mascota hoy mismo",
+      description: "Plan de vacunación personalizado para perros, gatos y más. Consulta veterinaria incluida con cada vacuna.",
+      image: "https://res.cloudinary.com/tu-cloud/image/upload/vacunas-hero.jpg",
+      imagePlaceholder: "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?w=1920&q=80",
+      cta: "Agenda tu Vacunación",
+      ctaLink: `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent("Hola! Quiero agendar vacunación para mi mascota")}`,
+      badge: "💉 Consulta Incluida",
+      badgeColor: "bg-blue-500/90"
     }
   ];
 
@@ -47,7 +64,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative h-screen min-h-[600px] overflow-hidden mt-20">
+  <section className="relative h-screen min-h-[700px] max-h-[900px] overflow-hidden pt-0 lg:pt-32">
       {/* Background Slides */}
       {slides.map((slide, index) => (
         <div
@@ -59,20 +76,21 @@ export default function Hero() {
           {/* Background Image with Overlay */}
           <div className="absolute inset-0">
             <div
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105 animate-float"
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-105 transition-transform duration-[6000ms] ease-out"
               style={{
-                backgroundImage: `url(${slide.image})`,
+                backgroundImage: `url(${slide.imagePlaceholder})`,
+                transform: index === currentSlide ? 'scale(1.05)' : 'scale(1)'
               }}
             />
-            {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-dark-900/90 via-dark-800/70 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-dark-900/50 via-transparent to-transparent" />
+            {/* Gradient Overlay - Más suave */}
+            <div className="absolute inset-0 bg-gradient-to-r from-gray-900/85 via-gray-800/60 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-gray-900/40 via-transparent to-transparent" />
           </div>
 
           {/* Content */}
-          <div className="relative h-full container-custom flex items-center">
+          <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
             <div
-              className={`max-w-3xl space-y-8 transition-all duration-1000 ${
+              className={`max-w-2xl lg:max-w-3xl space-y-6 lg:space-y-8 transition-all duration-1000 ${
                 index === currentSlide
                   ? "translate-x-0 opacity-100"
                   : "-translate-x-10 opacity-0"
@@ -80,39 +98,36 @@ export default function Hero() {
             >
               {/* Animated Badge */}
               <div
-                className={`inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 transition-all duration-700 delay-100 ${
+                className={`inline-flex items-center space-x-2 ${slide.badgeColor} backdrop-blur-md rounded-full px-4 py-2 shadow-lg transition-all duration-700 delay-100 ${
                   index === currentSlide
                     ? "translate-y-0 opacity-100"
                     : "translate-y-4 opacity-0"
                 }`}
               >
-                <span className="w-2 h-2 bg-success-400 rounded-full animate-pulse" />
-                <span className="text-white text-sm font-medium">
-                  Atención disponible por WhatsApp
+                <span className="text-white text-sm lg:text-base font-semibold">
+                  {slide.badge}
                 </span>
               </div>
 
               {/* Main Title */}
-              <h1
-                className={`text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white leading-tight transition-all duration-700 delay-200 ${
+              <div
+                className={`transition-all duration-700 delay-200 ${
                   index === currentSlide
                     ? "translate-y-0 opacity-100"
                     : "translate-y-4 opacity-0"
                 }`}
               >
-                {slide.title.split(" ").map((word, i) => (
-                  <span
-                    key={i}
-                    className={i % 2 === 1 ? "text-gradient block" : "block"}
-                  >
-                    {word}{" "}
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight">
+                  {slide.title}
+                  <span className="block bg-gradient-to-r from-[#F2C9E7] via-[#F2C2EA] to-[#F2D8EE] bg-clip-text text-transparent">
+                    {slide.titleHighlight}
                   </span>
-                ))}
-              </h1>
+                </h1>
+              </div>
 
               {/* Subtitle */}
               <p
-                className={`text-2xl md:text-3xl text-primary-200 font-medium transition-all duration-700 delay-300 ${
+                className={`text-xl sm:text-2xl lg:text-3xl text-[#F2DFED] font-medium transition-all duration-700 delay-300 ${
                   index === currentSlide
                     ? "translate-y-0 opacity-100"
                     : "translate-y-4 opacity-0"
@@ -123,7 +138,7 @@ export default function Hero() {
 
               {/* Description */}
               <p
-                className={`text-lg md:text-xl text-gray-200 leading-relaxed max-w-2xl transition-all duration-700 delay-400 ${
+                className={`text-base sm:text-lg lg:text-xl text-gray-200 leading-relaxed transition-all duration-700 delay-400 ${
                   index === currentSlide
                     ? "translate-y-0 opacity-100"
                     : "translate-y-4 opacity-0"
@@ -134,46 +149,52 @@ export default function Hero() {
 
               {/* CTA Buttons */}
               <div
-                className={`flex flex-wrap gap-4 transition-all duration-700 delay-500 ${
+                className={`flex flex-col sm:flex-row gap-3 sm:gap-4 transition-all duration-700 delay-500 ${
                   index === currentSlide
                     ? "translate-y-0 opacity-100"
                     : "translate-y-4 opacity-0"
                 }`}
               >
-                <Link href={slide.ctaLink} className="btn-primary">
-                  {slide.cta}
-                </Link>
                 <a
-                  href={`https://wa.me/${SITE_CONFIG.whatsapp}`}
+                  href={slide.ctaLink}
+                  target={slide.ctaLink.startsWith('http') ? "_blank" : undefined}
+                  rel={slide.ctaLink.startsWith('http') ? "noopener noreferrer" : undefined}
+                  className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] text-gray-900 font-semibold rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 text-base sm:text-lg"
+                >
+                  {slide.cta}
+                  <span className="ml-2">→</span>
+                </a>
+                <a
+                  href={`https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent(SITE_CONFIG.whatsappMessage)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-outline border-white text-white hover:bg-white hover:text-dark-800"
+                  className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-white/10 backdrop-blur-md border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-gray-900 transition-all duration-300 text-base sm:text-lg"
                 >
                   <span className="mr-2">💬</span>
                   Chatea con nosotros
                 </a>
               </div>
 
-              {/* Stats */}
+              {/* Stats - Simplificados y reales */}
               <div
-                className={`flex flex-wrap gap-8 pt-8 border-t border-white/20 transition-all duration-700 delay-600 ${
+                className={`flex flex-wrap gap-6 lg:gap-8 pt-6 lg:pt-8 border-t border-white/20 transition-all duration-700 delay-600 ${
                   index === currentSlide
                     ? "translate-y-0 opacity-100"
                     : "translate-y-4 opacity-0"
                 }`}
               >
                 {[
-                  { icon: "🐾", value: "2000+", label: "Mascotas Felices" },
-                  { icon: "⭐", value: "98%", label: "Satisfacción" },
-                  { icon: "🏆", value: "3+", label: "Años" }
+                  { icon: "🐾", value: "300+", label: "Mascotas Felices" },
+                  { icon: "⭐", value: "4.9/5", label: "Calificación" },
+                  { icon: "⚡", value: "2hrs", label: "Grooming Express" }
                 ].map((stat, i) => (
                   <div key={i} className="flex items-center space-x-3">
-                    <span className="text-3xl">{stat.icon}</span>
+                    <span className="text-2xl sm:text-3xl">{stat.icon}</span>
                     <div>
-                      <div className="text-2xl font-bold text-white">
+                      <div className="text-xl sm:text-2xl font-bold text-white">
                         {stat.value}
                       </div>
-                      <div className="text-sm text-gray-300">{stat.label}</div>
+                      <div className="text-xs sm:text-sm text-gray-300">{stat.label}</div>
                     </div>
                   </div>
                 ))}
@@ -183,15 +204,39 @@ export default function Hero() {
         </div>
       ))}
 
+      {/* Price Tags Floating - Solo en desktop */}
+      <div className="hidden lg:block absolute right-8 xl:right-16 top-1/2 -translate-y-1/2 z-10 space-y-4">
+        {[
+          { service: "Grooming", price: "$20", icon: "✂️" },
+          { service: "Consulta", price: "$15", icon: "🩺" },
+          { service: "Vacunas", price: "$20", icon: "💉" }
+        ].map((item, i) => (
+          <div
+            key={i}
+            className={`bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-2xl hover:scale-105 transition-all duration-300 ${
+              currentSlide === i ? 'ring-2 ring-[#F2C2EA]' : ''
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-3xl">{item.icon}</span>
+              <div>
+                <div className="text-sm text-gray-600 font-medium">{item.service}</div>
+                <div className="text-2xl font-bold text-gray-900">{item.price}</div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
       {/* Navigation Dots */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-3 z-10">
+      <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 flex space-x-3 z-10">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
             className={`transition-all duration-300 rounded-full ${
               index === currentSlide
-                ? "w-12 h-3 bg-primary-400"
+                ? "w-10 sm:w-12 h-3 bg-[#F2C2EA]"
                 : "w-3 h-3 bg-white/50 hover:bg-white/75"
             }`}
             aria-label={`Ir a slide ${index + 1}`}
@@ -200,10 +245,10 @@ export default function Hero() {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 right-8 z-10 hidden md:flex flex-col items-center space-y-2 animate-bounce">
-        <span className="text-white text-sm font-medium">Descubre más</span>
+      <div className="absolute bottom-6 sm:bottom-8 right-6 sm:right-8 z-10 hidden md:flex flex-col items-center space-y-2 animate-bounce">
+        <span className="text-white text-xs sm:text-sm font-medium">Descubre más</span>
         <svg
-          className="w-6 h-6 text-white"
+          className="w-5 h-5 sm:w-6 sm:h-6 text-white"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -217,9 +262,9 @@ export default function Hero() {
         </svg>
       </div>
 
-      {/* Decorative Elements */}
-      <div className="absolute top-1/4 right-10 w-64 h-64 bg-primary-500/10 rounded-full blur-3xl animate-pulse-slow" />
-      <div className="absolute bottom-1/4 left-10 w-96 h-96 bg-secondary-500/10 rounded-full blur-3xl animate-pulse-slow" />
+      {/* Decorative Elements - Más sutiles */}
+      <div className="absolute top-1/4 right-10 w-48 h-48 lg:w-64 lg:h-64 bg-[#F2C9E7]/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
+      <div className="absolute bottom-1/4 left-10 w-64 h-64 lg:w-96 lg:h-96 bg-[#F2D8EE]/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '5s' }} />
     </section>
   );
 }

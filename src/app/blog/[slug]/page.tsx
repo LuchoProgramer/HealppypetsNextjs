@@ -5,7 +5,7 @@ import { Calendar, Clock, Tag, ArrowLeft } from "lucide-react";
 import { getPostBySlug, getRelatedPosts } from "@/data/blog-posts";
 import { SITE_CONFIG } from "@/lib/constants";
 import Image from "next/image";
-import ShareButtons from "@/components/shared/ShareButtons";
+
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const post = getPostBySlug(params.slug);
@@ -101,7 +101,6 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           </div>
 
           {/* Share Buttons */}
-          <ShareButtons title={post.title} shareUrl={shareUrl} />
 
           {/* Featured Image */}
           <div className="mb-12 rounded-3xl overflow-hidden shadow-strong">
