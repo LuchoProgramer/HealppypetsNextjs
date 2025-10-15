@@ -1,8 +1,36 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Heart, Star, PawPrint, Trophy, Sparkles, CheckCircle, Dog, Cat } from "lucide-react";
-import { TESTIMONIALS } from "@/lib/constants";
+
+const SITE_CONFIG = {
+  whatsapp: "593987005084",
+  whatsappMessage: "Hola! Quisiera agendar una cita para mi mascota 🐾"
+};
+
+const TESTIMONIALS = [
+  {
+    id: 1,
+    name: "Andrés García",
+    petName: "Luna",
+    petType: "Gato Persa",
+    service: "Grooming",
+    rating: 5,
+    text: "Excelente atención. Luna salió hermosa y relajada. El equipo es muy profesional y cuidadoso. Definitivamente volvemos.",
+    image: "https://res.cloudinary.com/tu-cloud/image/upload/testimonio-1.jpg",
+    imagePlaceholder: "https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&q=80"
+  },
+  {
+    id: 2,
+    name: "Patricia Moreno",
+    petName: "Rocky",
+    petType: "Bulldog Francés",
+    service: "Consulta y Vacunación",
+    rating: 5,
+    text: "Rocky estaba asustado pero el veterinario fue muy paciente. La consulta fue completa y me dieron muy buenos consejos de cuidado. Gracias!",
+    image: "https://res.cloudinary.com/tu-cloud/image/upload/testimonio-2.jpg",
+    imagePlaceholder: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=80"
+  }
+];
 
 export default function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -13,7 +41,7 @@ export default function Testimonials() {
 
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % TESTIMONIALS.length);
-    }, 5000);
+    }, 6000);
 
     return () => clearInterval(interval);
   }, [isAutoPlaying]);
@@ -25,41 +53,33 @@ export default function Testimonials() {
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
-      <Star
-        key={i}
-        className={`w-6 h-6 ${
-          i < rating ? "text-accent-400 fill-accent-400" : "text-gray-300"
-        }`}
-      />
+      <span key={i} className="text-lg">
+        {i < rating ? "⭐" : "☆"}
+      </span>
     ));
   };
 
   return (
-    <section id="testimonios" className="section-padding bg-gradient-to-b from-primary-50 to-white overflow-hidden">
-      <div className="container-custom">
+    <section id="testimonios" className="relative py-16 lg:py-24 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-20">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-primary rounded-full mb-4 animate-bounce-slow">
-            <Heart className="w-10 h-10 text-white fill-white" />
+        <div className="text-center mb-12 lg:mb-16">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] rounded-full mb-4 animate-bounce shadow-lg">
+            <span className="text-3xl">❤️</span>
           </div>
-          <h2 className="section-title mb-6">
-            Historias que <span className="text-gradient">Nos Llenan el Corazón</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            Historias que <span className="bg-gradient-to-r from-[#F2C9E7] via-[#F2C2EA] to-[#F2D8EE] bg-clip-text text-transparent">Nos Llenan el Corazón</span>
           </h2>
-          <p className="section-subtitle">
-            Cada testimonio es una cola que se mueve, un ronroneo de satisfacción.
-            Estas son las voces de quienes confían en nosotros.
+          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
+            Cada testimonio es una cola que se mueve. Escucha lo que dicen quienes confían en nosotros.
           </p>
         </div>
 
         {/* Main Testimonial Carousel */}
-        <div className="relative max-w-5xl mx-auto mb-16">
-          {/* Decorative Elements */}
-          <div className="absolute -top-12 -left-12 text-9xl text-primary-200 opacity-30 select-none font-serif">
-            &quot;
-          </div>
-          <div className="absolute -bottom-12 -right-12 text-9xl text-primary-200 opacity-30 select-none font-serif rotate-180">
-            &quot;
-          </div>
+        <div className="relative max-w-4xl mx-auto mb-12">
+          {/* Decorative Quotes */}
+          <div className="absolute -top-8 -left-4 text-6xl text-[#F2C9E7]/20 select-none font-serif">"</div>
+          <div className="absolute -bottom-8 -right-4 text-6xl text-[#F2C2EA]/20 select-none font-serif">"</div>
 
           {/* Testimonial Cards */}
           <div className="relative">
@@ -69,62 +89,56 @@ export default function Testimonials() {
                 className={`transition-all duration-700 ${
                   index === activeIndex
                     ? "opacity-100 translate-x-0 scale-100"
-                    : "opacity-0 absolute inset-0 translate-x-10 scale-95 pointer-events-none"
+                    : "opacity-0 absolute inset-0 translate-x-8 scale-95 pointer-events-none"
                 }`}
               >
-                <div className="bg-white rounded-3xl shadow-strong p-8 md:p-12">
-                  <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
-                    {/* Pet Image Placeholder */}
+                <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-12">
+                  <div className="flex flex-col sm:flex-row gap-8 items-center sm:items-start">
+                    {/* Pet Image */}
                     <div className="flex-shrink-0">
                       <div className="relative">
                         {/* Glow effect */}
-                        <div className="absolute inset-0 bg-gradient-primary blur-2xl opacity-30 rounded-full" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] blur-2xl opacity-40 rounded-full w-32 h-32 -z-10" />
                         
                         {/* Image container */}
-                        <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white shadow-medium">
-                          <div className="w-full h-full bg-gradient-primary flex items-center justify-center">
-                            {testimonial.petType.includes("Perro") || testimonial.petType.includes("Golden") || testimonial.petType.includes("Bulldog") || testimonial.petType.includes("Schnauzer") ? 
-                              <Dog className="w-20 h-20 text-white" /> : 
-                              <Cat className="w-20 h-20 text-white" />
-                            }
-                          </div>
+                        <div className="relative w-32 h-32 lg:w-40 lg:h-40 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                          <img
+                            src={testimonial.imagePlaceholder}
+                            alt={testimonial.petName}
+                            className="w-full h-full object-cover"
+                          />
                         </div>
 
                         {/* Badge */}
-                        <div className="absolute -bottom-2 -right-2 bg-success-500 text-white rounded-full p-2 shadow-medium">
-                          <CheckCircle className="w-6 h-6" />
+                        <div className="absolute -bottom-2 -right-2 bg-green-500 text-white rounded-full p-2 shadow-lg">
+                          <span className="text-xl">✓</span>
                         </div>
                       </div>
                     </div>
 
                     {/* Content */}
-                    <div className="flex-1 space-y-4 text-center md:text-left">
+                    <div className="flex-1 space-y-4 text-center sm:text-left">
                       {/* Stars */}
-                      <div className="flex justify-center md:justify-start space-x-1">
+                      <div className="flex justify-center sm:justify-start gap-1">
                         {renderStars(testimonial.rating)}
                       </div>
 
                       {/* Quote */}
-                      <p className="text-xl md:text-2xl text-dark-700 leading-relaxed italic">
-                        {testimonial.text}
+                      <p className="text-lg sm:text-2xl text-gray-700 leading-relaxed italic">
+                        "{testimonial.text}"
                       </p>
 
                       {/* Author Info */}
                       <div className="pt-4 border-t border-gray-200">
-                        <p className="font-heading font-bold text-lg text-dark-800">
+                        <p className="font-bold text-lg text-gray-900">
                           {testimonial.name}
                         </p>
-                        <p className="text-primary-600 font-medium">
+                        <p className="text-[#F2C2EA] font-medium">
                           Dueño/a de {testimonial.petName}
                         </p>
-                        <p className="text-sm text-dark-500 mt-1">
+                        <p className="text-sm text-gray-600 mt-1">
                           {testimonial.petType} • {testimonial.service}
                         </p>
-                      </div>
-
-                      {/* Service Badge */}
-                      <div className="inline-flex items-center bg-primary-100 text-primary-700 px-4 py-2 rounded-full text-sm font-semibold">
-                        <Sparkles className="w-4 h-4 mr-1" /> {testimonial.service}
                       </div>
                     </div>
                   </div>
@@ -134,15 +148,15 @@ export default function Testimonials() {
           </div>
 
           {/* Navigation Dots */}
-          <div className="flex justify-center space-x-3 mt-8">
+          <div className="flex justify-center gap-2 mt-8">
             {TESTIMONIALS.map((_, index) => (
               <button
                 key={index}
                 onClick={() => goToTestimonial(index)}
-                className={`transition-all duration-300 ${
+                className={`transition-all duration-300 rounded-full ${
                   index === activeIndex
-                    ? "w-12 h-3 bg-primary-500 rounded-full"
-                    : "w-3 h-3 bg-gray-300 rounded-full hover:bg-primary-300"
+                    ? "w-10 h-3 bg-[#F2C2EA]"
+                    : "w-3 h-3 bg-gray-300 hover:bg-gray-400"
                 }`}
                 aria-label={`Ir al testimonio ${index + 1}`}
               />
@@ -151,55 +165,66 @@ export default function Testimonials() {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-16">
           {[
-            { icon: PawPrint, value: "2000+", label: "Mascotas Atendidas", color: "primary" },
-            { icon: Star, value: "98%", label: "Satisfacción", color: "accent" },
-            { icon: Heart, value: "100%", label: "Amor y Dedicación", color: "primary" },
-            { icon: Trophy, value: "3+", label: "Años de Experiencia", color: "success" }
+            { emoji: "🐾", value: "300+", label: "Mascotas Atendidas" },
+            { emoji: "⭐", value: "4.7/5", label: "Calificación" },
+            { emoji: "❤️", value: "100%", label: "Dedicación" },
+            { emoji: "🏆", value: "4 años", label: "De Experiencia" }
           ].map((stat, index) => (
             <div
               key={index}
-              className="text-center p-6 bg-white rounded-2xl shadow-soft hover:shadow-medium transition-all duration-300 group"
+              className="text-center p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 group"
             >
-              <div className="flex justify-center mb-3 group-hover:scale-110 transition-transform">
-                <stat.icon className={`w-12 h-12 text-${stat.color}-500`} />
+              <div className="text-4xl mb-3 group-hover:scale-110 transition-transform inline-block">
+                {stat.emoji}
               </div>
-              <div className={`text-3xl font-bold font-heading mb-1 text-${stat.color}-600`}>
+              <div className="text-3xl font-bold text-gray-900 mb-1">
                 {stat.value}
               </div>
-              <div className="text-sm text-dark-600">
+              <div className="text-sm text-gray-600">
                 {stat.label}
               </div>
             </div>
           ))}
         </div>
 
-        {/* CTA Section */}
-        <div className="text-center mt-16 space-y-6">
-          <p className="text-xl text-dark-700 font-medium">
-            ¿Quieres ser parte de estas historias felices?
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a href="#contacto" className="btn-primary">
-              Agenda tu Cita Ahora
-            </a>
-            <a href="#servicios" className="btn-outline">
-              Ver Nuestros Servicios
-            </a>
+        {/* Social Proof Section */}
+        <div className="mt-16 bg-gradient-to-r from-[#F2C9E7]/10 to-[#F2C2EA]/10 rounded-2xl p-8 border border-[#F2C2EA]/20">
+          <div className="text-center">
+            <p className="text-xl text-gray-700 font-medium mb-4">
+              ¿Quieres que tu mascota sea parte de estas historias felices?
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <a
+                href={`https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent(SITE_CONFIG.whatsappMessage)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] text-gray-900 font-semibold rounded-full hover:shadow-xl transition-all hover:scale-105"
+              >
+                <span className="mr-2">💬</span>
+                Agenda Ahora
+              </a>
+              <a
+                href="#servicios"
+                className="inline-flex items-center justify-center px-8 py-3 bg-white border-2 border-gray-300 text-gray-700 font-semibold rounded-full hover:bg-gray-50 transition-all"
+              >
+                Ver Servicios
+              </a>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Floating Hearts Animation */}
-      <div className="absolute top-1/4 left-10 animate-float opacity-20">
-        <Heart className="w-12 h-12 text-primary-400" />
-      </div>
-      <div className="absolute top-1/3 right-20 animate-float opacity-20" style={{ animationDelay: '1s' }}>
-        <Heart className="w-10 h-10 text-primary-400" />
-      </div>
-      <div className="absolute bottom-1/4 left-1/4 animate-float opacity-20" style={{ animationDelay: '2s' }}>
-        <Heart className="w-14 h-14 text-primary-400 fill-primary-400" />
+        {/* Floating Elements */}
+        <div className="absolute top-1/4 left-4 animate-pulse opacity-30">
+          <span className="text-6xl">❤️</span>
+        </div>
+        <div className="absolute top-1/3 right-8 animate-pulse opacity-30" style={{ animationDelay: '1s' }}>
+          <span className="text-5xl">🐾</span>
+        </div>
+        <div className="absolute bottom-1/4 left-1/4 animate-pulse opacity-20" style={{ animationDelay: '2s' }}>
+          <span className="text-7xl">⭐</span>
+        </div>
       </div>
     </section>
   );

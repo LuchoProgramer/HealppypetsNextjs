@@ -1,26 +1,26 @@
 import Hero from "@/components/home/Hero";
-import StorySection from "@/components/home/StorySection";
+import AboutSection from "@/components/home/AboutPreview";
 import ServicesGrid from "@/components/home/ServicesGrid";
 import Testimonials from "@/components/home/Testimonials";
-import ContactSection from "@/components/home/CTASection";
+import PreguntasFrecuentes from "@/components/home/PreguntasFrecuentes";
 
 export default function Home() {
   return (
     <>
-      {/* Hero Section - Primera impresión con storytelling */}
+      {/* 1. EMOCIÓN - Propuesta de valor */}
       <Hero />
-
-      {/* Services Grid - Servicios principales */}
+      
+      {/* 2. CREDIBILIDAD - Quiénes somos y por qué confiar */}
+      <AboutSection />
+      
+      {/* 3. SOLUCIÓN - Servicios y precios */}
       <ServicesGrid />
-
-      {/* Story Section - Nuestra historia emocional */}
-      <StorySection />
-
-      {/* Testimonials - Historias de éxito */}
+      
+      {/* 4. PRUEBA SOCIAL - Testimonios */}
       <Testimonials />
-
-      {/* Contact & Appointment - Contacto y agendar */}
-      <ContactSection />
+      
+      {/* 5. OBJECIONES - Preguntas frecuentes */}
+      <PreguntasFrecuentes />
     </>
   );
 }
