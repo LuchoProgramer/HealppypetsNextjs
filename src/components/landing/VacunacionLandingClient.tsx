@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Check, Shield, Calendar, Star, ArrowRight } from "lucide-react";
 
 export default function VacunacionLandingClient() {
@@ -76,11 +77,15 @@ export default function VacunacionLandingClient() {
           </h2>
 
           <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto mb-12">
-            <div>
-              <img
-                src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=600&q=80"
+            <div className="relative h-80 rounded-2xl overflow-hidden shadow-lg">
+              <Image
+                src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=1200&q=80"
                 alt="Vacunación"
-                className="rounded-2xl shadow-lg w-full h-80 object-cover"
+                width={1200}
+                height={720}
+                sizes="(max-width: 640px) 100vw, 50vw"
+                className="w-full h-full object-cover"
+                priority
               />
             </div>
             <div className="space-y-4">

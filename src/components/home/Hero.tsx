@@ -2,12 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-
-const SITE_CONFIG = {
-  whatsapp: "593987005084",
-  whatsappMessage: "Hola! Quisiera agendar una cita para mi mascota",
-  whatsappPromo: "Hola! Quiero mi 20% de descuento en la primera visita 🐾"
-};
+import { SITE_CONFIG } from "@/lib/constants";
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);

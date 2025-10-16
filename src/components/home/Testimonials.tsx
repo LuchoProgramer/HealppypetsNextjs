@@ -1,36 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
-const SITE_CONFIG = {
-  whatsapp: "593987005084",
-  whatsappMessage: "Hola! Quisiera agendar una cita para mi mascota 🐾"
-};
-
-const TESTIMONIALS = [
-  {
-    id: 1,
-    name: "Andrés García",
-    petName: "Luna",
-    petType: "Gato Persa",
-    service: "Grooming",
-    rating: 5,
-    text: "Excelente atención. Luna salió hermosa y relajada. El equipo es muy profesional y cuidadoso. Definitivamente volvemos.",
-    image: "https://res.cloudinary.com/tu-cloud/image/upload/testimonio-1.jpg",
-    imagePlaceholder: "https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&q=80"
-  },
-  {
-    id: 2,
-    name: "Patricia Moreno",
-    petName: "Rocky",
-    petType: "Bulldog Francés",
-    service: "Consulta y Vacunación",
-    rating: 5,
-    text: "Rocky estaba asustado pero el veterinario fue muy paciente. La consulta fue completa y me dieron muy buenos consejos de cuidado. Gracias!",
-    image: "https://res.cloudinary.com/tu-cloud/image/upload/testimonio-2.jpg",
-    imagePlaceholder: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=80"
-  }
-];
+import Image from "next/image";
+import { SITE_CONFIG, TESTIMONIALS, TestimonialType } from "@/lib/constants";
 
 export default function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -83,7 +55,7 @@ export default function Testimonials() {
 
           {/* Testimonial Cards */}
           <div className="relative">
-            {TESTIMONIALS.map((testimonial, index) => (
+            {TESTIMONIALS.map((testimonial: TestimonialType, index) => (
               <div
                 key={testimonial.id}
                 className={`transition-all duration-700 ${
@@ -102,9 +74,12 @@ export default function Testimonials() {
                         
                         {/* Image container */}
                         <div className="relative w-32 h-32 lg:w-40 lg:h-40 rounded-full overflow-hidden border-4 border-white shadow-lg">
-                          <img
-                            src={testimonial.imagePlaceholder}
+                          <Image
+                            src={testimonial.image ?? `${SITE_CONFIG.url}/og-image.png`}
                             alt={testimonial.petName}
+                            width={160}
+                            height={160}
+                            sizes="80px"
                             className="w-full h-full object-cover"
                           />
                         </div>
@@ -171,9 +146,9 @@ export default function Testimonials() {
             { emoji: "⭐", value: "4.7/5", label: "Calificación" },
             { emoji: "❤️", value: "100%", label: "Dedicación" },
             { emoji: "🏆", value: "4 años", label: "De Experiencia" }
-          ].map((stat, index) => (
+          ].map((stat) => (
             <div
-              key={index}
+              key={stat.label}
               className="text-center p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 group"
             >
               <div className="text-4xl mb-3 group-hover:scale-110 transition-transform inline-block">

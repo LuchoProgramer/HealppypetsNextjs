@@ -1,5 +1,5 @@
 import { generateMetadata } from "@/lib/metadata";
-import { vacunacionSchema } from "@/lib/schema";
+import { generateServiceSchema, generateBreadcrumbSchema } from "@/lib/schema";
 import Script from "next/script";
 import VacunacionLandingClient from "@/components/landing/VacunacionLandingClient";
 
@@ -9,13 +9,18 @@ export const metadata = generateMetadata({
   url: "/vacunacion",
 });
 
-export default function VacunacionLanding() {
+const vacunacionServiceSchema = generateServiceSchema("vacunacion");
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: "Inicio", url: "/" },
+  { name: "Vacunación", url: "/vacunacion" },
+]);
+
+export default function VacunacionPage() {
   return (
     <>
-      <Script id="vacunacion-schema" type="application/ld+json">
-        {JSON.stringify(vacunacionSchema)}
-      </Script>
-      <VacunacionLandingClient />
+      <Script id="vacunacion-service-schema" type="application/ld+json">{JSON.stringify(vacunacionServiceSchema)}</Script>
+      <Script id="vacunacion-breadcrumb-schema" type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</Script>
+  <VacunacionLandingClient />
     </>
   );
 }

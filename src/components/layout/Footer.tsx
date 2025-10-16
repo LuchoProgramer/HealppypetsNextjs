@@ -2,84 +2,13 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-
-const SITE_CONFIG = {
-  name: "Healppypets",
-  phone: "593987005084",
-  whatsapp: "593987005084",
-  whatsappMessage: "Hola! Quisiera agendar una cita para mi mascota 🐾",
-  address: {
-    street: "Calle Clemente Yerovi Indaburu Oe143 y OE1B",
-    neighborhood: "Carcelén",
-    city: "Quito",
-    mapUrl: "https://maps.app.goo.gl/iYnfsRuaXtEEt3vF9",
-    embedUrl: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d5115.203389153639!2d-78.47400523370821!3d-0.09343334941765224!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d58f59fde75e49%3A0xe14c66c3a13865b7!2sHealppy%20Pets%20Veterinary%20Spa!5e0!3m2!1ses!2sec!4v1760510326301!5m2!1ses!2sec"
-  },
-  social: {
-    facebook: "https://www.facebook.com/profile.php?id=100093894950283&mibextid=ZbWKwL",
-    instagram: "https://www.instagram.com/healppy_pets?utm_source=qr&igsh=OHhsZjVhczc3cW9n",
-    tiktok: "https://www.tiktok.com/@healppy.pets?_t=8oi5rDO8oBp&_r=1"
-  }
-};
-
-const NAVIGATION_LINKS = [
-  { href: "/", label: "Inicio" },
-  { href: "/servicios", label: "Servicios" },
-  { href: "/productos", label: "Productos" },
-  { href: "/blog", label: "Blog" },
-  { href: "/nosotros", label: "Nosotros" }
-];
-
-const WORKING_HOURS = [
-  { day: "Lunes", hours: "Cerrado" },
-  { day: "Martes - Sábado", hours: "9:00 - 13:00, 15:00 - 18:00" },
-  { day: "Domingo", hours: "9:00 - 14:00" }
-];
-
-// Hook para verificar si está abierto
-function useBusinessStatus() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    const checkStatus = () => {
-      const now = new Date();
-      const day = now.getDay(); // 0=Domingo, 1=Lunes, etc.
-      const hour = now.getHours();
-      const minute = now.getMinutes();
-      const currentTime = hour * 60 + minute;
-
-      // Lunes cerrado
-      if (day === 1) {
-        setIsOpen(false);
-        return;
-      }
-
-      // Domingo 9-14
-      if (day === 0) {
-        const start = 9 * 60; // 9:00
-        const end = 14 * 60; // 14:00
-        setIsOpen(currentTime >= start && currentTime < end);
-        return;
-      }
-
-      // Martes a Sábado: 9-13 y 15-18
-      const morning = currentTime >= 9 * 60 && currentTime < 13 * 60;
-      const afternoon = currentTime >= 15 * 60 && currentTime < 18 * 60;
-      setIsOpen(morning || afternoon);
-    };
-
-    checkStatus();
-    const interval = setInterval(checkStatus, 60000);
-    return () => clearInterval(interval);
-  }, []);
-
-  return isOpen;
-}
+import { SITE_CONFIG, NAVIGATION_LINKS, WORKING_HOURS } from "@/lib/constants";
+import useBusinessStatus from "@/hooks/useBusinessStatus";
 
 // Componente del Footer
 export function Footer() {
   const currentYear = new Date().getFullYear();
-  const isOpen = useBusinessStatus();
+  const { isOpen } = useBusinessStatus();
 
   return (
     <footer className="bg-gray-900 text-white relative">

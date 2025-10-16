@@ -2,61 +2,8 @@
 
 import { useState } from "react";
 
-const SITE_CONFIG = {
-  whatsapp: "593987005084",
-  whatsappMessage: "Hola! Quisiera agendar una cita para mi mascota 🐾"
-};
-
-const FAQ_ITEMS = [
-  {
-    id: 1,
-    category: "Grooming",
-    question: "¿Cuál es el costo del grooming?",
-    answer: "El grooming cuesta $20 y el tiempo depende del porte de tu mascota:\n\n• Perros pequeños: 2 horas\n• Perros medianos: 2-3 horas\n• Perros grandes: 3-4 horas\n\nSi deseas agregar cepillado de dientes profesional, es $3 adicionales."
-  },
-  {
-    id: 2,
-    category: "Grooming",
-    question: "¿Qué incluye el servicio de grooming?",
-    answer: "Nuestro grooming completo incluye:\n\n✓ Baño profesional\n✓ Cepillado completo\n✓ Secado\n✓ Corte de pelo (de acuerdo a la raza)\n✓ Corte de uñas\n✓ Limpieza de oídos\n\nTodo realizado con paciencia y cuidado por Carla."
-  },
-  {
-    id: 3,
-    category: "Grooming",
-    question: "¿Ofrecen servicio de cepillado de dientes?",
-    answer: "Sí, ofrecemos cepillado de dientes profesional como servicio adicional a $3.\n\nEsto es importante para la salud dental de tu mascota y previene problemas a futuro. Puedes agregarlo junto con cualquier otro servicio."
-  },
-  {
-    id: 4,
-    category: "Vacunación",
-    question: "¿A qué edad empieza a vacunar a los cachorros?",
-    answer: "Las vacunas inician desde el mes y medio de vida.\n\nEl calendario de vacunación es:\n\n• Mes y medio - Primera dosis\n• 2 meses - Segunda dosis\n• 3 meses - Tercera dosis\n• 4-6 meses - Cuarta dosis (según sea necesario)\n\nLuego, la vacuna múltiple, tos de perrera y rabia se aplican anualmente.\n\nCarla evalúa a cada cachorro para determinar el mejor plan vacunal."
-  },
-  {
-    id: 5,
-    category: "Vacunación",
-    question: "¿Por qué es importante vacunar a mi mascota?",
-    answer: "Las vacunas son esenciales para proteger a tu mascota de enfermedades graves e infecciosas.\n\nAl vacunar:\n\n✓ Previene enfermedades potencialmente mortales\n✓ Protege a otras mascotas de tu comunidad\n✓ Evita gastos veterinarios altos por enfermedades graves\n✓ Garantiza una vida larga y saludable\n\nCarla te asesorará sobre el plan vacunal más adecuado para tu mascota según su edad y historial."
-  },
-  {
-    id: 6,
-    category: "Desparasitación",
-    question: "¿Cada cuánto tiempo se desparasita a la mascota?",
-    answer: "La desparasitación se realiza cada 3 meses.\n\nEsto previene que tu mascota desarrolle parásitos que afecten su salud. Carla puede asesorarte sobre un calendario personalizado según la edad y estilo de vida de tu mascota."
-  },
-  {
-    id: 7,
-    category: "Desparasitación",
-    question: "¿Cuál es la diferencia entre parásitos internos y externos?",
-    answer: "Hay dos tipos de parásitos:\n\n📌 Parásitos Internos:\n• Se encuentran dentro del animal\n• Afectan el sistema digestivo\n• Causan desnutrición, diarrea y debilidad\n\n🐛 Parásitos Externos:\n• Se encuentran en la piel o patas\n• Incluyen pulgas, garrapatas y ácaros\n• Causan picazón, irritación y enfermedades de piel\n\nLa desparasitación cada 3 meses protege contra ambos tipos."
-  },
-  {
-    id: 8,
-    category: "General",
-    question: "¿Cómo agendo una cita?",
-    answer: "Es muy fácil agendar tu cita:\n\n💬 Vía WhatsApp: Envía un mensaje al +593 987005084\n🌐 A través de nuestro sitio web: Click en el botón 'Agendar Cita'\n\nCarla responde rápidamente y te confirma el horario. Ten listo:\n• Nombre de tu mascota\n• Tipo y porte\n• Servicio que deseas"
-  }
-];
+import { SITE_CONFIG, FAQ } from "@/lib/constants";
+const FAQ_ITEMS = FAQ;
 
 const CATEGORIES = ["Grooming", "Vacunación", "Desparasitación", "General"];
 

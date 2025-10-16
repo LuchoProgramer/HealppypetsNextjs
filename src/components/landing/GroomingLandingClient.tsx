@@ -1,5 +1,9 @@
 "use client";
 
+import React from "react";
+import Image from "next/image";
+import { FAQ } from "@/lib/constants";
+
 import { useState } from "react";
 import Link from "next/link";
 import { Check, Clock, Star, ArrowRight } from "lucide-react";
@@ -40,29 +44,6 @@ export default function GroomingLandingClient() {
       pet: "Zeus (Pastor Alemán)",
       text: "Zeus es grande y otros lugares no lo atienden bien. Aquí lo tratan como rey!",
       rating: 5
-    }
-  ];
-
-  const FAQ_ITEMS = [
-    {
-      q: "¿Cuánto tiempo demora el grooming?",
-      a: "Depende del tamaño y tipo de pelo. Perros pequeños: 1-1.5h. Medianos: 1.5-2h. Grandes: 2-3h."
-    },
-    {
-      q: "¿Mi mascota estará asustada?",
-      a: "No. Carla es muy paciente y cariñosa. Tu mascota recibirá trato especial y atención constante."
-    },
-    {
-      q: "¿Puedo estar presente durante el grooming?",
-      a: "Sí, puedes quedarte o recoger a tu mascota cuando esté listo."
-    },
-    {
-      q: "¿Ofrecen servicio de retiro y entrega?",
-      a: "Por ahora atienden en nuestras instalaciones. Puedes agendar online o por WhatsApp."
-    },
-    {
-      q: "¿Qué pasa si mi mascota tiene piel sensible?",
-      a: "Usamos shampoo premium e hipoalergénico. Consulta antes si tiene alergias específicas."
     }
   ];
 
@@ -108,11 +89,15 @@ export default function GroomingLandingClient() {
           </h2>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto mb-12">
-            <div className="relative">
-              <img
-                src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=600&q=80"
+            <div className="relative h-80 rounded-2xl overflow-hidden shadow-lg">
+              <Image
+                src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=1200&q=80"
                 alt="Grooming"
-                className="rounded-2xl shadow-lg w-full h-80 object-cover"
+                width={1200}
+                height={720}
+                sizes="(max-width: 640px) 100vw, 50vw"
+                className="w-full h-full object-cover"
+                priority
               />
             </div>
             <div className="space-y-4">
@@ -185,20 +170,20 @@ export default function GroomingLandingClient() {
           </h2>
 
           <div className="max-w-2xl mx-auto space-y-4">
-            {FAQ_ITEMS.map((item, i) => (
+            {FAQ.map((item, i) => (
               <div key={i} className="border border-gray-200 rounded-xl overflow-hidden">
                 <button
                   onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}
                   className="w-full p-6 text-left font-semibold text-gray-900 hover:bg-[#F2DFED]/50 transition-colors flex justify-between items-center"
                 >
-                  {item.q}
+                  {item.question}
                   <span className={`transition-transform ${expandedFaq === i ? "rotate-180" : ""}`}>
                     ▼
                   </span>
                 </button>
                 {expandedFaq === i && (
                   <div className="px-6 pb-6 text-gray-700 border-t border-gray-200">
-                    {item.a}
+                    {item.answer}
                   </div>
                 )}
               </div>

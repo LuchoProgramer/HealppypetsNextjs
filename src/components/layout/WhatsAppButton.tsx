@@ -4,10 +4,13 @@ import { useState, useEffect } from "react";
 import { SITE_CONFIG } from "@/lib/constants";
 
 export default function WhatsAppButton() {
+  const [isMounted, setIsMounted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+
     const toggleVisibility = () => {
       if (window.pageYOffset > 300) {
         setIsVisible(true);
@@ -23,6 +26,8 @@ export default function WhatsAppButton() {
   const whatsappMessage = encodeURIComponent(
     "Hola! Me gustaría obtener más información sobre los servicios de HealppyPets."
   );
+
+  if (!isMounted) return null;
 
   return (
     <>

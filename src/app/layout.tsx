@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
+import { getLocalBusinessJsonLd, getWebsiteJsonLd } from "@/lib/schema";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -112,54 +113,12 @@ export default function RootLayout({
         </Script>
 
         {/* Structured Data - Local Business */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "VeterinaryCare",
-              "name": "HealppyPets",
-              "image": "https://healppypets.netlify.app/images/logo.png",
-              "description": "Veterinaria en Carcelén, Quito especializada en grooming, vacunación, desparasitación y farmacia para mascotas",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "Calle Clemente Yerovi Indaburu Oe143 y OE1B",
-                "addressLocality": "Quito",
-                "addressRegion": "Pichincha",
-                "postalCode": "170143",
-                "addressCountry": "EC"
-              },
-              "geo": {
-                "@type": "GeoCoordinates",
-                "latitude": -0.0915484,
-                "longitude": -78.4697461
-              },
-              "url": "https://healppypets.netlify.app",
-              "telephone": "+593987005084",
-              "email": "happypetscada@gmail.com",
-              "priceRange": "$$",
-              "openingHoursSpecification": [
-                {
-                  "@type": "OpeningHoursSpecification",
-                  "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-                  "opens": "09:00",
-                  "closes": "18:00"
-                },
-                {
-                  "@type": "OpeningHoursSpecification",
-                  "dayOfWeek": "Saturday",
-                  "opens": "09:00",
-                  "closes": "14:00"
-                }
-              ],
-              "sameAs": [
-                "https://www.facebook.com/profile.php?id=100093894950283",
-                "https://www.tiktok.com/@healppy.pets",
-                "https://www.instagram.com/healppy_pets"
-              ]
-            }),
-          }}
-        />
+        <Script id="schema-organization" type="application/ld+json">
+          {JSON.stringify(getLocalBusinessJsonLd())}
+        </Script>
+        <Script id="schema-website" type="application/ld+json">
+          {JSON.stringify(getWebsiteJsonLd())}
+        </Script>
       </head>
       <body className={inter.className}>
         {/* Google Tag Manager (noscript) */}

@@ -7,12 +7,15 @@ export const SITE_CONFIG = {
   email: "happypetscada@gmail.com",
   phone: "+593987005084",
   whatsapp: "593987005084",
+  whatsappMessage: "Hola! Quisiera agendar una cita para mi mascota 🐾",
+  whatsappPromo: "Hola! Quiero mi 20% de descuento en la primera visita 🐾",
   address: {
     street: "Calle Clemente Yerovi Indaburu Oe143 y OE1B",
     city: "Quito",
     neighborhood: "Carcelén",
     country: "Ecuador",
-    mapUrl: "https://www.google.com/maps/place/Healppy+Pets+Veterinary+Spa/@-0.0915484,-78.472321,17z"
+    mapUrl: "https://maps.app.goo.gl/iYnfsRuaXtEEt3vF9",
+    embedUrl: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d5115.203389153639!2d-78.47400523370821!3d-0.09343334941765224!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d58f59fde75e49%3A0xe14c66c3a13865b7!2sHealppy%20Pets%20Veterinary%20Spa!5e0!3m2!1ses!2sec!4v1760510326301!5m2!1ses!2sec"
   },
   social: {
     facebook: "https://www.facebook.com/profile.php?id=100093894950283&mibextid=ZbWKwL",
@@ -379,9 +382,9 @@ export const GROOMING_PACKAGES = [
 ] as const;
 
 export const WORKING_HOURS = [
-  { day: "Lunes - Viernes", hours: "9:00 AM - 6:00 PM" },
-  { day: "Sábado", hours: "9:00 AM - 2:00 PM" },
-  { day: "Domingo", hours: "Cerrado" }
+  { day: "Lunes", hours: "Cerrado" },
+  { day: "Martes - Sábado", hours: "09:00-13:00, 15:00-18:00" },
+  { day: "Domingo", hours: "09:00-14:00" }
 ] as const;
 
 export const EMERGENCY_INFO = {
@@ -390,3 +393,36 @@ export const EMERGENCY_INFO = {
   phone: SITE_CONFIG.phone,
   whatsapp: SITE_CONFIG.whatsapp
 } as const;
+
+// --- Exported types inferred from the constants ---
+export type ServiceType = {
+  id: string;
+  title: string;
+  shortDescription?: string;
+  description?: string;
+  icon?: string;
+  image?: string;
+  features: readonly string[];
+  benefits?: readonly string[];
+  price?: string;
+  duration?: string;
+  color?: string;
+};
+
+export type TestimonialType = {
+  id: number;
+  name: string;
+  petName: string;
+  petType: string;
+  image?: string;
+  rating: number;
+  text: string;
+  service?: string;
+  date?: string;
+};
+
+export type WorkingHour = (typeof WORKING_HOURS)[number];
+
+// Backwards-compatible aliases
+export type Service = ServiceType;
+export type Testimonial = TestimonialType;

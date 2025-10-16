@@ -1,5 +1,5 @@
 import { generateMetadata } from "@/lib/metadata";
-import { groomingSchema } from "@/lib/schema";
+import { generateServiceSchema } from "@/lib/schema";
 import Script from "next/script";
 import GroomingLandingClient from "@/components/landing/GroomingLandingClient";
 
@@ -13,7 +13,7 @@ export default function GroomingLanding() {
   return (
     <>
       <Script id="grooming-schema" type="application/ld+json">
-        {JSON.stringify(groomingSchema)}
+        {JSON.stringify(generateServiceSchema("grooming"))}
       </Script>
       <GroomingLandingClient />
     </>

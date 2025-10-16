@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Check, Stethoscope, Star, ArrowRight } from "lucide-react";
 
 export default function ConsultasLandingClient() {
@@ -79,10 +80,13 @@ export default function ConsultasLandingClient() {
 
           <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto mb-12">
             <div>
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?w=600&q=80"
                 alt="Consulta"
+                width={600}
+                height={320}
                 className="rounded-2xl shadow-lg w-full h-80 object-cover"
+                priority
               />
             </div>
             <div className="space-y-4">

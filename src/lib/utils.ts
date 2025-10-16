@@ -177,6 +177,45 @@ export function debounce<T extends (...args: unknown[]) => unknown>(
 }
 
 /**
+ * Parsea los horarios de atención a un formato más manejable.
+ */
+export type Day = 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday';
+
+type TimeSlot = { start: number; end: number };
+
+export function parseSchedule(workingHours: readonly { day: string; hours: string }[]): Record<Day, TimeSlot[] | null> {
+  const schedule: Record<Day, TimeSlot[] | null> = {
+    monday: null, tuesday: null, wednesday: null, thursday: null, friday: null, saturday: null, sunday: null
+  };
+
+  const dayMap: Record<string, Day[]> = {
+    "Lunes": ["monday"],
+    "Martes - Sábado": ["tuesday", "wednesday", "thursday", "friday", "saturday"],
+    "Domingo": ["sunday"]
+  };
+
+  workingHours.forEach(({ day, hours }) => {
+    const targetDays = dayMap[day] || [];
+    if (hours.toLowerCase() === 'cerrado') {
+      targetDays.forEach(d => schedule[d] = null);
+      return;
+    }
+
+    const slots = hours.split(',').map(range => {
+      const [start, end] = range.trim().split('-').map(time => {
+        const [h, m] = time.split(':').map(Number);
+        return h * 60 + m;
+      });
+      return { start, end };
+    });
+
+    targetDays.forEach(d => schedule[d] = slots);
+  });
+
+  return schedule;
+}
+
+/**
  * Scrollea suavemente a un elemento
  */
 export function smoothScrollTo(elementId: string, offset: number = 80): void {

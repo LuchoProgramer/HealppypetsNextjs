@@ -1,5 +1,5 @@
 import { generateMetadata } from "@/lib/metadata";
-import { consultasSchema } from "@/lib/schema";
+import { generateServiceSchema, generateBreadcrumbSchema } from "@/lib/schema";
 import Script from "next/script";
 import ConsultasLandingClient from "@/components/landing/ConsultasLandingClient";
 
@@ -9,12 +9,17 @@ export const metadata = generateMetadata({
   url: "/consultas",
 });
 
-export default function ConsultasLanding() {
+const consultasServiceSchema = generateServiceSchema("consulta");
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: "Inicio", url: "/" },
+  { name: "Consultas", url: "/consultas" },
+]);
+
+export default function ConsultasLandingPage() {
   return (
     <>
-      <Script id="consultas-schema" type="application/ld+json">
-        {JSON.stringify(consultasSchema)}
-      </Script>
+      <Script id="consultas-service-schema" type="application/ld+json">{JSON.stringify(consultasServiceSchema)}</Script>
+      <Script id="consultas-breadcrumb-schema" type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</Script>
       <ConsultasLandingClient />
     </>
   );

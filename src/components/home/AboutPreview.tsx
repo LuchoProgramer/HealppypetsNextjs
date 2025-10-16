@@ -1,11 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-
-const SITE_CONFIG = {
-  whatsapp: "593987005084",
-  whatsappMessage: "Hola! Quisiera agendar una cita para mi mascota 🐾"
-};
+import { SITE_CONFIG } from "@/lib/constants";
 
 export default function AboutSection() {
   const [visibleSections, setVisibleSections] = useState(new Set());

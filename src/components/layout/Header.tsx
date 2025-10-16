@@ -2,110 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-
-// Tipos para los días y el horario
-type Day = 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday';
-type Schedule = {
-  morning: string | null;
-  afternoon: string | null;
-};
-type SiteConfig = {
-  name: string;
-  phone: string;
-  whatsapp: string;
-  whatsappMessage: string;
-  address: string;
-  neighborhood: string;
-  mapsUrl: string;
-  schedule: Record<Day, Schedule | null>;
-};
-
-const SITE_CONFIG: SiteConfig = {
-  name: "Healppypets",
-  phone: "593987005084",
-  whatsapp: "593987005084",
-  whatsappMessage: "Hola! Quisiera agendar una cita para mi mascota",
-  address: "Calle Clemente Yerovi Indaburu Oe143 y OE1B",
-  neighborhood: "Carcelén",
-  mapsUrl: "https://maps.app.goo.gl/iYnfsRuaXtEEt3vF9",
-  schedule: {
-    monday: null, // Cerrado
-    tuesday: { morning: "9:00-13:00", afternoon: "15:00-18:00" },
-    wednesday: { morning: "9:00-13:00", afternoon: "15:00-18:00" },
-    thursday: { morning: "9:00-13:00", afternoon: "15:00-18:00" },
-    friday: { morning: "9:00-13:00", afternoon: "15:00-18:00" },
-    saturday: { morning: "9:00-13:00", afternoon: "15:00-18:00" },
-    sunday: { morning: "9:00-14:00", afternoon: null }
-  }
-};
-
-// Función para verificar si está abierto
-function useBusinessStatus() {
-  const [status, setStatus] = useState({ isOpen: false, message: "" });
-
-  useEffect(() => {
-    const checkStatus = () => {
-      const now = new Date();
-      const day = now.getDay(); // 0=Domingo, 1=Lunes, etc.
-      const hour = now.getHours();
-      const minute = now.getMinutes();
-      const currentTime = hour * 60 + minute;
-
-      const days: Day[] = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-      const dayName = days[day];
-      const schedule = SITE_CONFIG.schedule[dayName];
-
-      if (!schedule) {
-        // Lunes cerrado
-        setStatus({ isOpen: false, message: "CERRADO - Abrimos Martes 9:00am" });
-        return;
-      }
-
-      // Verificar horario matutino
-      if (schedule.morning) {
-        const [startM, endM] = schedule.morning.split('-');
-        const [startHM, startMM] = startM.split(':').map(Number);
-        const [endHM, endMM] = endM.split(':').map(Number);
-        const startMorning = startHM * 60 + startMM;
-        const endMorning = endHM * 60 + endMM;
-
-        if (currentTime >= startMorning && currentTime < endMorning) {
-          setStatus({ isOpen: true, message: "ABIERTO" });
-          return;
-        }
-      }
-
-      // Verificar horario vespertino
-      if (schedule.afternoon) {
-        const [startA, endA] = schedule.afternoon.split('-');
-        const [startHA, startMA] = startA.split(':').map(Number);
-        const [endHA, endMA] = endA.split(':').map(Number);
-        const startAfternoon = startHA * 60 + startMA;
-        const endAfternoon = endHA * 60 + endMA;
-
-        if (currentTime >= startAfternoon && currentTime < endAfternoon) {
-          setStatus({ isOpen: true, message: "ABIERTO" });
-          return;
-        }
-      }
-
-      // Determinar próxima apertura
-      if (day === 1) { // Lunes
-        setStatus({ isOpen: false, message: "CERRADO - Abrimos Martes 9:00am" });
-      } else if (day === 0) { // Domingo después de las 2pm
-        setStatus({ isOpen: false, message: "CERRADO - Abrimos Martes 9:00am" });
-      } else {
-        setStatus({ isOpen: false, message: "CERRADO - Abrimos 9:00am" });
-      }
-    };
-
-    checkStatus();
-    const interval = setInterval(checkStatus, 60000); // Actualizar cada minuto
-    return () => clearInterval(interval);
-  }, []);
-
-  return status;
-}
+import Image from "next/image";
+import { SITE_CONFIG, WORKING_HOURS } from "@/lib/constants";
+import useBusinessStatus from "@/hooks/useBusinessStatus";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -136,10 +35,12 @@ export default function Header() {
             <Link href="/" className="flex items-center space-x-2 group">
               <div className="relative w-10 h-10 lg:w-12 lg:h-12">
                 <div className="absolute inset-0 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] rounded-full blur-md opacity-50 group-hover:opacity-75 transition-opacity" />
-                <img 
-                  src="/logo.png" 
-                  alt="Healppypets Logo" 
-                  className="relative w-full h-full object-contain"
+                <Image
+                  src="/logo.png"
+                  alt="Healppypets Logo"
+                  fill
+                  sizes="48px"
+                  className="relative object-contain"
                 />
               </div>
               <span className="text-xl lg:text-2xl font-bold text-gray-800 hidden sm:block">
@@ -163,13 +64,13 @@ export default function Header() {
 
               {/* Badge Ubicación */}
               <a
-                href={SITE_CONFIG.mapsUrl}
+                href={SITE_CONFIG.address.mapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1 px-2 py-1 rounded-full bg-[#F2C9E7] text-gray-800 text-xs font-medium hover:bg-[#F2C2EA] transition-colors"
               >
                 <span>📍</span>
-                <span className="hidden sm:inline">{SITE_CONFIG.neighborhood}</span>
+                <span className="hidden sm:inline">{SITE_CONFIG.address.neighborhood}</span>
               </a>
             </div>
 
@@ -182,13 +83,13 @@ export default function Header() {
                   <span>Mar-Sáb: 9-1, 3-6 | Dom: 9-2</span>
                 </div>
                 <a
-                  href={SITE_CONFIG.mapsUrl}
+                  href={SITE_CONFIG.address.mapUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1 hover:text-[#F2C2EA] transition-colors"
                 >
                   <span>📍</span>
-                  <span>{SITE_CONFIG.neighborhood}, Quito</span>
+                  <span>{SITE_CONFIG.address.neighborhood}, Quito</span>
                 </a>
               </div>
             </div>

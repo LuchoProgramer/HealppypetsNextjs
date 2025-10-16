@@ -1,114 +1,9 @@
 "use client";
 
+import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
-
-const SITE_CONFIG = {
-  whatsapp: "593987005084",
-  whatsappMessage: "Hola! Quisiera agendar una cita para mi mascota"
-};
-
-const SERVICES = [
-  {
-    id: "grooming",
-    title: "Grooming Express",
-    price: "$20",
-    duration: "2 horas",
-    description: "Tu peludo sale impecable y feliz. Servicio completo con todo lo necesario para que luzca radiante.",
-    image: "https://res.cloudinary.com/tu-cloud/image/upload/grooming.jpg",
-    imagePlaceholder: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800&q=80",
-    icon: "✂️",
-    color: "from-[#F2C9E7] to-[#F2C2EA]",
-    features: [
-      "Baño con shampoo premium",
-      "Corte de pelo profesional",
-      "Corte de uñas",
-      "Cepillado completo",
-      "Limpieza de oídos",
-      "Desparasitación externa"
-    ],
-    whatsappMsg: "Hola! Quiero agendar un servicio de Grooming Express para mi mascota 🐕✂️"
-  },
-  {
-    id: "consultas",
-    title: "Consulta Veterinaria",
-    price: "$15",
-    duration: "30 min",
-    description: "Atención profesional para el bienestar de tu mascota. Diagnóstico y recomendaciones personalizadas.",
-    image: "https://res.cloudinary.com/tu-cloud/image/upload/consulta.jpg",
-    imagePlaceholder: "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?w=800&q=80",
-    icon: "🩺",
-    color: "from-[#F2D8EE] to-[#F2C2EA]",
-    features: [
-      "Examen físico completo",
-      "Diagnóstico profesional",
-      "Recomendaciones de cuidado",
-      "Orientación nutricional",
-      "Plan de tratamiento",
-      "Seguimiento incluido"
-    ],
-    whatsappMsg: "Hola! Necesito agendar una consulta veterinaria para mi mascota 🩺"
-  },
-  {
-    id: "vacunacion",
-    title: "Vacunación",
-    price: "$20",
-    duration: "15 min",
-    description: "Protege a tu mascota con nuestro plan de vacunación completo. Consulta veterinaria incluida.",
-    image: "https://res.cloudinary.com/tu-cloud/image/upload/vacunas.jpg",
-    imagePlaceholder: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=800&q=80",
-    icon: "💉",
-    color: "from-[#F2C2EA] to-[#F2DFED]",
-    features: [
-      "Consulta veterinaria incluida",
-      "Vacunas importadas de calidad",
-      "Carnet de vacunación",
-      "Recordatorio de refuerzos",
-      "Plan personalizado",
-      "Seguimiento post-vacuna"
-    ],
-    whatsappMsg: "Hola! Quiero vacunar a mi mascota. ¿Cuál es el plan de vacunación? 💉"
-  },
-  {
-    id: "desparasitacion",
-    title: "Desparasitación",
-    price: "$20",
-    duration: "15 min",
-    description: "Elimina parásitos internos y externos. Mantén a tu mascota saludable y protegida.",
-    image: "https://res.cloudinary.com/tu-cloud/image/upload/desparasitacion.jpg",
-    imagePlaceholder: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&q=80",
-    icon: "🪱",
-    color: "from-[#F2DFED] to-[#F2D8EE]",
-    features: [
-      "Desparasitante interno",
-      "Desparasitante externo",
-      "Consulta incluida",
-      "Recomendaciones de prevención",
-      "Calendario de refuerzos",
-      "Productos de calidad garantizada"
-    ],
-    whatsappMsg: "Hola! Necesito desparasitar a mi mascota 🐾"
-  },
-  {
-    id: "farmacia",
-    title: "Farmacia Veterinaria",
-    price: "Consulta",
-    duration: "Variable",
-    description: "Medicamentos, suplementos y productos de calidad para el cuidado de tu mascota.",
-    image: "https://res.cloudinary.com/tu-cloud/image/upload/farmacia.jpg",
-    imagePlaceholder: "https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=800&q=80",
-    icon: "💊",
-    color: "from-[#F2C9E7] to-[#F2D8EE]",
-    features: [
-      "Medicamentos veterinarios",
-      "Suplementos nutricionales",
-      "Productos de higiene",
-      "Antiparasitarios",
-      "Productos para piel y pelo",
-      "Asesoría profesional incluida"
-    ],
-    whatsappMsg: "Hola! Necesito consultar sobre medicamentos para mi mascota 💊"
-  }
-];
+import { SITE_CONFIG, SERVICES, ServiceType } from "@/lib/constants";
 
 export default function ServicesSection() {
   const [activeService, setActiveService] = useState<string | null>(null);
@@ -159,7 +54,7 @@ export default function ServicesSection() {
 
         {/* Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
-          {SERVICES.map((service, index) => {
+          {SERVICES.map((service: ServiceType, index) => {
             const isVisible = visibleCards.has(index);
             const isActive = activeService === service.id;
 
@@ -183,10 +78,14 @@ export default function ServicesSection() {
                 }`}>
                   {/* Image Section */}
                   <div className="relative h-48 overflow-hidden">
-                    <img
-                      src={service.imagePlaceholder}
+                    <Image
+                      src={service.image ?? `${SITE_CONFIG.url}/og-image.png`}
                       alt={service.title}
+                      width={800}
+                      height={480}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                      priority={index < 3}
                     />
                     
                     {/* Gradient Overlay */}
@@ -219,8 +118,8 @@ export default function ServicesSection() {
                     </div>
 
                     {/* Description */}
-                    <p className="text-gray-600 text-sm leading-relaxed flex-grow">
-                      {service.description}
+                      <p className="text-gray-600 text-sm leading-relaxed flex-grow">
+                      {service.shortDescription || service.description}
                     </p>
 
                     {/* Features - Show on Hover/Active */}
@@ -241,14 +140,12 @@ export default function ServicesSection() {
                     </div>
 
                     {/* CTA Button */}
-                    <a
-                      href={`https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent(service.whatsappMsg)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      href={`/${service.id}`}
                       className={`block w-full bg-gradient-to-r ${service.color} text-gray-900 py-3 rounded-xl font-semibold text-center shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 mt-4`}
                     >
                       Agendar Ahora →
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -279,7 +176,7 @@ export default function ServicesSection() {
             }
           ].map((item, index) => (
             <div
-              key={index}
+              key={item.title}
               className="text-center p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 group"
             >
               <div className={`inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r ${item.color} rounded-full mb-3 group-hover:scale-110 transition-transform shadow-md`}>
