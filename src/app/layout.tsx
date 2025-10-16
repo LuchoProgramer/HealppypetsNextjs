@@ -173,7 +173,7 @@ export default function RootLayout({
         </noscript>
 
         <Header />
-        <main className="min-h-screen">
+        <main className="min-h-screen pb-16 lg:pb-0">
           {children}
         </main>
         <Footer />

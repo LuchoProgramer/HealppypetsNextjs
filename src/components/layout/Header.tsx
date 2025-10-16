@@ -39,22 +39,6 @@ const SITE_CONFIG: SiteConfig = {
   }
 };
 
-const NAVIGATION_LINKS = [
-  { href: "/", label: "Inicio" },
-  { href: "/servicios", label: "Servicios" },
-  { href: "/productos", label: "Productos" },
-  { href: "/blog", label: "Blog" },
-  { href: "/nosotros", label: "Nosotros" }
-];
-
-const SERVICES = [
-  { href: "/servicios/grooming", label: "🐕 Grooming" },
-  { href: "/servicios/vacunacion", label: "💉 Vacunación" },
-  { href: "/servicios/desparasitacion", label: "🪱 Desparasitación" },
-  { href: "/servicios/consultas", label: "🩺 Consultas" },
-  { href: "/servicios/farmacia", label: "💊 Farmacia" }
-];
-
 // Función para verificar si está abierto
 function useBusinessStatus() {
   const [status, setStatus] = useState({ isOpen: false, message: "" });
@@ -67,9 +51,9 @@ function useBusinessStatus() {
       const minute = now.getMinutes();
       const currentTime = hour * 60 + minute;
 
-  const days: Day[] = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-  const dayName = days[day];
-  const schedule = SITE_CONFIG.schedule[dayName];
+      const days: Day[] = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+      const dayName = days[day];
+      const schedule = SITE_CONFIG.schedule[dayName];
 
       if (!schedule) {
         // Lunes cerrado
@@ -125,7 +109,6 @@ function useBusinessStatus() {
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [showServices, setShowServices] = useState(false);
   const businessStatus = useBusinessStatus();
 
   useEffect(() => {
@@ -218,38 +201,19 @@ export default function Header() {
                 Inicio
               </Link>
               
-              {/* Servicios Dropdown */}
-              <div 
-                className="relative"
-                onMouseEnter={() => setShowServices(true)}
-                onMouseLeave={() => setShowServices(false)}
-              >
-                <button className="text-gray-700 hover:text-[#F2C2EA] transition-colors font-medium flex items-center gap-1">
-                  Servicios
-                  <span className="text-xs">▾</span>
-                </button>
-                {showServices && (
-                  <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-xl py-2 z-50">
-                    {SERVICES.map((service) => (
-                      <Link
-                        key={service.href}
-                        href={service.href}
-                        className="block px-4 py-2 text-gray-700 hover:bg-[#F2DFED] transition-colors"
-                      >
-                        {service.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <Link href="/productos" className="text-gray-700 hover:text-[#F2C2EA] transition-colors font-medium">
-                Productos
+              <Link href="/#servicios" className="text-gray-700 hover:text-[#F2C2EA] transition-colors font-medium">
+                Servicios
               </Link>
+
               <Link href="/blog" className="text-gray-700 hover:text-[#F2C2EA] transition-colors font-medium">
                 Blog
               </Link>
-              <Link href="/nosotros" className="text-gray-700 hover:text-[#F2C2EA] transition-colors font-medium">
+
+              <Link href="/entretenimiento" className="text-gray-700 hover:text-[#F2C2EA] transition-colors font-medium">
+                Entretenimiento
+              </Link>
+
+              <Link href="/#nosotros" className="text-gray-700 hover:text-[#F2C2EA] transition-colors font-medium">
                 Nosotros
               </Link>
             </div>
@@ -298,10 +262,10 @@ export default function Header() {
             <span className="text-xs font-medium">Inicio</span>
           </Link>
 
-          {/* Tienda */}
-          <Link href="/productos" className="flex flex-col items-center justify-center flex-1 py-2 text-gray-600 hover:text-[#F2C2EA] transition-colors group">
-            <span className="text-2xl mb-0.5">🛍️</span>
-            <span className="text-xs font-medium">Tienda</span>
+          {/* Blog */}
+          <Link href="/blog" className="flex flex-col items-center justify-center flex-1 py-2 text-gray-600 hover:text-[#F2C2EA] transition-colors group">
+            <span className="text-2xl mb-0.5">📝</span>
+            <span className="text-xs font-medium">Blog</span>
           </Link>
 
           {/* Agendar (Destacado) */}
@@ -317,23 +281,22 @@ export default function Header() {
             <span className="text-xs font-medium text-gray-800 mt-1">Cita</span>
           </a>
 
-          {/* Blog */}
-          <Link href="/blog" className="flex flex-col items-center justify-center flex-1 py-2 text-gray-600 hover:text-[#F2C2EA] transition-colors group">
-            <span className="text-2xl mb-0.5">📝</span>
-            <span className="text-xs font-medium">Blog</span>
+          {/* Entretenimiento */}
+          <Link href="/entretenimiento" className="flex flex-col items-center justify-center flex-1 py-2 text-gray-600 hover:text-[#F2C2EA] transition-colors group">
+            <span className="text-2xl mb-0.5">🎮</span>
+            <span className="text-xs font-medium">Entretenimiento</span>
           </Link>
 
-          {/* Más (Menú) */}
-          <Link href="/menu" className="flex flex-col items-center justify-center flex-1 py-2 text-gray-600 hover:text-[#F2C2EA] transition-colors group">
-            <span className="text-2xl mb-0.5">☰</span>
-            <span className="text-xs font-medium">Más</span>
+          {/* Servicios */}
+          <Link href="/#servicios" className="flex flex-col items-center justify-center flex-1 py-2 text-gray-600 hover:text-[#F2C2EA] transition-colors group">
+            <span className="text-2xl mb-0.5">✨</span>
+            <span className="text-xs font-medium">Servicios</span>
           </Link>
         </div>
       </nav>
 
-      {/* Spacer para evitar que el contenido quede detrás del header */}
-      <div className="h-16 lg:h-32" />
-  {/* Spacer para bottom nav en mobile */}
+  {/* Spacer para evitar que el contenido quede detrás del header */}
+  <div className="h-16 lg:h-32" /> {/* Spacer para el header */}
     </>
   );
 }

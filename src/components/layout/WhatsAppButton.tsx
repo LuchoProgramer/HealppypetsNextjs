@@ -33,7 +33,7 @@ export default function WhatsAppButton() {
         rel="noopener noreferrer"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className={`fixed bottom-6 right-6 z-40 group transition-all duration-300 ${
+        className={`fixed bottom-24 md:bottom-6 right-6 z-40 group transition-all duration-300 ${
           isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
         }`}
         aria-label="Contactar por WhatsApp"
