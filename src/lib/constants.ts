@@ -3,7 +3,7 @@
 export const SITE_CONFIG = {
   name: "HealppyPets",
   description: "Veterinaria en Carcelén, Quito - Grooming, Vacunación y Farmacia",
-  url: "https://healppypets.netlify.app",
+  url: "https://www.healppypets.com",
   email: "happypetscada@gmail.com",
   phone: "+593987005084",
   whatsapp: "593987005084",

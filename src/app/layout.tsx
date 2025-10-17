@@ -30,14 +30,14 @@ export const metadata: Metadata = {
   authors: [{ name: "HealppyPets" }],
   creator: "HealppyPets",
   publisher: "HealppyPets",
-  metadataBase: new URL('https://healppypets.netlify.app'),
+  metadataBase: new URL('https://www.healppypets.com'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     title: "HealppyPets - Veterinaria en Carcelén, Quito",
     description: "Servicios veterinarios profesionales: grooming, vacunación, desparasitación y farmacia. Tu mascota en las mejores manos.",
-    url: 'https://healppypets.netlify.app',
+    url: 'https://www.healppypets.com',
     siteName: 'HealppyPets',
     images: [
       {
