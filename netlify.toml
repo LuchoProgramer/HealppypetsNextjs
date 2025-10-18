@@ -1,6 +1,7 @@
-# Redireccionamiento 301 del dominio de Netlify al dominio principal
+
+# Redireccionamiento 301 solo desde el subdominio de Netlify al dominio principal
 [[redirects]]
-  from = "/*"
-  to = "https://www.healppypets.com/:splat" # Asegúrate que tu dominio primario en Netlify sea www.healppypets.com
+  from = "https://healppypets.netlify.app/*"
+  to = "https://www.healppypets.com/:splat"
   status = 301
   force = true
