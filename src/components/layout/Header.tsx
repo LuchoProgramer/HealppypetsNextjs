@@ -1,3 +1,9 @@
+// Declaración global para window.gtag (evita error TS2339)
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
 "use client";
 
 import { useState, useEffect } from "react";
@@ -175,6 +181,14 @@ export default function Header() {
             target="_blank"
             rel="noopener noreferrer"
             className="flex flex-col items-center justify-center flex-1 py-2 -mt-4"
+            onClick={() => {
+              if (typeof window !== 'undefined' && window.gtag) {
+                window.gtag('event', 'click_agendar_cita', {
+                  event_category: 'navbar_mobile',
+                  event_label: 'Cita WhatsApp',
+                });
+              }
+            }}
           >
             <div className="bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow">
               <span className="text-3xl">💬</span>
@@ -188,11 +202,22 @@ export default function Header() {
             <span className="text-xs font-medium">Entretenimiento</span>
           </Link>
 
-          {/* Servicios */}
-          <Link href="/#servicios" className="flex flex-col items-center justify-center flex-1 py-2 text-gray-600 hover:text-[#F2C2EA] transition-colors group">
-            <span className="text-2xl mb-0.5">✨</span>
-            <span className="text-xs font-medium">Servicios</span>
-          </Link>
+          {/* Llamar */}
+          <a
+            href={`tel:${SITE_CONFIG.phone}`}
+            className="flex flex-col items-center justify-center flex-1 py-2 text-gray-600 hover:text-[#F2C2EA] transition-colors group"
+            onClick={() => {
+              if (typeof window !== 'undefined' && window.gtag) {
+                window.gtag('event', 'click_llamar', {
+                  event_category: 'navbar_mobile',
+                  event_label: 'Llamar',
+                });
+              }
+            }}
+          >
+            <span className="text-2xl mb-0.5">📞</span>
+            <span className="text-xs font-medium">Llamar</span>
+          </a>
         </div>
       </nav>
 

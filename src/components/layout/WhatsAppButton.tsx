@@ -1,3 +1,9 @@
+// Declaración global para window.gtag (evita error TS2339 en TSX)
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
 "use client";
 
 import { useState, useEffect } from "react";
@@ -42,6 +48,14 @@ export default function WhatsAppButton() {
           isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
         }`}
         aria-label="Contactar por WhatsApp"
+        onClick={() => {
+          if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'whatsapp_button_flotante_click', {
+              event_category: 'whatsapp_button',
+              event_label: 'Botón WhatsApp Flotante Desktop',
+            });
+          }
+        }}
       >
         {/* Pulse Animation */}
         <div className="absolute inset-0 bg-success-500 rounded-full animate-ping opacity-75" />

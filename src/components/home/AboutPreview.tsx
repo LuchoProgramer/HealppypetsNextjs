@@ -1,3 +1,9 @@
+// Declaración global para window.gtag (evita error TS2339)
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -235,6 +241,14 @@ export default function AboutSection() {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] text-gray-900 font-semibold rounded-full hover:shadow-2xl transition-all hover:scale-105"
+              onClick={() => {
+                if (typeof window !== 'undefined' && window.gtag) {
+                  window.gtag('event', 'click_agendar_carla', {
+                    event_category: 'about',
+                    event_label: 'Agenda Con Carla Ahora',
+                  });
+                }
+              }}
             >
               <span className="mr-2">💬</span>
               Agenda Con Carla Ahora
@@ -242,6 +256,14 @@ export default function AboutSection() {
             <a
               href="#servicios"
               className="inline-flex items-center justify-center px-8 py-4 bg-white border-2 border-gray-300 text-gray-700 font-semibold rounded-full hover:bg-gray-50 transition-all"
+              onClick={() => {
+                if (typeof window !== 'undefined' && window.gtag) {
+                  window.gtag('event', 'click_ver_servicios', {
+                    event_category: 'about',
+                    event_label: 'Ver Servicios',
+                  });
+                }
+              }}
             >
               Ver Servicios
             </a>

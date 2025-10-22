@@ -41,6 +41,12 @@ export default function FAQSection() {
               onClick={() => {
                 setSelectedCategory(category);
                 setExpandedId(null);
+                if (typeof window !== 'undefined' && window.gtag) {
+                  window.gtag('event', 'faq_cambio_categoria', {
+                    event_category: 'faq',
+                    event_label: category,
+                  });
+                }
               }}
               className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
                 selectedCategory === category
@@ -57,12 +63,20 @@ export default function FAQSection() {
         <div className="space-y-4 mb-16">
           {filteredFAQ.map((item) => (
             <div
-              key={item.id}
+              key={item.id || item.question}
               className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-100"
             >
               {/* Question */}
               <button
-                onClick={() => toggleExpand(item.id)}
+                onClick={() => {
+                  toggleExpand(item.id);
+                  if (typeof window !== 'undefined' && window.gtag) {
+                    window.gtag('event', 'faq_expandir_pregunta', {
+                      event_category: 'faq',
+                      event_label: item.question,
+                    });
+                  }
+                }}
                 className="w-full flex items-start justify-between p-6 text-left hover:bg-gray-50 transition-colors"
               >
                 <h3 className="text-lg font-semibold text-gray-900 pr-4">

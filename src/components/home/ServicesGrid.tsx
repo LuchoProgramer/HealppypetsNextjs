@@ -1,3 +1,9 @@
+// Declaración global para window.gtag (evita error TS2339)
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
 "use client";
 
 import Link from "next/link";
@@ -206,6 +212,14 @@ export default function ServicesSection() {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] text-gray-900 font-semibold rounded-full hover:shadow-xl transition-all duration-300 hover:scale-105"
+              onClick={() => {
+                if (typeof window !== 'undefined' && window.gtag) {
+                  window.gtag('event', 'click_agendar_primera_cita', {
+                    event_category: 'services',
+                    event_label: 'Agendar Mi Primera Cita',
+                  });
+                }
+              }}
             >
               <span className="mr-2">💬</span>
               Agendar Mi Primera Cita
@@ -213,6 +227,14 @@ export default function ServicesSection() {
             <a 
               href="#contacto"
               className="inline-flex items-center justify-center px-8 py-3 bg-white border-2 border-gray-300 text-gray-700 font-semibold rounded-full hover:bg-gray-50 transition-all duration-300"
+              onClick={() => {
+                if (typeof window !== 'undefined' && window.gtag) {
+                  window.gtag('event', 'click_ver_mas_informacion', {
+                    event_category: 'services',
+                    event_label: 'Ver Más Información',
+                  });
+                }
+              }}
             >
               Ver Más Información
             </a>

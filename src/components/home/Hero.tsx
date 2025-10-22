@@ -1,3 +1,9 @@
+// Declaración global para window.gtag (evita error TS2339)
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
 "use client";
 
 import { useState, useEffect } from "react";
@@ -27,8 +33,8 @@ export default function Hero() {
       description: "Baño, corte, corte de uñas y limpieza de oídos. Todo lo que necesita para verse y sentirse increíble.",
       image: "https://res.cloudinary.com/tu-cloud/image/upload/grooming-hero.jpg",
       imagePlaceholder: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1920&q=80",
-      cta: "Ver Paquetes de Grooming",
-      ctaLink: "/servicios/grooming",
+      cta: "Agendar Grooming",
+      ctaLink: `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent("Hola! Quiero agendar grooming para mi mascota")}`,
       badge: "⚡ Servicio Rápido",
       badgeColor: "bg-orange-500/90"
     },
@@ -155,6 +161,17 @@ export default function Hero() {
                   target={slide.ctaLink.startsWith('http') ? "_blank" : undefined}
                   rel={slide.ctaLink.startsWith('http') ? "noopener noreferrer" : undefined}
                   className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] text-gray-900 font-semibold rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 text-base sm:text-lg"
+                  onClick={() => {
+                    if (typeof window !== 'undefined' && window.gtag) {
+                      window.gtag('event', 'click_cta_hero', {
+                        event_category: 'hero',
+                        event_label: slide.cta,
+                        slide_index: index,
+                        slide_title: slide.title,
+                        cta_link: slide.ctaLink,
+                      });
+                    }
+                  }}
                 >
                   {slide.cta}
                   <span className="ml-2">→</span>
@@ -164,6 +181,16 @@ export default function Hero() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-white/10 backdrop-blur-md border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-gray-900 transition-all duration-300 text-base sm:text-lg"
+                  onClick={() => {
+                    if (typeof window !== 'undefined' && window.gtag) {
+                      window.gtag('event', 'click_whatsapp_hero', {
+                        event_category: 'hero',
+                        event_label: 'Chatea con nosotros',
+                        slide_index: index,
+                        slide_title: slide.title,
+                      });
+                    }
+                  }}
                 >
                   <span className="mr-2">💬</span>
                   Chatea con nosotros

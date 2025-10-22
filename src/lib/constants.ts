@@ -308,27 +308,33 @@ export const STATS = [
 export const FAQ = [
   {
     question: "¿Cuál es el horario de atención?",
-    answer: "Atendemos de lunes a viernes de 9:00 AM a 6:00 PM, y sábados de 9:00 AM a 2:00 PM. Para emergencias, puedes contactarnos por WhatsApp."
+    answer: "Atendemos de lunes a viernes de 9:00 AM a 6:00 PM, y sábados de 9:00 AM a 2:00 PM. Para emergencias, puedes contactarnos por WhatsApp.",
+    category: "General"
   },
   {
     question: "¿Necesito agendar cita previa?",
-    answer: "Recomendamos agendar cita previa para garantizar la atención. Puedes hacerlo por WhatsApp, teléfono o mediante nuestro formulario en línea."
+    answer: "Recomendamos agendar cita previa para garantizar la atención. Puedes hacerlo por WhatsApp, teléfono o mediante nuestro formulario en línea.",
+    category: "General"
   },
   {
     question: "¿Qué debo llevar a la primera consulta?",
-    answer: "Trae el carnet de vacunación (si lo tiene), historial médico previo, y cualquier medicamento que esté tomando tu mascota actualmente."
+    answer: "Trae el carnet de vacunación (si lo tiene), historial médico previo, y cualquier medicamento que esté tomando tu mascota actualmente.",
+    category: "Vacunación"
   },
   {
     question: "¿Realizan servicio a domicilio?",
-    answer: "Actualmente ofrecemos servicio de retiro y entrega para el servicio de grooming. Para otros servicios, te esperamos en nuestra clínica."
+    answer: "Actualmente ofrecemos servicio de retiro y entrega para el servicio de grooming. Para otros servicios, te esperamos en nuestra clínica.",
+    category: "Grooming"
   },
   {
     question: "¿Qué métodos de pago aceptan?",
-    answer: "Aceptamos efectivo, transferencias bancarias y principales tarjetas de crédito y débito."
+    answer: "Aceptamos efectivo, transferencias bancarias y principales tarjetas de crédito y débito.",
+    category: "General"
   },
   {
     question: "¿Tienen productos para la venta?",
-    answer: "Sí, contamos con una farmacia veterinaria completa con medicamentos, suplementos, alimentos y accesorios para tu mascota."
+    answer: "Sí, contamos con una farmacia veterinaria completa con medicamentos, suplementos, alimentos y accesorios para tu mascota.",
+    category: "General"
   }
 ] as const;
 
