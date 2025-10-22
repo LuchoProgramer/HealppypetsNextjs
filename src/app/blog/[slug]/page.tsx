@@ -1,3 +1,9 @@
+// Declaración global para window.gtag (evita error TS2339 en TSX)
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
 "use client";
 
 import Link from "next/link";
@@ -189,6 +195,14 @@ export default function BlogPostPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] text-gray-900 font-semibold rounded-full hover:shadow-xl transition-all hover:scale-105"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && window.gtag) {
+                    window.gtag('event', 'blog_post_click_whatsapp', {
+                      event_category: 'blog_post',
+                      event_label: POST.title,
+                    });
+                  }
+                }}
               >
                 <span className="mr-2">💬</span>
                 Contactar por WhatsApp
@@ -196,6 +210,14 @@ export default function BlogPostPage() {
               <Link
                 href="/#servicios"
                 className="inline-flex items-center px-8 py-3 bg-white border-2 border-gray-300 text-gray-700 font-semibold rounded-full hover:bg-gray-50 transition-all"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && window.gtag) {
+                    window.gtag('event', 'blog_post_click_ver_servicios', {
+                      event_category: 'blog_post',
+                      event_label: POST.title,
+                    });
+                  }
+                }}
               >
                 Ver Servicios
               </Link>
@@ -213,7 +235,16 @@ export default function BlogPostPage() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {RELATED_POSTS.map((post) => (
-              <Link key={post.slug} href={`/blog/${post.slug}`}>
+              <Link key={post.slug} href={`/blog/${post.slug}`}
+                onClick={() => {
+                  if (typeof window !== 'undefined' && window.gtag) {
+                    window.gtag('event', 'blog_post_click_articulo_relacionado', {
+                      event_category: 'blog_post',
+                      event_label: post.title,
+                    });
+                  }
+                }}
+              >
                 <article className="bg-white rounded-2xl overflow-hidden shadow-lg group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full border border-gray-100">
                   <div className="relative h-40 overflow-hidden">
                     <img

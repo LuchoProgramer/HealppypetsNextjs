@@ -1,3 +1,9 @@
+// Declaración global para window.gtag (evita error TS2339 en TSX)
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
 "use client";
 
 import { useState } from "react";
@@ -67,6 +73,14 @@ export default function PrimeraCitaLandingClient() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-red-600 to-[#F2C2EA] text-white font-bold rounded-full hover:shadow-2xl transition-all hover:scale-105 text-lg"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && window.gtag) {
+                    window.gtag('event', 'primera_cita_click_whatsapp', {
+                      event_category: 'primera_cita_cta',
+                      event_label: 'WhatsApp Reclamar 20% OFF',
+                    });
+                  }
+                }}
               >
                 <span>💬</span>
                 Reclamar Mi 20% OFF
@@ -77,6 +91,14 @@ export default function PrimeraCitaLandingClient() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-white border-2 border-gray-300 text-gray-700 font-bold rounded-full hover:bg-gray-50 transition-all"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && window.gtag) {
+                    window.gtag('event', 'primera_cita_click_info', {
+                      event_category: 'primera_cita_cta',
+                      event_label: 'WhatsApp Más Información',
+                    });
+                  }
+                }}
               >
                 <span>❓</span>
                 Más Información
@@ -191,7 +213,16 @@ export default function PrimeraCitaLandingClient() {
           <Gift className="w-16 h-16 mx-auto mb-4 text-white" />
           <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">No Esperes Más</h2>
           <p className="text-xl text-white/90 mb-8 opacity-95">Tu mascota merece el mejor cuidado. Aprovecha tu 20% OFF hoy mismo.</p>
-          <a href="https://wa.me/593987005084?text=Hola! Quiero mi 20% de descuento en la primera visita 🐾" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-10 py-5 bg-white text-gray-900 font-black rounded-full hover:shadow-2xl transition-all hover:scale-110 text-lg">
+          <a href="https://wa.me/593987005084?text=Hola! Quiero mi 20% de descuento en la primera visita 🐾" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-10 py-5 bg-white text-gray-900 font-black rounded-full hover:shadow-2xl transition-all hover:scale-110 text-lg"
+            onClick={() => {
+              if (typeof window !== 'undefined' && window.gtag) {
+                window.gtag('event', 'primera_cita_click_whatsapp_final', {
+                  event_category: 'primera_cita_cta',
+                  event_label: 'WhatsApp Reclamar 20% OFF Final',
+                });
+              }
+            }}
+          >
             <span className="text-2xl">🎉</span>
             Reclamar Mi 20% OFF Ahora
             <ArrowRight className="w-6 h-6" />

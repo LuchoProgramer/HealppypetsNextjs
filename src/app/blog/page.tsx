@@ -1,3 +1,9 @@
+// Declaración global para window.gtag (evita error TS2339 en TSX)
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
 "use client";
 
 import { useState } from "react";
@@ -123,7 +129,16 @@ export default function BlogPage() {
         {/* Blog Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredPosts.map((post) => (
-            <Link key={post.slug} href={`/blog/${post.slug}`}>
+            <Link key={post.slug} href={`/blog/${post.slug}`}
+              onClick={() => {
+                if (typeof window !== 'undefined' && window.gtag) {
+                  window.gtag('event', 'blog_click_leer_mas', {
+                    event_category: 'blog',
+                    event_label: post.title,
+                  });
+                }
+              }}
+            >
               <article className="bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 h-full flex flex-col border border-gray-100">
                 {/* Image */}
                 <div className="relative h-48 overflow-hidden">
@@ -206,6 +221,14 @@ export default function BlogPage() {
           <a
             href="#contacto"
             className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] text-gray-900 font-semibold rounded-full hover:shadow-xl transition-all hover:scale-105"
+            onClick={() => {
+              if (typeof window !== 'undefined' && window.gtag) {
+                window.gtag('event', 'blog_click_contacto', {
+                  event_category: 'blog',
+                  event_label: 'CTA Contactar Ahora',
+                });
+              }
+            }}
           >
             <span className="mr-2">💬</span>
             Contactar Ahora
