@@ -4,7 +4,7 @@ import { BLOG_POSTS } from '@/data/blog-posts';
 import { QUIZZES } from '@/data/quizzes';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPages = ['', '/primera-cita', '/blog', '/entretenimiento', '/contacto'].map((route) => ({
+  const staticPages = ['', '/primera-cita', '/blog', '/entretenimiento'].map((route) => ({
     url: `${SITE_CONFIG.url}${route}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
