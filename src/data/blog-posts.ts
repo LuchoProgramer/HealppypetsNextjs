@@ -81,7 +81,7 @@ Recuerda que cualquier cambio de alimentación debe hacerse gradualmente durante
 
 ## Conclusión
 
-La alimentación adecuada es una inversión en la salud y felicidad de tu mascota. En HealppyPets, estamos disponibles para asesorarte sobre la mejor dieta para tu compañero peludo. ¡Visítanos!
+La alimentación adecuada es una inversión en la salud y felicidad de tu mascota. En Healppypets, estamos disponibles para asesorarte sobre la mejor dieta para tu compañero peludo. ¡Visítanos!
     `,
     category: "Nutrición",
     author: {
@@ -154,7 +154,7 @@ Busca ayuda profesional si:
 - No coopera durante el grooming
 - Tiene problemas de piel
 
-En HealppyPets ofrecemos servicios completos de grooming profesional. ¡Agenda tu cita!
+En Healppypets ofrecemos servicios completos de grooming profesional. ¡Agenda tu cita!
     `,
     category: "Cuidados",
     author: {
@@ -234,7 +234,7 @@ Contacta inmediatamente si:
 - No socialices con perros no vacunados
 - Observa cualquier reacción
 
-En HealppyPets llevamos el registro de vacunación de tu mascota y te recordamos cuándo tocan los refuerzos. ¡Agenda tu cita de vacunación!
+En Healppypets llevamos el registro de vacunación de tu mascota y te recordamos cuándo tocan los refuerzos. ¡Agenda tu cita de vacunación!
     `,
     category: "Salud",
     author: {
@@ -333,7 +333,7 @@ Consulta al veterinario si:
 - Atención a necesidades básicas
 - Chequeos veterinarios regulares
 
-El bienestar emocional es tan importante como la salud física. En HealppyPets podemos ayudarte a identificar y manejar el estrés de tu mascota. ¡Contáctanos!
+El bienestar emocional es tan importante como la salud física. En Healppypets podemos ayudarte a identificar y manejar el estrés de tu mascota. ¡Contáctanos!
     `,
     category: "Consejos",
     author: {
