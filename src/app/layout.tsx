@@ -80,6 +80,13 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${inter.variable} ${poppins.variable}`}>
       <head>
+        <link rel="icon" type="image/png" sizes="16x16" href="/Logo-16x16.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/Logo32x32.png" />
+        <link rel="icon" type="image/png" sizes="48x48" href="/Logo-48x48.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/Logo-180x180.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/Logo-192x192.png" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/Logo-512x512.png" />
+        <link rel="manifest" href="/site.webmanifest" />
         {/* Google Search Console Verification */}
         <meta name="google-site-verification" content="c7a222bfc56de06a" />
         {/* Google Analytics */}
