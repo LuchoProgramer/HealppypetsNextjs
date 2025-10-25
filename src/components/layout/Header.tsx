@@ -14,6 +14,7 @@ import useBusinessStatus from "@/hooks/useBusinessStatus";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
   const businessStatus = useBusinessStatus();
 
   useEffect(() => {
@@ -21,9 +22,20 @@ export default function Header() {
       setIsScrolled(window.scrollY > 20);
     };
 
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isServicesOpen) {
+        setIsServicesOpen(false);
+      }
+    };
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    document.addEventListener("click", handleClickOutside);
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [isServicesOpen]);
 
   const whatsappUrl = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent(SITE_CONFIG.whatsappMessage)}`;
 
@@ -108,12 +120,71 @@ export default function Header() {
                 Inicio
               </Link>
               
-              <Link href="/#servicios" className="text-gray-700 hover:text-[#F2C2EA] transition-colors font-medium">
-                Servicios
-              </Link>
+              {/* Servicios Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsServicesOpen(!isServicesOpen);
+                  }}
+                  className="flex items-center gap-1 text-gray-700 hover:text-[#F2C2EA] transition-colors font-medium"
+                >
+                  Servicios
+                  <span className={`transform transition-transform text-xs ${isServicesOpen ? 'rotate-180' : ''}`}>
+                    ▼
+                  </span>
+                </button>
+                
+                {isServicesOpen && (
+                  <div 
+                    className="absolute top-full left-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-50"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="p-2">
+                      <Link 
+                        href="/servicios/vacunas" 
+                        className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-green-50 text-gray-700 hover:text-green-700 transition-colors"
+                        onClick={() => setIsServicesOpen(false)}
+                      >
+                        <span className="text-green-600">💉</span>
+                        <div>
+                          <div className="font-medium">Vacunas para Mascotas</div>
+                          <div className="text-xs text-gray-500">Plan completo en Carcelén</div>
+                        </div>
+                      </Link>
+                      <Link 
+                        href="/servicios/desparasitacion" 
+                        className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-orange-50 text-gray-700 hover:text-orange-700 transition-colors"
+                        onClick={() => setIsServicesOpen(false)}
+                      >
+                        <span className="text-orange-600">🛡️</span>
+                        <div>
+                          <div className="font-medium">Desparasitación</div>
+                          <div className="text-xs text-gray-500">Interna y externa</div>
+                        </div>
+                      </Link>
+                      <Link 
+                        href="/#servicios" 
+                        className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-700 transition-colors"
+                        onClick={() => setIsServicesOpen(false)}
+                      >
+                        <span className="text-blue-600">🏥</span>
+                        <div>
+                          <div className="font-medium">Todos los Servicios</div>
+                          <div className="text-xs text-gray-500">Ver servicios completos</div>
+                        </div>
+                      </Link>
+                    </div>
+                  </div>
+                )}
+              </div>
 
               <Link href="/blog" className="text-gray-700 hover:text-[#F2C2EA] transition-colors font-medium">
                 Blog
+              </Link>
+
+              <Link href="/faqs" className="text-gray-700 hover:text-[#F2C2EA] transition-colors font-medium">
+                FAQs
               </Link>
 
               <Link href="/entretenimiento" className="text-gray-700 hover:text-[#F2C2EA] transition-colors font-medium">

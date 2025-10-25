@@ -4,8 +4,9 @@ import Script from "next/script";
 import VacunacionLandingClient from "@/components/landing/VacunacionLandingClient";
 
 export const metadata = generateMetadata({
-  title: "Vacunación Completa desde $20 | Healppypets",
-  description: "Plan de vacunación personalizado para cachorros y adultos en HealppyPets. Protege a tu mascota desde el primer mes.",
+  title: "Vacunación y Desparasitación Carcelén desde $20 | Healppypets",
+  description: "Vacunación completa y desparasitación para perros y gatos en Carcelén. Plan personalizado, consulta incluida. Protege a tu mascota.",
+  keywords: ["vacunación perros Carcelén", "vacunación gatos Carcelén", "desparasitación Carcelén", "vacunas mascotas Carcelén"],
   url: "/vacunacion",
 });
 

@@ -2,20 +2,32 @@
 
 export const SITE_CONFIG = {
   name: "HealppyPets",
-  description: "Veterinaria en Carcelén, Quito - Grooming, Vacunación y Farmacia",
+  description: "Veterinaria en Carcelén, Quito - Peluquería Canina, Vacunación y Farmacia",
   url: "https://www.healppypets.com",
   email: "happypetscada@gmail.com",
   phone: "+593987005084",
+  phoneDisplay: "(09) 8700-5084", // Formato local para Ecuador
+  phoneInternational: "+593 98 700 5084", // Formato internacional claro
   whatsapp: "593987005084",
   whatsappMessage: "Hola! Quisiera agendar una cita para mi mascota 🐾",
   whatsappPromo: "Hola! Quiero mi 20% de descuento en la primera visita 🐾",
+  businessHours: {
+    weekdays: "Martes a Sábado: 9:00 AM - 1:00 PM, 3:00 PM - 6:00 PM",
+    weekend: "Domingo: 9:00 AM - 2:00 PM",
+    closed: "Lunes: Cerrado"
+  },
   address: {
+    full: "Calle Clemente Yerovi Indaburu Oe143 y OE1B, Carcelén, Quito, Ecuador",
     street: "Calle Clemente Yerovi Indaburu Oe143 y OE1B",
     city: "Quito",
     neighborhood: "Carcelén",
     country: "Ecuador",
     mapUrl: "https://maps.app.goo.gl/iYnfsRuaXtEEt3vF9",
-    embedUrl: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d5115.203389153639!2d-78.47400523370821!3d-0.09343334941765224!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d58f59fde75e49%3A0xe14c66c3a13865b7!2sHealppy%20Pets%20Veterinary%20Spa!5e0!3m2!1ses!2sec!4v1760510326301!5m2!1ses!2sec"
+    embedUrl: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d5115.203389153639!2d-78.47400523370821!3d-0.09343334941765224!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d58f59fde75e49%3A0xe14c66c3a13865b7!2sHealppy%20Pets%20Veterinary%20Spa!5e0!3m2!1ses!2sec!4v1760510326301!5m2!1ses!2sec",
+    coordinates: {
+      lat: -0.09343334941765224,
+      lng: -78.47400523370821
+    }
   },
   social: {
     facebook: "https://www.facebook.com/profile.php?id=100093894950283&mibextid=ZbWKwL",
@@ -36,9 +48,9 @@ export const NAVIGATION_LINKS = [
 export const SERVICES = [
   {
     id: "grooming",
-    title: "Grooming Profesional",
-    shortDescription: "Mantén a tu mascota limpia, feliz y saludable",
-    description: "Nuestro servicio de grooming incluye baño con productos premium, corte de pelo según la raza, limpieza de oídos, corte de uñas y cepillado profesional. Tu mascota se sentirá renovada y feliz.",
+    title: "Peluquería Canina y Grooming",
+    shortDescription: "Corte de pelo, baño y cuidado completo para tu mascota",
+    description: "Servicio completo de peluquería canina en Carcelén: baño con productos premium, corte de pelo según la raza, limpieza de oídos, corte de uñas y cepillado profesional. Tu mascota lucirá hermosa y se sentirá renovada.",
     icon: "Sparkles",
     image: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=800&q=80",
     features: [
@@ -85,7 +97,7 @@ export const SERVICES = [
     color: "secondary"
   },
   {
-    id: "consulta",
+    id: "consultas",
     title: "Consulta Veterinaria",
     shortDescription: "Atención médica profesional",
     description: "Consultas veterinarias completas con evaluación general, diagnóstico y tratamiento. Nuestros veterinarios están comprometidos con la salud integral de tu mascota.",
@@ -299,8 +311,8 @@ export const STATS = [
     icon: "🏆"
   },
   {
-    value: "24/7",
-    label: "Atención WhatsApp",
+    value: "WhatsApp",
+    label: "Consultas Rápidas",
     icon: "💬"
   }
 ] as const;

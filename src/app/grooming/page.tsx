@@ -4,8 +4,9 @@ import Script from "next/script";
 import GroomingLandingClient from "@/components/landing/GroomingLandingClient";
 
 export const metadata = generateMetadata({
-  title: "Grooming Express desde $20 | Healppypets",
-  description: "Grooming profesional en Carcelén. Baño, corte, uñas y más. Tu mascota saldrá hermosa en 2 horas.",
+  title: "Peluquería Canina Carcelén desde $20 | Healppypets",
+  description: "Peluquería canina y corte de pelo para perros en Carcelén. Baño, corte profesional, uñas y más. Tu mascota lucirá hermosa.",
+  keywords: ["peluquería canina Carcelén", "corte de pelo perros Carcelén", "baño mascotas Carcelén", "grooming Carcelén"],
   url: "/grooming",
 });
 

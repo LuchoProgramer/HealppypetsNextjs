@@ -18,10 +18,15 @@ export async function GET() {
   } else {
     // Production defaults: allow everything, but block obvious internals
     lines.push('Disallow:');
-    lines.push('Disallow: /api/private');
-    lines.push('Disallow: /api/admin');
-    lines.push('Disallow: /_next/');
-    lines.push('Disallow: /preview');
+    lines.push('Crawl-delay: 1');
+    lines.push('Disallow: /api/private*');
+    lines.push('Disallow: /api/admin*');
+    lines.push('Disallow: /_next/*');
+    lines.push('Disallow: /preview*');
+    lines.push('Disallow: /admin*');
+    lines.push('Disallow: /*.json$');
+    lines.push('Allow: /api/sitemap');
+    lines.push('Allow: /');
   }
 
   lines.push('');

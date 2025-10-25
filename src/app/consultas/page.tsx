@@ -9,7 +9,7 @@ export const metadata = generateMetadata({
   url: "/consultas",
 });
 
-const consultasServiceSchema = generateServiceSchema("consulta");
+const consultasServiceSchema = generateServiceSchema("consultas");
 const breadcrumbSchema = generateBreadcrumbSchema([
   { name: "Inicio", url: "/" },
   { name: "Consultas", url: "/consultas" },

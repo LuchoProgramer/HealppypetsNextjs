@@ -27,26 +27,26 @@ export default function Hero() {
       badgeColor: "bg-green-500/90"
     },
     {
-      title: "Grooming Express",
+      title: "Peluquería Canina Express",
       titleHighlight: "desde $20",
-      subtitle: "Tu peludo listo en menos de 2 horas",
-      description: "Baño, corte, corte de uñas y limpieza de oídos. Todo lo que necesita para verse y sentirse increíble.",
+      subtitle: "Corte de pelo y baño profesional",
+      description: "Baño completo, corte de pelo, corte de uñas y limpieza de oídos. Tu mascota lucirá hermosa en menos de 2 horas.",
       image: "https://res.cloudinary.com/tu-cloud/image/upload/grooming-hero.jpg",
       imagePlaceholder: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1920&q=80",
-      cta: "Agendar Grooming",
-      ctaLink: `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent("Hola! Quiero agendar grooming para mi mascota")}`,
-      badge: "⚡ Servicio Rápido",
+      cta: "Agendar Peluquería",
+      ctaLink: `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent("Hola! Quiero agendar peluquería canina para mi mascota")}`,
+      badge: "✂️ Corte Profesional",
       badgeColor: "bg-orange-500/90"
     },
     {
-      title: "Vacunación Completa",
+      title: "Vacunación y Desparasitación",
       titleHighlight: "desde $20",
-      subtitle: "Protege a tu mascota hoy mismo",
-      description: "Plan de vacunación personalizado para perros, gatos y más. Consulta veterinaria incluida con cada vacuna.",
+      subtitle: "Protege a tu mascota en Carcelén",
+      description: "Plan completo de vacunación y desparasitación para perros y gatos. Consulta veterinaria incluida con cada servicio.",
       image: "https://res.cloudinary.com/tu-cloud/image/upload/vacunas-hero.jpg",
       imagePlaceholder: "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?w=1920&q=80",
-      cta: "Agenda tu Vacunación",
-      ctaLink: `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent("Hola! Quiero agendar vacunación para mi mascota")}`,
+      cta: "Agenda Vacunación",
+      ctaLink: `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent("Hola! Quiero agendar vacunación y desparasitación para mi mascota")}`,
       badge: "💉 Consulta Incluida",
       badgeColor: "bg-blue-500/90"
     }
@@ -66,6 +66,9 @@ export default function Hero() {
 
   return (
   <section className="relative h-screen min-h-[700px] max-h-[900px] overflow-hidden pt-0 lg:pt-32">
+      {/* SEO: H1 único y oculto para crawlers */}
+      <h1 className="sr-only">HealppyPets - Veterinaria en Carcelén, Quito - Grooming, Consultas y Vacunación</h1>
+      
       {/* Background Slides */}
       {slides.map((slide, index) => (
         <div
@@ -118,12 +121,12 @@ export default function Hero() {
                     : "translate-y-4 opacity-0"
                 }`}
               >
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight">
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight">
                   {slide.title}
                   <span className="block bg-gradient-to-r from-[#F2C9E7] via-[#F2C2EA] to-[#F2D8EE] bg-clip-text text-transparent">
                     {slide.titleHighlight}
                   </span>
-                </h1>
+                </h2>
               </div>
 
               {/* Subtitle */}

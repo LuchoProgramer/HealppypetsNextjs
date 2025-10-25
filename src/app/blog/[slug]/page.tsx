@@ -1,12 +1,34 @@
-"use client";
 import Link from "next/link";
 import { Calendar, Clock, Tag, ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getPostBySlug, getRelatedPosts } from "@/data/blog-posts";
 import ReactMarkdown from "react-markdown";
+import { generateMetadata as baseGenerateMetadata } from "@/lib/metadata";
+import { SITE_CONFIG } from "@/lib/constants";
+import WhatsAppButton from "./WhatsAppButton";
 
 interface BlogPostPageProps {
   params: { slug: string };
+}
+
+// Generar metadatos dinámicos para SEO (Server Component)
+export async function generateMetadata({ params }: BlogPostPageProps) {
+  const post = getPostBySlug(params.slug);
+  
+  if (!post) {
+    return {
+      title: 'Post no encontrado | HealppyPets Blog',
+      description: 'El artículo que buscas no está disponible.'
+    };
+  }
+
+  return baseGenerateMetadata({
+    title: `${post.title} | Blog HealppyPets`,
+    description: post.excerpt,
+    keywords: [...post.tags, "HealppyPets blog", "cuidado mascotas", "veterinaria Carcelén"],
+    image: post.image,
+    url: `/blog/${post.slug}`,
+  });
 }
 
 export default function BlogPostPage({ params }: BlogPostPageProps) {
@@ -14,8 +36,44 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   if (!post) return notFound();
   const relatedPosts = getRelatedPosts(post.slug, 3);
 
+  // Schema.org para artículos
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.excerpt,
+    image: post.image,
+    author: {
+      "@type": "Person",
+      name: post.author.name,
+      jobTitle: post.author.role
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "HealppyPets",
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_CONFIG.url}/logo.png`
+      }
+    },
+    datePublished: post.date,
+    dateModified: post.date,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${SITE_CONFIG.url}/blog/${post.slug}`
+    },
+    keywords: post.tags.join(", ")
+  };
+
   return (
     <div className="min-h-screen bg-white">
+      {/* Schema.org JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(articleSchema)
+        }}
+      />
       {/* Back Button */}
       <div className="bg-gradient-to-b from-white to-gray-50 border-b border-gray-200 sticky top-20 z-40">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -114,34 +172,10 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
               Nuestro equipo está listo para ayudarte con todas tus dudas sobre el cuidado de tu mascota
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <a
-                href="https://wa.me/593987005084?text=Hola! Tengo preguntas sobre nutrición para mi mascota"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] text-gray-900 font-semibold rounded-full hover:shadow-xl transition-all hover:scale-105"
-                onClick={() => {
-                  if (typeof window !== 'undefined' && window.gtag) {
-                    window.gtag('event', 'blog_post_click_whatsapp', {
-                      event_category: 'blog_post',
-                      event_label: post.title,
-                    });
-                  }
-                }}
-              >
-                <span className="mr-2">💬</span>
-                Contactar por WhatsApp
-              </a>
+              <WhatsAppButton postTitle={post.title} />
               <Link
                 href="/#servicios"
                 className="inline-flex items-center px-8 py-3 bg-white border-2 border-gray-300 text-gray-700 font-semibold rounded-full hover:bg-gray-50 transition-all"
-                onClick={() => {
-                  if (typeof window !== 'undefined' && window.gtag) {
-                    window.gtag('event', 'blog_post_click_ver_servicios', {
-                      event_category: 'blog_post',
-                      event_label: post.title,
-                    });
-                  }
-                }}
               >
                 Ver Servicios
               </Link>
@@ -158,36 +192,26 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           </h2>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {relatedPosts.map((post) => (
-              <Link key={post.slug} href={`/blog/${post.slug}`}
-                onClick={() => {
-                  if (typeof window !== 'undefined' && window.gtag) {
-                    window.gtag('event', 'blog_post_click_articulo_relacionado', {
-                      event_category: 'blog_post',
-                      event_label: post.title,
-                    });
-                  }
-                }}
-              >
+            {relatedPosts.map((relatedPost) => (
+              <Link key={relatedPost.slug} href={`/blog/${relatedPost.slug}`}>
                 <article className="bg-white rounded-2xl overflow-hidden shadow-lg group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full border border-gray-100">
                   <div className="relative h-40 overflow-hidden">
                     <img
-// ...existing code...
-                      src={post.image}
-                      alt={post.title}
+                      src={relatedPost.image}
+                      alt={relatedPost.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
                   </div>
                   <div className="p-6">
                     <span className="inline-block bg-[#F2C9E7]/20 text-[#F2C2EA] px-3 py-1 rounded-full text-xs font-semibold mb-3 border border-[#F2C9E7]/30">
-                      {post.category}
+                      {relatedPost.category}
                     </span>
                     <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-[#F2C2EA] transition-colors line-clamp-2">
-                      {post.title}
+                      {relatedPost.title}
                     </h3>
                     <div className="flex items-center text-sm text-gray-500">
                       <Clock className="w-4 h-4 mr-1" />
-                      {post.readTime} min
+                      {relatedPost.readTime} min
                     </div>
                   </div>
                 </article>

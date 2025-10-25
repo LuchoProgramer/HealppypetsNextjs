@@ -29,7 +29,54 @@ export function generateMetadata({
 
   // Nota sobre Keywords: Google ignora la meta tag 'keywords' desde hace años.
   // La incluimos por si algún otro motor de búsqueda la considera, pero el foco debe estar en el contenido.
-  const defaultKeywords = ["veterinaria en quito", "veterinaria carcelen", "grooming para perros", "baño para mascotas", "consultas veterinarias", "vacunación de mascotas"];
+  const defaultKeywords = [
+    // Keywords principales para dominar búsquedas locales
+    "veterinaria Carcelén Quito",
+    "consulta veterinaria Carcelén",
+    "peluquería canina Carcelén",
+    "peluquería para mascotas Carcelén",
+    "corte de pelo perros Carcelén",
+    "corte de pelo mascotas Quito",
+    "baño para perros Carcelén precio",
+    
+    // Keywords DOMINANTES para vacunas - alta prioridad
+    "vacunas para mascotas Carcelén",
+    "vacunas para perros Carcelén",
+    "vacunas para gatos Carcelén",
+    "vacunación perros Carcelén",
+    "vacunación gatos Carcelén",
+    "vacunación cachorros Carcelén",
+    "vacunas antirrábicas Carcelén",
+    "vacuna múltiple perros Carcelén",
+    "plan vacunación mascotas Carcelén",
+    "calendario vacunación Quito",
+    "vacunas baratas Carcelén",
+    
+    // Keywords DOMINANTES para desparasitación - alta prioridad
+    "desparasitación mascotas Carcelén",
+    "desparasitación perros Carcelén",
+    "desparasitación gatos Carcelén",
+    "desparasitación interna Carcelén",
+    "desparasitación externa Carcelén",
+    "desparasitante para perros Carcelén",
+    "desparasitante para gatos Carcelén",
+    "tratamiento parásitos mascotas Carcelén",
+    "pipetas antipulgas Carcelén",
+    "desparasitación precio Carcelén",
+    
+    // Keywords generales de apoyo
+    "consulta veterinaria Carcelén",
+    "farmacia veterinaria Carcelén",
+    "veterinario cerca de mi Carcelén",
+    "HealppyPets veterinaria Carcelén",
+    "cuidado mascotas Carcelén Quito",
+    "veterinaria lunes a sábado Carcelén",
+    // Keywords comerciales locales
+    "peluquería canina barata Carcelén",
+    "veterinaria abierta sábados Carcelén",
+    "primera cita veterinaria descuento Carcelén",
+    "veterinaria horario extendido Carcelén"
+  ];
 
   return {
     title: fullTitle,

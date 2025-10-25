@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     default: "HealppyPets - Veterinaria en Carcelén, Quito",
     template: "%s | HealppyPets"
   },
-  description: "En HealppyPets en Carcelén, Quito, ofrecemos servicios de grooming, consultas veterinarias, vacunación, desparasitación y farmacia para mascotas. Cuida a tus mascotas con los mejores expertos.",
+  description: "En HealppyPets en Carcelén, Quito, ofrecemos peluquería canina, corte de pelo para mascotas, consultas veterinarias, vacunación, desparasitación y farmacia. Tu veterinaria de confianza en Carcelén.",
   keywords: ["veterinaria", "Quito", "Carcelén", "grooming", "mascotas", "vacunación", "desparasitación", "farmacia veterinaria"],
   authors: [{ name: "HealppyPets" }],
   creator: "HealppyPets",
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'tu-codigo-de-verificacion-google',
+    google: 'c7a222bfc56de06a',
   },
 };
 

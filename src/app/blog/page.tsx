@@ -1,10 +1,11 @@
+"use client";
+
 // Declaración global para window.gtag (evita error TS2339 en TSX)
 declare global {
   interface Window {
     gtag?: (...args: any[]) => void;
   }
 }
-"use client";
 
 import { useState } from "react";
 import Link from "next/link";

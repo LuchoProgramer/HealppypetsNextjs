@@ -4,11 +4,22 @@ import { BLOG_POSTS } from '@/data/blog-posts';
 import { QUIZZES } from '@/data/quizzes';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPages = ['', '/primera-cita', '/blog', '/entretenimiento'].map((route) => ({
+  const staticPages = ['', '/primera-cita', '/blog', '/entretenimiento', '/faqs'].map((route) => ({
     url: `${SITE_CONFIG.url}${route}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
-    priority: route === '' ? 1.0 : 0.8,
+    priority: route === '' ? 1.0 : route === '/faqs' ? 0.9 : 0.8,
+  }));
+
+  // Páginas de servicios específicos para dominar keywords locales
+  const especializedServicePages = [
+    '/servicios/vacunas',
+    '/servicios/desparasitacion'
+  ].map((route) => ({
+    url: `${SITE_CONFIG.url}${route}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.95, // Prioridad muy alta para dominar estas keywords
   }));
 
   const servicePages = SERVICES.map((service) => ({
@@ -32,5 +43,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...servicePages, ...blogPages, ...quizPages];
+  return [...staticPages, ...especializedServicePages, ...servicePages, ...blogPages, ...quizPages];
 }
