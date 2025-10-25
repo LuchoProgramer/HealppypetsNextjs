@@ -15,8 +15,8 @@ export default function Hero() {
 
   const slides = [
     {
-      title: "Cuidado Veterinario de Confianza",
-      titleHighlight: "en Carcelén",
+  title: "Cuidado Veterinario de Confianza ",
+  titleHighlight: "en Carcelén",
       subtitle: "Grooming rápido, vacunas y más",
       description: "Tu mascota merece atención profesional sin complicaciones. Agenda por WhatsApp y obtén 20% OFF en tu primera visita.",
       image: "https://res.cloudinary.com/tu-cloud/image/upload/hero-principal.jpg", // Reemplaza con tu URL
