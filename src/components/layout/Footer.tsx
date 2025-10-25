@@ -134,14 +134,17 @@ export function Footer() {
             </h3>
             <ul className="space-y-3 text-sm">
               <li className="flex items-start space-x-2">
-                <span className="text-[#F2C2EA] mt-0.5">📍</span>
+                <span className="text-[#F2C2EA] mt-0.5">
+                  <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+                </span>
                 <a
                   href={SITE_CONFIG.address.mapUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-300 hover:text-[#F2C2EA] transition-colors"
+                  className="text-[#F2C2EA] font-semibold underline hover:text-[#F2C9E7] transition-colors"
                 >
                   {SITE_CONFIG.address.street}, {SITE_CONFIG.address.neighborhood}, {SITE_CONFIG.address.city}
+                  <span className="ml-2 text-xs">(Ver en Google Maps)</span>
                 </a>
               </li>
               <li className="flex items-start space-x-2">
@@ -201,10 +204,11 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Google Maps Section */}
+        {/* Google Maps Section Mejorada */}
         <div className="mt-12 lg:mt-16">
-          <h3 className="text-xl font-semibold mb-4 text-center text-[#F2C9E7]">
-            📍 Encuéntranos Aquí
+          <h3 className="text-xl font-semibold mb-4 text-center text-[#F2C9E7] flex items-center justify-center gap-2">
+            <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+            Encuéntranos Aquí
           </h3>
           <div className="rounded-2xl overflow-hidden shadow-2xl h-64 lg:h-80">
             <iframe
@@ -217,6 +221,13 @@ export function Footer() {
               referrerPolicy="no-referrer-when-downgrade"
               title="Ubicación de Healppypets"
             />
+          </div>
+          <div className="mt-4 text-center text-gray-300 text-sm">
+            <span className="inline-flex items-center gap-1">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+              {SITE_CONFIG.address.street}, {SITE_CONFIG.address.neighborhood}, {SITE_CONFIG.address.city}
+            </span>
+            {/* Si quieres mostrar una referencia, agrega la propiedad 'reference' en SITE_CONFIG.address */}
           </div>
         </div>
 
