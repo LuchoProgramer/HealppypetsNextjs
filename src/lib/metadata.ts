@@ -36,8 +36,10 @@ export function generateMetadata({
     "peluquería canina Carcelén",
     "peluquería para mascotas Carcelén",
     "corte de pelo perros Carcelén",
+    "corte de pelo gatos Carcelén",
     "corte de pelo mascotas Quito",
     "baño para perros Carcelén precio",
+    "baño para gatos Carcelén precio",
     
     // Keywords DOMINANTES para vacunas - alta prioridad
     "vacunas para mascotas Carcelén",
@@ -46,11 +48,15 @@ export function generateMetadata({
     "vacunación perros Carcelén",
     "vacunación gatos Carcelén",
     "vacunación cachorros Carcelén",
+    "vacunación gatitos Carcelén",
     "vacunas antirrábicas Carcelén",
     "vacuna múltiple perros Carcelén",
+    "vacuna triple felina Carcelén",
     "plan vacunación mascotas Carcelén",
-    "calendario vacunación Quito",
+    "calendario vacunación perros Quito",
+    "calendario vacunación gatos Quito",
     "vacunas baratas Carcelén",
+    "vacunación gatos precio Carcelén",
     
     // Keywords DOMINANTES para desparasitación - alta prioridad
     "desparasitación mascotas Carcelén",
@@ -62,20 +68,28 @@ export function generateMetadata({
     "desparasitante para gatos Carcelén",
     "tratamiento parásitos mascotas Carcelén",
     "pipetas antipulgas Carcelén",
+    "pipetas para gatos Carcelén",
+    "collar antipulgas gatos Carcelén",
     "desparasitación precio Carcelén",
+    "desparasitación gatos precio Carcelén",
     
     // Keywords generales de apoyo
     "consulta veterinaria Carcelén",
+    "consulta veterinaria gatos Carcelén",
+    "veterinario para gatos Carcelén",
     "farmacia veterinaria Carcelén",
     "veterinario cerca de mi Carcelén",
     "HealppyPets veterinaria Carcelén",
     "cuidado mascotas Carcelén Quito",
+    "cuidado gatos Carcelén",
     "veterinaria lunes a sábado Carcelén",
     // Keywords comerciales locales
     "peluquería canina barata Carcelén",
+    "peluquería felina Carcelén",
     "veterinaria abierta sábados Carcelén",
     "primera cita veterinaria descuento Carcelén",
-    "veterinaria horario extendido Carcelén"
+    "veterinaria horario extendido Carcelén",
+    "consulta gatos Carcelén precio"
   ];
 
   return {

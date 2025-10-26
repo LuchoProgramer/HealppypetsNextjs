@@ -354,6 +354,314 @@ export const QUIZZES: Quiz[] = [
         ]
       }
     ]
+  },
+  {
+    id: "personalidad-gato-perfecto",
+    title: "¿Qué Personalidad de Gato es Perfecta Para Ti?",
+    description: "Descubre qué tipo de personalidad felina se adapta mejor a tu estilo de vida y preferencias.",
+    image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=800&q=80",
+    category: "Gatos",
+    questions: [
+      {
+        id: 1,
+        question: "¿Cómo te gusta pasar tu tiempo libre en casa?",
+        options: [
+          { 
+            text: "Leyendo tranquilamente o viendo TV", 
+            points: { cariñoso: 3, independiente: 2, jugueton: 1, tranquilo: 3 } 
+          },
+          { 
+            text: "Haciendo manualidades o cocinando", 
+            points: { cariñoso: 2, independiente: 3, jugueton: 2, tranquilo: 2 } 
+          },
+          { 
+            text: "Jugando videojuegos o viendo series", 
+            points: { cariñoso: 1, independiente: 2, jugueton: 3, tranquilo: 1 } 
+          },
+          { 
+            text: "Meditando o haciendo yoga", 
+            points: { cariñoso: 2, independiente: 1, jugueton: 0, tranquilo: 3 } 
+          }
+        ]
+      },
+      {
+        id: 2,
+        question: "¿Cuánta atención puedes dar a tu gato diariamente?",
+        options: [
+          { 
+            text: "Todo el tiempo que quiera, me encanta mimar", 
+            points: { cariñoso: 3, independiente: 0, jugueton: 2, tranquilo: 2 } 
+          },
+          { 
+            text: "Varias horas al día, especialmente de noche", 
+            points: { cariñoso: 2, independiente: 1, jugueton: 3, tranquilo: 1 } 
+          },
+          { 
+            text: "Algunas horas por la mañana y noche", 
+            points: { cariñoso: 2, independiente: 2, jugueton: 2, tranquilo: 2 } 
+          },
+          { 
+            text: "Prefiero que sea independiente", 
+            points: { cariñoso: 0, independiente: 3, jugueton: 1, tranquilo: 3 } 
+          }
+        ]
+      },
+      {
+        id: 3,
+        question: "¿Qué nivel de actividad prefieres en un gato?",
+        options: [
+          { 
+            text: "Muy activo, que juegue mucho", 
+            points: { cariñoso: 1, independiente: 1, jugueton: 3, tranquilo: 0 } 
+          },
+          { 
+            text: "Moderadamente activo", 
+            points: { cariñoso: 2, independiente: 2, jugueton: 2, tranquilo: 1 } 
+          },
+          { 
+            text: "Tranquilo, que prefiera descansar", 
+            points: { cariñoso: 2, independiente: 2, jugueton: 0, tranquilo: 3 } 
+          },
+          { 
+            text: "Que se adapte a mi energía", 
+            points: { cariñoso: 3, independiente: 1, jugueton: 1, tranquilo: 2 } 
+          }
+        ]
+      },
+      {
+        id: 4,
+        question: "¿Cómo te sientes respecto a la vocalización?",
+        options: [
+          { 
+            text: "Me encanta que me 'hable'", 
+            points: { cariñoso: 3, independiente: 0, jugueton: 2, tranquilo: 1 } 
+          },
+          { 
+            text: "Está bien si es ocasional", 
+            points: { cariñoso: 2, independiente: 2, jugueton: 2, tranquilo: 2 } 
+          },
+          { 
+            text: "Prefiero gatos silenciosos", 
+            points: { cariñoso: 1, independiente: 3, jugueton: 1, tranquilo: 3 } 
+          },
+          { 
+            text: "Solo cuando necesite algo", 
+            points: { cariñoso: 2, independiente: 2, jugueton: 1, tranquilo: 2 } 
+          }
+        ]
+      },
+      {
+        id: 5,
+        question: "¿Cómo reaccionas cuando llegan visitas?",
+        options: [
+          { 
+            text: "Me gusta que mi gato sea sociable con todos", 
+            points: { cariñoso: 3, independiente: 1, jugueton: 2, tranquilo: 1 } 
+          },
+          { 
+            text: "Está bien si se esconde al principio", 
+            points: { cariñoso: 2, independiente: 2, jugueton: 1, tranquilo: 3 } 
+          },
+          { 
+            text: "Prefiero que observe desde lejos", 
+            points: { cariñoso: 1, independiente: 3, jugueton: 1, tranquilo: 2 } 
+          },
+          { 
+            text: "Me da igual, cada gato es diferente", 
+            points: { cariñoso: 2, independiente: 2, jugueton: 2, tranquilo: 2 } 
+          }
+        ]
+      }
+    ],
+    results: [
+      {
+        type: "cariñoso",
+        title: "Gato Cariñoso y Apegado",
+        description: "Tu personalidad es perfecta para un gato que busca mucho contacto y afecto. Te encantan los gatos que ronronean, se acurrucan y te siguen por la casa.",
+        icon: "Heart",
+        tips: [
+          "Razas como Ragdoll, Maine Coon o Persa son ideales",
+          "Disfruta de sesiones largas de caricias",
+          "Tu gato querrá dormir contigo",
+          "Considera tener un gato desde cachorro para mayor apego"
+        ],
+        recommendations: [
+          "Ragdoll: extremadamente cariñoso y dócil",
+          "Maine Coon: gigantes gentiles que aman la compañía",
+          "Siamés: muy apegado y comunicativo",
+          "Busca gatos en refugios que sean descritos como 'lap cats'"
+        ]
+      },
+      {
+        type: "independiente",
+        title: "Gato Independiente y Elegante",
+        description: "Aprecias la independencia felina y respetas su espacio. Buscas un compañero que sea autosuficiente pero que disfrute de tu compañía cuando tú lo decidas.",
+        icon: "Crown",
+        tips: [
+          "Gatos como British Shorthair o Russian Blue son perfectos",
+          "Proporciónale espacios altos para observar",
+          "Respeta su necesidad de espacio personal",
+          "Los gatos adultos suelen ser más independientes"
+        ],
+        recommendations: [
+          "British Shorthair: independiente pero leal",
+          "Russian Blue: elegante y reservado",
+          "Scottish Fold: tranquilo e independiente",
+          "Gatos adultos de refugios que prefieren menos manipulación"
+        ]
+      },
+      {
+        type: "jugueton",
+        title: "Gato Juguetón y Energético",
+        description: "Tu energía y amor por la diversión encajan perfectamente con un gato activo. Disfrutas de los juegos interactivos y la estimulación mental felina.",
+        icon: "Zap",
+        tips: [
+          "Invierte en muchos juguetes interactivos",
+          "Dedica tiempo diario al juego activo",
+          "Considera razas como Abisinio o Bengal",
+          "Los gatos jóvenes son naturalmente más juguetones"
+        ],
+        recommendations: [
+          "Abisinio: extremadamente activo y curioso",
+          "Bengal: energético y atlético",
+          "Siamés: juguetón y muy inteligente",
+          "Gatos jóvenes de refugios con alta energía"
+        ]
+      },
+      {
+        type: "tranquilo",
+        title: "Gato Tranquilo y Zen",
+        description: "Valoras la paz y tranquilidad. Tu estilo de vida relajado es ideal para gatos que prefieren observar el mundo desde lugares cómodos y seguros.",
+        icon: "Moon",
+        tips: [
+          "Crea espacios cómodos y soleados",
+          "Los gatos mayores suelen ser más calmados",
+          "Razas como Persa o Exotic Shorthair son ideales",
+          "Mantén rutinas predecibles y relajantes"
+        ],
+        recommendations: [
+          "Persa: tranquilo y elegante",
+          "Exotic Shorthair: calmado y de bajo mantenimiento",
+          "Chartreux: silencioso y sereno",
+          "Gatos senior de refugios que buscan hogar tranquilo"
+        ]
+      }
+    ]
+  },
+  {
+    id: "quiz-cuidado-gatos",
+    title: "¿Cuánto Sabes Sobre el Cuidado de Gatos?",
+    description: "Pon a prueba tus conocimientos sobre el cuidado felino y aprende tips importantes para mantener a tu gato saludable.",
+    image: "https://images.unsplash.com/photo-1571566882372-1598d88abd90?w=800&q=80",
+    category: "Conocimiento",
+    questions: [
+      {
+        id: 1,
+        question: "¿Con qué frecuencia debe desparasitarse un gato adulto de interior?",
+        options: [
+          { text: "Cada mes", points: { experto: 0, intermedio: 1, principiante: 0 } },
+          { text: "Cada 3-6 meses", points: { experto: 3, intermedio: 2, principiante: 1 } },
+          { text: "Una vez al año", points: { experto: 1, intermedio: 2, principiante: 3 } },
+          { text: "Solo si tiene síntomas", points: { experto: 0, intermedio: 0, principiante: 2 } }
+        ]
+      },
+      {
+        id: 2,
+        question: "¿Qué planta es extremadamente tóxica para los gatos?",
+        options: [
+          { text: "Lirios", points: { experto: 3, intermedio: 2, principiante: 1 } },
+          { text: "Rosas", points: { experto: 0, intermedio: 1, principiante: 2 } },
+          { text: "Girasoles", points: { experto: 0, intermedio: 0, principiante: 1 } },
+          { text: "Margaritas", points: { experto: 0, intermedio: 1, principiante: 2 } }
+        ]
+      },
+      {
+        id: 3,
+        question: "¿A qué edad debe esterilizarse un gato?",
+        options: [
+          { text: "2-3 meses", points: { experto: 1, intermedio: 1, principiante: 0 } },
+          { text: "4-6 meses", points: { experto: 3, intermedio: 3, principiante: 2 } },
+          { text: "1 año", points: { experto: 1, intermedio: 2, principiante: 3 } },
+          { text: "Después del primer celo", points: { experto: 0, intermedio: 1, principiante: 2 } }
+        ]
+      },
+      {
+        id: 4,
+        question: "¿Cuál es la temperatura normal de un gato?",
+        options: [
+          { text: "36-37°C", points: { experto: 0, intermedio: 1, principiante: 2 } },
+          { text: "38-39°C", points: { experto: 3, intermedio: 3, principiante: 1 } },
+          { text: "39-40°C", points: { experto: 1, intermedio: 2, principiante: 2 } },
+          { text: "37-38°C", points: { experto: 2, intermedio: 2, principiante: 3 } }
+        ]
+      },
+      {
+        id: 5,
+        question: "¿Por qué los gatos necesitan taurina en su dieta?",
+        options: [
+          { text: "Para el pelaje brillante", points: { experto: 0, intermedio: 1, principiante: 2 } },
+          { text: "Para la salud del corazón y vista", points: { experto: 3, intermedio: 2, principiante: 1 } },
+          { text: "Para tener más energía", points: { experto: 0, intermedio: 1, principiante: 2 } },
+          { text: "No es necesaria", points: { experto: 0, intermedio: 0, principiante: 1 } }
+        ]
+      }
+    ],
+    results: [
+      {
+        type: "experto",
+        title: "¡Eres un Experto en Gatos!",
+        description: "Tienes conocimientos excelentes sobre el cuidado felino. Tu gato está en muy buenas manos.",
+        icon: "Award",
+        tips: [
+          "Continúa manteniéndote actualizado con las últimas investigaciones",
+          "Considera ser voluntario en refugios de gatos",
+          "Comparte tus conocimientos con otros dueños de gatos",
+          "Mantén un botiquín felino bien equipado"
+        ],
+        recommendations: [
+          "Considera adoptar gatos con necesidades especiales",
+          "Podrías ser familia de acogida temporal",
+          "Mantente al día con nuevos productos para gatos",
+          "Considera estudiar más sobre comportamiento felino"
+        ]
+      },
+      {
+        type: "intermedio",
+        title: "Buen Conocimiento Felino",
+        description: "Tienes una base sólida de conocimientos sobre gatos. Con un poco más de información, serás un experto.",
+        icon: "Star",
+        tips: [
+          "Lee blogs especializados en comportamiento felino",
+          "Consulta regularmente con tu veterinario",
+          "Observa atentamente el comportamiento de tu gato",
+          "Únete a grupos de amantes de los gatos"
+        ],
+        recommendations: [
+          "Investiga más sobre plantas tóxicas para gatos",
+          "Aprende a reconocer señales de enfermedad",
+          "Familiarízate con emergencias comunes en gatos",
+          "Considera tomar un curso básico de primeros auxilios felinos"
+        ]
+      },
+      {
+        type: "principiante",
+        title: "Comenzando tu Viaje Felino",
+        description: "Estás en las primeras etapas de aprender sobre el cuidado de gatos. ¡Hay mucho por descubrir!",
+        icon: "BookOpen",
+        tips: [
+          "Establece una relación con un veterinario de confianza",
+          "Lee libros básicos sobre cuidado felino",
+          "No dudes en hacer preguntas a expertos",
+          "Observa y aprende de tu gato diariamente"
+        ],
+        recommendations: [
+          "Programa chequeos veterinarios regulares",
+          "Aprende sobre la alimentación adecuada para gatos",
+          "Investiga sobre el enriquecimiento ambiental",
+          "Considera tomar clases sobre cuidado de mascotas"
+        ]
+      }
+    ]
   }
 ];
 

@@ -6,6 +6,7 @@ import ReactMarkdown from "react-markdown";
 import { generateMetadata as baseGenerateMetadata } from "@/lib/metadata";
 import { SITE_CONFIG } from "@/lib/constants";
 import WhatsAppButton from "./WhatsAppButton";
+import InternalLinks from "@/components/ui/InternalLinks";
 
 interface BlogPostPageProps {
   params: { slug: string };
@@ -183,6 +184,13 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         </div>
       </section>
+
+      {/* Internal Links Estratégicos para Blog */}
+      <InternalLinks 
+        currentPage={`/blog/${post.slug}`}
+        excludeLinks={[`/blog/${post.slug}`]}
+        maxLinks={6}
+      />
 
       {/* Related Posts */}
       <section className="bg-gradient-to-b from-white to-gray-50 py-16 border-t border-gray-200">

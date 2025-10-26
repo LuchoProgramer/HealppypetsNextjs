@@ -77,6 +77,26 @@ const faqsData = [
     question: "¿Qué razas de perros y gatos atienden?",
     answer: "Atendemos todas las razas de perros y gatos, desde cachorros de 2 meses hasta mascotas senior. Tenemos experiencia especial con razas pequeñas, medianas y grandes. Cada tratamiento es personalizado según la raza y necesidades específicas.",
     category: "Razas"
+  },
+  {
+    question: "¿Tienen productos específicos para gatos en la farmacia?",
+    answer: "Sí, contamos con línea completa para felinos: desparasitantes específicos para gatos, pipetas antipulgas felinas, collares para gatos, shampoo especial pH felino, suplementos para gatos castrados, y juguetes. Todo diseñado para las necesidades específicas de los gatos.",
+    category: "Farmacia"
+  },
+  {
+    question: "¿El servicio de peluquería incluye corte para gatos?",
+    answer: "Sí, ofrecemos peluquería especializada para gatos: corte higiénico, baño con productos específicos para pH felino, corte de uñas, limpieza de oídos, y deslanado. Usamos técnicas anti-estrés especiales para gatos nerviosos. Precio desde $18 para gatos.",
+    category: "Grooming"
+  },
+  {
+    question: "¿Cuál es la diferencia entre vacunas para perros y gatos?",
+    answer: "Los gatos reciben vacuna triple felina (rinotraqueitis, calicivirus, panleucopenia), antirrábica, y opcionalmente leucemia felina y clamidia. Los perros reciben vacuna múltiple (distemper, hepatitis, parainfluenza, parvovirus), antirrábica, y opcionalmente bordetella. Cada especie tiene calendario específico.",
+    category: "Vacunación"
+  },
+  {
+    question: "¿Los gatos de interior necesitan desparasitación?",
+    answer: "Sí, los gatos de interior también necesitan desparasitación. Pueden contraer parásitos a través de: zapatos contaminados, otros animales, insectos que entran a casa, y alimentos. Recomendamos desparasitación interna cada 6 meses para gatos de interior y cada 3 meses para gatos de exterior.",
+    category: "Desparasitación"
   }
 ];
 

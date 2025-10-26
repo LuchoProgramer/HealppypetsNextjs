@@ -13,6 +13,7 @@ import { FAQ } from "@/lib/constants";
 import { useState } from "react";
 import Link from "next/link";
 import { Check, Clock, Star, ArrowRight } from "lucide-react";
+import InternalLinks from "@/components/ui/InternalLinks";
 
 export default function GroomingLandingClient() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
@@ -240,6 +241,13 @@ export default function GroomingLandingClient() {
             <ArrowRight className="w-5 h-5" />
           </a>
         </section>
+        
+        {/* Internal Links Estratégicos para Grooming */}
+        <InternalLinks 
+          currentPage="/grooming"
+          excludeLinks={['/grooming']}
+          maxLinks={6}
+        />
       </div>
     </div>
   );

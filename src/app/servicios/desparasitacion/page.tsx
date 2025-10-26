@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import InternalLinks from '@/components/ui/InternalLinks';
 
 export const metadata: Metadata = {
   title: 'Desparasitación de Mascotas en Carcelén - HealppyPets',
@@ -10,9 +11,13 @@ export const metadata: Metadata = {
     'desparasitación interna Carcelén',
     'desparasitación externa Carcelén',
     'desparasitante para perros Carcelén',
+    'desparasitante para gatos Carcelén',
     'pipetas antipulgas Carcelén',
+    'pipetas para gatos Carcelén',
+    'collar antipulgas gatos Carcelén',
     'tratamiento parásitos mascotas Carcelén',
-    'desparasitación precio Carcelén'
+    'desparasitación precio Carcelén',
+    'desparasitación gatos precio Carcelén'
   ],
   openGraph: {
     title: 'Desparasitación de Mascotas en Carcelén | HealppyPets',
@@ -70,11 +75,11 @@ export default function DesparasitacionPage() {
         <section className="relative pt-20 pb-16 px-4">
           <div className="max-w-6xl mx-auto text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-orange-800 mb-6">
-              Desparasitación de Mascotas en Carcelén
+              Desparasitación de Perros y Gatos en Carcelén
             </h1>
             <p className="text-xl md:text-2xl text-gray-700 mb-8 max-w-4xl mx-auto">
               Protege a tu perro o gato de parásitos internos y externos. 
-              Tratamiento especializado en Carcelén con productos de calidad.
+              Tratamiento especializado en Carcelén con productos específicos para cada especie.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a 
@@ -165,6 +170,78 @@ export default function DesparasitacionPage() {
                     </div>
                   </li>
                 </ul>
+              </div>
+            </div>
+
+            {/* Sección específica para gatos */}
+            <div className="mt-12">
+              <h3 className="text-2xl font-bold text-center text-gray-800 mb-8">
+                Parásitos Específicos en Gatos - Carcelén
+              </h3>
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="bg-purple-50 p-8 rounded-xl">
+                  <h4 className="text-xl font-bold text-purple-800 mb-6">
+                    Parásitos Internos Felinos
+                  </h4>
+                  <ul className="space-y-4">
+                    <li className="flex items-start">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3"></div>
+                      <div>
+                        <strong>Toxoplasma:</strong> Especialmente importante en gatos
+                      </div>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3"></div>
+                      <div>
+                        <strong>Bolas de pelo con parásitos:</strong> Tratamiento específico
+                      </div>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3"></div>
+                      <div>
+                        <strong>Isospora felina:</strong> Coccidios específicos de gatos
+                      </div>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3"></div>
+                      <div>
+                        <strong>Diphyllobothrium:</strong> Por consumo de pescado crudo
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="bg-pink-50 p-8 rounded-xl">
+                  <h4 className="text-xl font-bold text-pink-800 mb-6">
+                    Parásitos Externos Felinos
+                  </h4>
+                  <ul className="space-y-4">
+                    <li className="flex items-start">
+                      <div className="w-2 h-2 bg-pink-500 rounded-full mt-2 mr-3"></div>
+                      <div>
+                        <strong>Pulgas Ctenocephalides felis:</strong> Específicas de gatos
+                      </div>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-2 h-2 bg-pink-500 rounded-full mt-2 mr-3"></div>
+                      <div>
+                        <strong>Ácaros de oreja felinos:</strong> Otodectes cynotis
+                      </div>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-2 h-2 bg-pink-500 rounded-full mt-2 mr-3"></div>
+                      <div>
+                        <strong>Cheyletiella blakei:</strong> "Caspa caminante" felina
+                      </div>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-2 h-2 bg-pink-500 rounded-full mt-2 mr-3"></div>
+                      <div>
+                        <strong>Notoedres cati:</strong> Sarna específica de gatos
+                      </div>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -436,6 +513,13 @@ export default function DesparasitacionPage() {
             </div>
           </div>
         </section>
+        
+        {/* Internal Links Estratégicos */}
+        <InternalLinks 
+          currentPage="/servicios/desparasitacion"
+          excludeLinks={['/servicios/desparasitacion']}
+          maxLinks={6}
+        />
       </div>
     </>
   );

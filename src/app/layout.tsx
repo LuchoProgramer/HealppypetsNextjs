@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import { getLocalBusinessJsonLd, getWebsiteJsonLd } from "@/lib/schema";
 
 const inter = Inter({ 
@@ -139,6 +140,7 @@ export default function RootLayout({
         </noscript>
 
         <Header />
+        <Breadcrumbs />
         <main className="min-h-screen pb-16 lg:pb-0">
           {children}
         </main>

@@ -14,7 +14,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Páginas de servicios específicos para dominar keywords locales
   const especializedServicePages = [
     '/servicios/vacunas',
-    '/servicios/desparasitacion'
+    '/servicios/desparasitacion',
+    '/servicios/gatos',  // Nueva página específica para gatos
+    '/contacto/gatos'    // Página de contacto especializada para gatos
   ].map((route) => ({
     url: `${SITE_CONFIG.url}${route}`,
     lastModified: new Date(),

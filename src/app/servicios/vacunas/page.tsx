@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import InternalLinks from '@/components/ui/InternalLinks';
 
 export const metadata: Metadata = {
   title: 'Vacunas para Mascotas en Carcelén - HealppyPets',
@@ -9,9 +10,13 @@ export const metadata: Metadata = {
     'vacunas para gatos Carcelén',
     'vacunación antirrábica Carcelén',
     'vacuna múltiple perros Carcelén',
+    'vacuna triple felina Carcelén',
     'plan vacunación cachorros Carcelén',
+    'plan vacunación gatitos Carcelén',
     'calendario vacunación mascotas Quito',
-    'vacunas baratas Carcelén'
+    'vacunas baratas Carcelén',
+    'vacunación gatos precio Carcelén',
+    'veterinario para gatos Carcelén'
   ],
   openGraph: {
     title: 'Vacunas para Mascotas en Carcelén | HealppyPets',
@@ -69,11 +74,11 @@ export default function VacunasPage() {
         <section className="relative pt-20 pb-16 px-4">
           <div className="max-w-6xl mx-auto text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-green-800 mb-6">
-              Vacunas para Mascotas en Carcelén
+              Vacunas para Perros y Gatos en Carcelén
             </h1>
             <p className="text-xl md:text-2xl text-gray-700 mb-8 max-w-4xl mx-auto">
               Protege a tu perro o gato con nuestro plan completo de vacunación. 
-              Centro especializado en Carcelén con precios especiales.
+              Centro especializado en Carcelén con precios especiales para todas las mascotas.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a 
@@ -163,7 +168,60 @@ export default function VacunasPage() {
                       <strong>Vacuna Clamidia:</strong> Protección respiratoria adicional
                     </div>
                   </li>
+                  <li className="flex items-start">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3"></div>
+                    <div>
+                      <strong>Vacuna PIF:</strong> Contra peritonitis infecciosa felina (recomendada)
+                    </div>
+                  </li>
                 </ul>
+              </div>
+            </div>
+
+            {/* Sección específica para gatos */}
+            <div className="mt-12">
+              <h3 className="text-2xl font-bold text-center text-gray-800 mb-8">
+                ¿Por qué es importante vacunar a tu gato en Carcelén?
+              </h3>
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="bg-purple-50 p-6 rounded-xl">
+                  <h4 className="text-xl font-bold text-purple-800 mb-4">
+                    Gatos de Interior
+                  </h4>
+                  <ul className="space-y-3">
+                    <li className="flex items-start">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3"></div>
+                      <span>Vacuna triple felina obligatoria</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3"></div>
+                      <span>Antirrábica requerida por ley</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3"></div>
+                      <span>Protección contra virus aerotransportados</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="bg-orange-50 p-6 rounded-xl">
+                  <h4 className="text-xl font-bold text-orange-800 mb-4">
+                    Gatos de Exterior
+                  </h4>
+                  <ul className="space-y-3">
+                    <li className="flex items-start">
+                      <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3"></div>
+                      <span>Plan completo + leucemia felina</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3"></div>
+                      <span>Refuerzos cada 6 meses</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3"></div>
+                      <span>Vacuna clamidia recomendada</span>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -315,6 +373,13 @@ export default function VacunasPage() {
             </div>
           </div>
         </section>
+        
+        {/* Internal Links Estratégicos */}
+        <InternalLinks 
+          currentPage="/servicios/vacunas"
+          excludeLinks={['/servicios/vacunas']}
+          maxLinks={6}
+        />
       </div>
     </>
   );
