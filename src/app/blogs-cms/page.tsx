@@ -26,7 +26,7 @@ export default function BlogsCMSPage() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL || 'pukapresscms.vercel.app';
+        const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL || 'https://pukapresscms.vercel.app';
         const TENANT_ID = process.env.NEXT_PUBLIC_CMS_TENANT_ID || 'EdLQ4SMjykM2kZoJ6iSK';
         
         console.log('Fetching blogs from:', `${CMS_URL}/api/blogs?tenant=${TENANT_ID}`);
