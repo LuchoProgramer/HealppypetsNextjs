@@ -7,66 +7,78 @@ declare global {
   }
 }
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Search, Calendar, Clock, Tag, ArrowRight } from "lucide-react";
-
-const BLOG_POSTS = [
-  {
-    slug: "importancia-alimentacion-mascotas",
-    title: "La Importancia de la Alimentación en Nuestras Mascotas",
-    excerpt: "Una dieta balanceada es fundamental para la salud y bienestar de tu mascota.",
-    category: "Nutrición",
-    date: "2024-10-01",
-    readTime: 8,
-    featured: true,
-    image: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&q=80",
-    tags: ["nutrición", "salud", "alimentación"]
-  },
-  {
-    slug: "guia-grooming-basico-casa",
-    title: "Guía de Grooming Básico en Casa",
-    excerpt: "Aprende a mantener a tu mascota limpia y hermosa entre visitas al veterinario.",
-    category: "Cuidados",
-    date: "2024-09-15",
-    readTime: 6,
-    featured: true,
-    image: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=800&q=80",
-    tags: ["grooming", "cuidados", "higiene"]
-  },
-  {
-    slug: "calendario-vacunacion-perros",
-    title: "Calendario de Vacunación para Perros",
-    excerpt: "Mantén a tu perro protegido con este calendario completo de vacunación.",
-    category: "Salud",
-    date: "2024-09-28",
-    readTime: 7,
-    image: "https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=800&q=80",
-    tags: ["vacunación", "salud", "prevención"]
-  },
-  {
-    slug: "senales-estres-mascotas",
-    title: "Señales de Estrés en tu Mascota",
-    excerpt: "Aprende a identificar cuándo tu mascota está estresada y cómo ayudarla.",
-    category: "Consejos",
-    date: "2024-10-10",
-    readTime: 9,
-    image: "https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800&q=80",
-    tags: ["comportamiento", "bienestar", "cuidados"]
-  }
-];
-
-const CATEGORIES = ["Nutrición", "Cuidados", "Salud", "Consejos"];
+import { Search, Calendar, Clock, Tag, ArrowRight, Loader2 } from "lucide-react";
+import { getAllPosts, getAvailableCategories } from "@/data/hybrid-blog-posts";
+import { BlogPost } from "@/data/blog-posts";
 
 export default function BlogPage() {
-  const [selectedCategory, setSelectedCategory] = useState("Nutrición");
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const filteredPosts = BLOG_POSTS.filter(post => {
-    const matchesCategory = post.category === selectedCategory;
-    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase());
+  // Cargar datos iniciales
+  useEffect(() => {
+    async function loadData() {
+      try {
+        setLoading(true);
+        const [allPosts, availableCategories] = await Promise.all([
+          getAllPosts(),
+          getAvailableCategories()
+        ]);
+        
+        setPosts(allPosts);
+        setCategories(['Todos', ...availableCategories]);
+        setError(null);
+      } catch (err) {
+        console.error('Error loading blog data:', err);
+        setError('Error cargando los artículos. Inténtalo de nuevo más tarde.');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadData();
+  }, []);
+
+  // Filtrar posts
+  const filteredPosts = posts.filter(post => {
+    const matchesCategory = selectedCategory === "Todos" || post.category === selectedCategory;
+    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-[#F2C2EA]" />
+          <p className="text-gray-600">Cargando artículos...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-600 mb-4">{error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="px-4 py-2 bg-[#F2C2EA] text-gray-900 rounded-lg hover:bg-[#F2C9E7] transition-colors"
+          >
+            Reintentar
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -112,7 +124,7 @@ export default function BlogPage() {
 
         {/* Category Filter */}
         <div className="flex flex-wrap justify-center gap-3 mb-12">
-          {CATEGORIES.map((category) => (
+          {categories.map((category: string) => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
@@ -123,19 +135,27 @@ export default function BlogPage() {
               }`}
             >
               {category}
+              {category === 'CMS' && (
+                <span className="ml-2 text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                  En vivo
+                </span>
+              )}
             </button>
           ))}
         </div>
 
         {/* Blog Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredPosts.map((post) => (
+          {filteredPosts.map((post: BlogPost) => (
             <Link key={post.slug} href={`/blog/${post.slug}`}
               onClick={() => {
                 if (typeof window !== 'undefined' && window.gtag) {
                   window.gtag('event', 'blog_click_leer_mas', {
                     event_category: 'blog',
                     event_label: post.title,
+                    custom_parameters: {
+                      source: post.isCMSPost ? 'cms' : 'static'
+                    }
                   });
                 }
               }}
@@ -154,6 +174,13 @@ export default function BlogPage() {
                       {post.category}
                     </span>
                   </div>
+                  {post.isCMSPost && (
+                    <div className="absolute top-4 right-4">
+                      <span className="inline-block bg-green-500/90 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs font-semibold">
+                        🔴 EN VIVO
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Content */}
@@ -180,7 +207,7 @@ export default function BlogPage() {
 
                   {/* Tags */}
                   <div className="flex flex-wrap gap-2 mt-4">
-                    {post.tags.slice(0, 2).map((tag) => (
+                    {post.tags.slice(0, 2).map((tag: string) => (
                       <span key={tag} className="text-xs bg-[#F2DFED] text-gray-800 px-2 py-1 rounded-full">
                         {tag}
                       </span>

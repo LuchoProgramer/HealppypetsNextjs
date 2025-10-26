@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Calendar, Clock, Tag, ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
-import { getPostBySlug, getRelatedPosts } from "@/data/blog-posts";
+import { getPostBySlugHybrid, getRelatedPostsHybrid } from "@/data/hybrid-blog-posts";
 import ReactMarkdown from "react-markdown";
 import { generateMetadata as baseGenerateMetadata } from "@/lib/metadata";
 import { SITE_CONFIG } from "@/lib/constants";
@@ -14,7 +14,7 @@ interface BlogPostPageProps {
 
 // Generar metadatos dinámicos para SEO (Server Component)
 export async function generateMetadata({ params }: BlogPostPageProps) {
-  const post = getPostBySlug(params.slug);
+  const post = await getPostBySlugHybrid(params.slug);
   
   if (!post) {
     return {
@@ -32,10 +32,11 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   });
 }
 
-export default function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = getPostBySlug(params.slug);
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const post = await getPostBySlugHybrid(params.slug);
   if (!post) return notFound();
-  const relatedPosts = getRelatedPosts(post.slug, 3);
+  
+  const relatedPosts = await getRelatedPostsHybrid(post.slug, 3);
 
   // Schema.org para artículos
   const articleSchema = {
@@ -154,7 +155,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           <div className="mb-12 pb-12 border-t border-gray-200">
             <p className="text-sm font-semibold text-gray-700 mb-3">Etiquetas:</p>
             <div className="flex flex-wrap gap-2">
-              {post.tags.map((tag) => (
+              {post.tags.map((tag: string) => (
                 <span
                   key={tag}
                   className="inline-flex items-center bg-[#F2DFED] text-gray-800 px-4 py-2 rounded-full text-sm font-medium hover:bg-[#F2C2EA]/30 transition-colors"
@@ -200,7 +201,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           </h2>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {relatedPosts.map((relatedPost) => (
+            {relatedPosts.map((relatedPost: any) => (
               <Link key={relatedPost.slug} href={`/blog/${relatedPost.slug}`}>
                 <article className="bg-white rounded-2xl overflow-hidden shadow-lg group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full border border-gray-100">
                   <div className="relative h-40 overflow-hidden">
@@ -209,6 +210,13 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                       alt={relatedPost.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
+                    {relatedPost.isCMSPost && (
+                      <div className="absolute top-2 right-2">
+                        <span className="inline-block bg-green-500/90 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs font-semibold">
+                          🔴 CMS
+                        </span>
+                      </div>
+                    )}
                   </div>
                   <div className="p-6">
                     <span className="inline-block bg-[#F2C9E7]/20 text-[#F2C2EA] px-3 py-1 rounded-full text-xs font-semibold mb-3 border border-[#F2C9E7]/30">

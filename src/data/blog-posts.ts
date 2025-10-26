@@ -16,6 +16,7 @@ export interface BlogPost {
   readTime: number;
   tags: string[];
   featured?: boolean;
+  isCMSPost?: boolean; // Flag para identificar posts del CMS
 }
 
 export const BLOG_POSTS: BlogPost[] = [
