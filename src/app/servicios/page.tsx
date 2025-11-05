@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import Image from 'next/image';
+import ImageWithFallback from '@/components/ui/ImageWithFallback';
 import { SITE_CONFIG } from '@/lib/constants';
 
 export const metadata: Metadata = {
@@ -126,14 +126,11 @@ export default function ServicesPage() {
                   className="group block bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                 >
                   <div className="relative h-56">
-                    <Image
+                    <ImageWithFallback
                       src={service.image}
                       alt={service.title}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-700"
-                      onError={(e: any) => {
-                        e.target.src = '/images/fallback-service.jpg';
-                      }}
                     />
                     {/* Price Badge */}
                     <div className="absolute top-4 right-4 bg-white px-4 py-2 rounded-full shadow-lg transform -rotate-2 group-hover:rotate-0 transition-transform">

@@ -20,14 +20,14 @@ export default function TerminosPage() {
   const lastUpdate = '5 de noviembre de 2025';
 
   return (
-    <div className="min-h-screen bg-gray-50 py-16 px-4">
-      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm p-8">
+    <div className="py-16 px-4">
+      <div className="max-w-4xl mx-auto bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm p-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">
           Términos y Condiciones
         </h1>
         
         <div className="prose prose-slate max-w-none">
-          <p className="text-sm text-gray-500 mb-8">
+          <p className="text-sm text-gray-600 mb-8">
             Última actualización: {lastUpdate}
           </p>
 
