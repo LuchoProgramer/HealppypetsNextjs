@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import InternalLinks from '@/components/ui/InternalLinks';
+import { SITE_CONFIG } from '@/lib/constants';
 
 export const metadata: Metadata = {
   title: 'Vacunas para Mascotas en Carcelén - HealppyPets',
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
     description: 'Vacunación completa para perros y gatos en Carcelén con precios especiales.',
   },
   alternates: {
-    canonical: '/servicios/vacunas',
+    canonical: 'https://www.healppypets.com/servicios/vacunas',
   },
 };
 
@@ -82,7 +83,7 @@ export default function VacunasPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a 
-                href="https://wa.me/593984147653?text=Hola!%20Quiero%20información%20sobre%20vacunas%20para%20mi%20mascota"
+                href={`https://wa.me/${SITE_CONFIG.whatsapp}?text=Hola!%20Quiero%20información%20sobre%20vacunas%20para%20mi%20mascota`}
                 className="bg-green-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-700 transition-colors"
               >
                 Agendar Vacunación WhatsApp
@@ -305,7 +306,7 @@ export default function VacunasPage() {
             </div>
             <div className="mt-8">
               <a 
-                href="https://wa.me/593984147653?text=Hola!%20Quiero%20agendar%20vacunas%20para%20mi%20mascota%20en%20Carcelén"
+                href={`https://wa.me/${SITE_CONFIG.whatsapp}?text=Hola!%20Quiero%20agendar%20vacunas%20para%20mi%20mascota%20en%20Carcelén`}
                 className="bg-white text-green-600 px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition-colors inline-block"
               >
                 Agendar Cita para Vacunas - WhatsApp
@@ -353,17 +354,20 @@ export default function VacunasPage() {
                   Ubicación y Contacto
                 </h4>
                 <p className="text-gray-600 mb-2">
-                  <strong>Dirección:</strong> Sector Carcelén, Quito
+                  <strong>Dirección:</strong> {SITE_CONFIG.address.full}
                 </p>
                 <p className="text-gray-600 mb-2">
-                  <strong>WhatsApp:</strong> +593 98 414 7653
+                  <strong>WhatsApp:</strong> {SITE_CONFIG.phoneInternational}
                 </p>
                 <p className="text-gray-600 mb-4">
-                  <strong>Horarios:</strong> Mar-Sáb 9:00 AM - 1:00 PM, 3:00 PM - 6:00 PM
+                  <strong>Horarios:</strong> {SITE_CONFIG.businessHours.weekdays}
+                </p>
+                <p className="text-gray-600 mb-4 text-sm">
+                  <strong>Domingos:</strong> {SITE_CONFIG.businessHours.weekend}
                 </p>
                 <div className="text-center">
                   <a 
-                    href="https://wa.me/593984147653?text=Hola!%20Quiero%20información%20sobre%20vacunas%20en%20Carcelén"
+                    href={`https://wa.me/${SITE_CONFIG.whatsapp}?text=Hola!%20Quiero%20información%20sobre%20vacunas%20en%20Carcelén`}
                     className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors inline-block"
                   >
                     Contactar Ahora

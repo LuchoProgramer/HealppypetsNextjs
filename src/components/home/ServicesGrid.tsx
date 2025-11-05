@@ -11,6 +11,14 @@ import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { SITE_CONFIG, SERVICES, ServiceType } from "@/lib/constants";
 
+type Service = {
+  title: string;
+  description: string;
+  image: string;
+  href: string;
+  price: string;
+};
+
 export default function ServicesSection() {
   const [activeService, setActiveService] = useState<string | null>(null);
   const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
