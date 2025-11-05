@@ -1,43 +1,51 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  const url = request.nextUrl.clone()
-  const hostname = request.headers.get('host') || ''
-  const isProd = process.env.NODE_ENV === 'production'
+  const hostname = request.headers.get('host') || '';
+  const isProd = process.env.NODE_ENV === 'production';
   
   // Solo aplicar en producción
-  if (!isProd) return NextResponse.next()
+  if (!isProd) return NextResponse.next();
 
-  // Verificar si es HTTP
+  // 1. Redirigir de HTTP a HTTPS
   if (request.headers.get("x-forwarded-proto") !== "https") {
     return NextResponse.redirect(
       `https://www.healppypets.com${request.nextUrl.pathname}${request.nextUrl.search}`,
       301
-    )
+    );
   }
 
-  // Redirigir de healppypets.com a www.healppypets.com
+  // 2. Redirigir de healppypets.com a www.healppypets.com
   if (hostname === 'healppypets.com') {
     return NextResponse.redirect(
       `https://www.healppypets.com${request.nextUrl.pathname}${request.nextUrl.search}`,
       301
-    )
+    );
   }
 
-  return NextResponse.next()
+  // 3. Redirigir URL con error de escritura
+  if (request.nextUrl.pathname === '/blog/importancia-de-alimetacion-en-mascotas') {
+    return NextResponse.redirect(
+      'https://www.healppypets.com/blog/importancia-alimentacion-mascotas',
+      301
+    );
+  }
+
+  // 4. Redirigir URLs antiguas de Netlify
+  if (hostname === 'healppypets.netlify.app') {
+    return NextResponse.redirect(
+      `https://www.healppypets.com${request.nextUrl.pathname}${request.nextUrl.search}`,
+      301
+    );
+  }
+
+  return NextResponse.next();
 }
 
-// Configurar el middleware para que se ejecute en todas las rutas
+// Configurar el middleware para que se ejecute en todas las rutas excepto recursos estáticos
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
     '/((?!api|_next/static|_next/image|favicon.ico).*)',
   ],
-}
+};

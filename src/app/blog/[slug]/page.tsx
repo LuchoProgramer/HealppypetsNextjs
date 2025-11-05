@@ -34,7 +34,11 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const post = await getPostBySlugHybrid(params.slug);
-  if (!post) return notFound();
+  if (!post) {
+    // Log para monitoreo
+    console.error(`Post not found: ${params.slug}`);
+    return notFound();
+  }
   
   const relatedPosts = await getRelatedPostsHybrid(post.slug, 3);
 
