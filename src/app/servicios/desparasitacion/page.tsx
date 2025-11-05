@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     description: 'Desparasitación completa para perros y gatos en Carcelén con precios especiales.',
   },
   alternates: {
-    canonical: '/servicios/desparasitacion',
+    canonical: 'https://www.healppypets.com/servicios/desparasitacion',
   },
 };
 

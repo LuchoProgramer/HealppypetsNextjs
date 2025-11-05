@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     description: 'Atención veterinaria especializada para felinos en Carcelén.',
   },
   alternates: {
-    canonical: '/servicios/gatos',
+    canonical: 'https://www.healppypets.com/servicios/gatos',
   },
 };
 

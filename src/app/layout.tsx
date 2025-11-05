@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   publisher: "HealppyPets",
   metadataBase: new URL('https://www.healppypets.com'),
   alternates: {
-    canonical: '/',
+    canonical: 'https://www.healppypets.com',
   },
   openGraph: {
     title: "HealppyPets - Veterinaria en Carcelén, Quito",
