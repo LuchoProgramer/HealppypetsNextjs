@@ -16,9 +16,11 @@ export async function GET() {
     // In development/staging or when explicitly disabled, block everything by default
     lines.push('Disallow: /');
   } else {
-    // Production defaults: allow everything, but block obvious internals
-    lines.push('Disallow:');
-    lines.push('Crawl-delay: 1');
+  // Production defaults: allow everything, but block obvious internals
+  // Note: 'Crawl-delay' is ignored by Googlebot and can cause warnings in Search Console.
+  // Do not include Crawl-delay for Google. If you need to limit crawl rate, use server-side
+  // rate limiting or control via Search Console (limited availability) instead.
+  lines.push('Disallow:');
     lines.push('Disallow: /api/private*');
     lines.push('Disallow: /api/admin*');
     lines.push('Disallow: /_next/*');
