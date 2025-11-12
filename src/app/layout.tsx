@@ -90,6 +90,8 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
         {/* Google Search Console Verification */}
         <meta name="google-site-verification" content="c7a222bfc56de06a" />
+        {/* Facebook Domain Verification */}
+        <meta name="facebook-domain-verification" content="7l6itvdex3884iiruww5712upflxv" />
         {/* Google Analytics */}
         <Script
           strategy="afterInteractive"
