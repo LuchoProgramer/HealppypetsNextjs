@@ -8,13 +8,13 @@ import WhatsAppButton from "@/components/layout/WhatsAppButton";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import { getLocalBusinessJsonLd, getWebsiteJsonLd } from "@/lib/schema";
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ["latin"],
   variable: '--font-inter',
   display: 'swap',
 });
 
-const poppins = Poppins({ 
+const poppins = Poppins({
   subsets: ["latin"],
   weight: ['400', '500', '600', '700', '800'],
   variable: '--font-poppins',
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     siteName: 'HealppyPets',
     images: [
       {
-        url: '/images/og-image.jpg',
+        url: '/og-image.png.png',
         width: 1200,
         height: 630,
         alt: 'HealppyPets - Veterinaria en Carcelén, Quito',
@@ -55,7 +55,22 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "HealppyPets - Veterinaria en Carcelén, Quito",
     description: "Servicios veterinarios profesionales para tu mascota",
-    images: ['/images/og-image.jpg'],
+    images: ['/og-image.png.png'],
+  },
+  icons: {
+    icon: [
+      { url: '/Logo-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/Logo32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/Logo-48x48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/Logo-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/Logo-512x512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/Logo-180x180.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      { rel: 'manifest', url: '/site.webmanifest' },
+    ],
   },
   robots: {
     index: true,
@@ -81,13 +96,6 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${inter.variable} ${poppins.variable}`}>
       <head>
-        <link rel="icon" type="image/png" sizes="16x16" href="/Logo-16x16.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/Logo32x32.png" />
-        <link rel="icon" type="image/png" sizes="48x48" href="/Logo-48x48.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/Logo-180x180.png" />
-        <link rel="icon" type="image/png" sizes="192x192" href="/Logo-192x192.png" />
-        <link rel="icon" type="image/png" sizes="512x512" href="/Logo-512x512.png" />
-        <link rel="manifest" href="/site.webmanifest" />
         {/* Google Search Console Verification */}
         <meta name="google-site-verification" content="c7a222bfc56de06a" />
         {/* Facebook Domain Verification */}

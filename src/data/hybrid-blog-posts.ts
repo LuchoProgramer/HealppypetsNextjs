@@ -44,6 +44,8 @@ export async function getPostBySlugHybrid(slug: string): Promise<BlogPost | null
   // Si es un post del CMS (comienza con 'cms-')
   if (slug.startsWith('cms-')) {
     try {
+      const decodedSlug = decodeURIComponent(slug);
+
       // FIX: No podemos asumir que el slug contiene el ID directamente si usamos slugs personalizados
       // En lugar de getBlogById, necesitamos buscar el post que tenga ese slug
 
@@ -53,7 +55,7 @@ export async function getPostBySlugHybrid(slug: string): Promise<BlogPost | null
       // 2. Buscar el post que coincida con el slug generado
       // El slug en la URL es 'cms-titulo-del-post'
       // El slug en el CMS es 'titulo-del-post'
-      const targetSlug = slug.replace('cms-', '');
+      const targetSlug = decodedSlug.replace('cms-', '');
 
       const foundPost = allCmsPosts.blogs.find(post => {
         // Opción A: El slug coincide exactamente con el slug del CMS
@@ -71,14 +73,14 @@ export async function getPostBySlugHybrid(slug: string): Promise<BlogPost | null
       // Si no encontramos por coincidencia de lista, intentamos fallback por ID si el slug fuera un ID
       // (Para compatibilidad con enlaces viejos si los hubiera)
       try {
-        const idFallback = slug.replace('cms-', '');
+        const idFallback = decodedSlug.replace('cms-', '');
         const postById = await cmsClient.getBlogById(idFallback);
         return cmsClient.convertCMSPostToHealppyFormat(postById);
       } catch (e) {
         // Ignorar error de fallback
       }
 
-      console.warn(`CMS Post not found for slug: ${slug}`);
+      console.warn(`CMS Post not found for slug: ${decodedSlug}`);
       return null;
 
     } catch (error) {

@@ -93,8 +93,22 @@ class HealppyPetsCMSClient {
     // Asumimos que healppypets maneja HTML en 'content' o lo convertimos
     const content = this.convertBlocksToHTML(cmsPost.blocks);
 
-    // Slug: Preferir el slug del CMS, sino generar uno
-    const slug = cmsPost.slug || this.generateSlug(cmsPost.title);
+    // Titulo: Fallback seguro
+    const title = cmsPost.title || "Sin Título";
+
+    // Slug: Preferir el slug del CMS, sino generar uno del título, sino usar ID
+    let rawSlug = cmsPost.slug;
+    if (!rawSlug && title) {
+      if (title !== "Sin Título") {
+        rawSlug = this.generateSlug(title);
+      }
+    }
+    // Último recurso: usar el ID si todo lo demás falla
+    if (!rawSlug) {
+      rawSlug = cmsPost.id;
+    }
+
+    const slug = rawSlug; // Ya no prefijamos con 'cms-' aquí si el rawSlug ya viene bien, pero mantenemos consistencia con tu lógica anterior
 
     // Extracto: Usar metaDescription o generar del contenido
     const excerpt = cmsPost.metaDescription || this.extractExcerpt(content);
@@ -111,10 +125,13 @@ class HealppyPetsCMSClient {
     // Fecha
     const date = cmsPost.publishDate || cmsPost.createdAt;
 
+    // Asegurar prefijo cms- solo si no lo tiene (opcional, pero mantenemos tu lógica estricta)
+    const finalSlug = slug.startsWith('cms-') ? slug : `cms-${slug}`;
+
     return {
-      slug: `cms-${slug}`, // Mantenemos prefijo para evitar colisiones idénticas, o úsalo directo si prefieres
+      slug: finalSlug,
       originalSlug: slug,
-      title: cmsPost.title,
+      title: title,
       excerpt,
       content,
       category: cmsPost.category || "Consejos",
@@ -146,13 +163,22 @@ class HealppyPetsCMSClient {
         case 'text':
           return `<div class="cms-text">${block.content || ''}</div>`;
         case 'image':
-          return `<figure class="cms-image"><img src="${block.src}" alt="${block.alt || 'Imagen del blog'}" class="img-fluid rounded my-4" /></figure>`;
+          // @ts-ignore - Handle potential API inconsistency
+          const imgSrc = block.src || block.url;
+          return `<figure class="cms-image"><img src="${imgSrc}" alt="${block.alt || 'Imagen del blog'}" class="img-fluid rounded my-4" /></figure>`;
         case 'video':
-          if (block.src?.includes('tiktok')) {
-            const videoId = block.src.split('/video/')[1];
-            return `<blockquote class="tiktok-embed" cite="${block.src}" data-video-id="${videoId}" style="max-width: 605px;min-width: 325px;"><section><a target="_blank" href="${block.src}">Ver en TikTok</a></section></blockquote>`;
+          // @ts-ignore - Handle potential API inconsistency
+          const videoUrl = block.src || block.url;
+          if (videoUrl?.includes('tiktok')) {
+            const videoIdMatch = videoUrl.match(/video\/(\d+)/i);
+            const videoId = videoIdMatch ? videoIdMatch[1] : '';
+            if (!videoId) return '';
+            return `<blockquote class="tiktok-embed" cite="${videoUrl}" data-video-id="${videoId}" style="max-width: 605px;min-width: 325px;"><section><a target="_blank" href="${videoUrl}">Ver en TikTok</a></section></blockquote>`;
           }
-          return `<div class="ratio ratio-16x9 my-4"><iframe src="${block.src}" allowfullscreen></iframe></div>`;
+          if (videoUrl) {
+            return `<div class="ratio ratio-16x9 my-4"><iframe src="${videoUrl}" allowfullscreen></iframe></div>`;
+          }
+          return '';
         default:
           return '';
       }

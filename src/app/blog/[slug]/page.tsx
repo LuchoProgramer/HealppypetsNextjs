@@ -213,38 +213,44 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </h2>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {relatedPosts.map((relatedPost: any) => (
-              <Link key={relatedPost.slug} href={`/blog/${relatedPost.slug}`}>
-                <article className="bg-white rounded-2xl overflow-hidden shadow-lg group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full border border-gray-100">
-                  <div className="relative h-40 overflow-hidden">
-                    <img
-                      src={relatedPost.image}
-                      alt={relatedPost.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                    {relatedPost.isCMSPost && (
-                      <div className="absolute top-2 right-2">
-                        <span className="inline-block bg-green-500/90 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs font-semibold">
-                          🔴 CMS
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-6">
-                    <span className="inline-block bg-[#F2C9E7]/20 text-[#F2C2EA] px-3 py-1 rounded-full text-xs font-semibold mb-3 border border-[#F2C9E7]/30">
-                      {relatedPost.category}
-                    </span>
-                    <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-[#F2C2EA] transition-colors line-clamp-2">
-                      {relatedPost.title}
-                    </h3>
-                    <div className="flex items-center text-sm text-gray-500">
-                      <Clock className="w-4 h-4 mr-1" />
-                      {relatedPost.readTime} min
+            {relatedPosts.map((relatedPost: any) => {
+              if (!relatedPost.slug) {
+                console.warn('Post relacionado sin slug detectado:', relatedPost);
+                return null;
+              }
+              return (
+                <Link key={relatedPost.slug} href={`/blog/${relatedPost.slug}`}>
+                  <article className="bg-white rounded-2xl overflow-hidden shadow-lg group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full border border-gray-100">
+                    <div className="relative h-40 overflow-hidden">
+                      <img
+                        src={relatedPost.image}
+                        alt={relatedPost.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                      {relatedPost.isCMSPost && (
+                        <div className="absolute top-2 right-2">
+                          <span className="inline-block bg-green-500/90 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs font-semibold">
+                            🔴 CMS
+                          </span>
+                        </div>
+                      )}
                     </div>
-                  </div>
-                </article>
-              </Link>
-            ))}
+                    <div className="p-6">
+                      <span className="inline-block bg-[#F2C9E7]/20 text-[#F2C2EA] px-3 py-1 rounded-full text-xs font-semibold mb-3 border border-[#F2C9E7]/30">
+                        {relatedPost.category}
+                      </span>
+                      <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-[#F2C2EA] transition-colors line-clamp-2">
+                        {relatedPost.title}
+                      </h3>
+                      <div className="flex items-center text-sm text-gray-500">
+                        <Clock className="w-4 h-4 mr-1" />
+                        {relatedPost.readTime} min
+                      </div>
+                    </div>
+                  </article>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
