@@ -2,6 +2,7 @@
 interface CMSBlogPost {
   id: string;
   title: string;
+  slug: string; // CMS slug
   category?: string;
   tags?: string[];
   blocks: Array<{
@@ -10,10 +11,16 @@ interface CMSBlogPost {
     src?: string;
     alt?: string;
   }>;
+  image?: string; // Featured image
   author: {
     name: string;
     uid: string;
   };
+  featured?: boolean;
+  metaTitle?: string;
+  metaDescription?: string;
+  publishDate?: string;
+  readTime?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -36,20 +43,25 @@ class HealppyPetsCMSClient {
   async getAllBlogs(options: { limit?: number } = {}): Promise<CMSResponse> {
     const { limit } = options;
     let url = `${this.baseUrl}/api/blogs?tenant=${this.tenantId}`;
-    
+
     if (limit) {
       url += `&limit=${limit}`;
     }
 
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 segundos max
+
       const response = await fetch(url, {
-        next: { revalidate: 300 } // Revalidar cada 5 minutos
+        next: { revalidate: 300 }, // Revalidar cada 5 minutos
+        signal: controller.signal
       });
-      
+      clearTimeout(timeoutId);
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       return await response.json();
     } catch (error) {
       console.error('Error fetching blogs from CMS:', error);
@@ -63,11 +75,11 @@ class HealppyPetsCMSClient {
         `${this.baseUrl}/api/blogs?tenant=${this.tenantId}&id=${blogId}`,
         { next: { revalidate: 300 } }
       );
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       return await response.json();
     } catch (error) {
       console.error('Error fetching blog by ID:', error);
@@ -77,74 +89,77 @@ class HealppyPetsCMSClient {
 
   // Convertir post del CMS al formato de HealppyPets
   convertCMSPostToHealppyFormat(cmsPost: CMSBlogPost): any {
-    // Extraer primer párrafo como excerpt
-    const textBlocks = cmsPost.blocks.filter(block => block.type === 'text');
-    const firstTextContent = textBlocks[0]?.content || '';
-    const excerpt = this.extractExcerpt(firstTextContent);
+    // Convertir bloques a formato compatible (HTML o markdown según necesite tu frontend)
+    // Asumimos que healppypets maneja HTML en 'content' o lo convertimos
+    const content = this.convertBlocksToHTML(cmsPost.blocks);
 
-    // Obtener primera imagen como imagen destacada
-    const imageBlocks = cmsPost.blocks.filter(block => block.type === 'image');
-    const featuredImage = imageBlocks[0]?.src || 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=800&q=80';
+    // Slug: Preferir el slug del CMS, sino generar uno
+    const slug = cmsPost.slug || this.generateSlug(cmsPost.title);
 
-    // Convertir bloques a markdown
-    const content = this.convertBlocksToMarkdown(cmsPost.blocks);
+    // Extracto: Usar metaDescription o generar del contenido
+    const excerpt = cmsPost.metaDescription || this.extractExcerpt(content);
 
-    // Generar slug
-    const slug = this.generateSlug(cmsPost.title);
+    // Imagen: Usar la imagen destacada del CMS
+    const image = cmsPost.image || 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=800&q=80';
 
-    // Estimar tiempo de lectura
-    const readTime = this.estimateReadTime(content);
+    // Tiempo de lectura
+    const readTime = cmsPost.readTime ? parseInt(cmsPost.readTime) : this.estimateReadTime(content);
 
-    // Usar categoría del CMS o una por defecto
-    const category = cmsPost.category || "CMS";
+    // Tags
+    const tags = cmsPost.tags && cmsPost.tags.length > 0 ? cmsPost.tags : ["healppypets"];
 
-    // Usar tags del CMS o tags por defecto
-    const tags = cmsPost.tags && cmsPost.tags.length > 0 
-      ? cmsPost.tags 
-      : ["cms", "healppypets"];
+    // Fecha
+    const date = cmsPost.publishDate || cmsPost.createdAt;
 
     return {
-      slug: `cms-${cmsPost.id}`, // Prefijo para distinguir posts del CMS
+      slug: `cms-${slug}`, // Mantenemos prefijo para evitar colisiones idénticas, o úsalo directo si prefieres
+      originalSlug: slug,
       title: cmsPost.title,
       excerpt,
       content,
-      category,
+      category: cmsPost.category || "Consejos",
       author: {
         name: cmsPost.author.name,
-        role: "Equipo HealppyPets"
+        role: "Veterinaria HealppyPets"
       },
-      image: featuredImage,
-      date: cmsPost.createdAt,
+      image,
+      date,
       readTime,
       tags,
-      featured: false,
-      isCMSPost: true // Flag para identificar posts del CMS
+      featured: cmsPost.featured || false,
+      metaTitle: cmsPost.metaTitle,
+      metaDescription: cmsPost.metaDescription,
+      isCMSPost: true
     };
   }
 
   private extractExcerpt(htmlContent: string): string {
-    // Remover HTML tags y obtener primeras 150 palabras
+    // Remover HTML tags y obtener primeras 30 palabras
     const textOnly = htmlContent.replace(/<[^>]*>/g, '');
     const words = textOnly.split(' ').slice(0, 30);
     return words.join(' ') + '...';
   }
 
-  private convertBlocksToMarkdown(blocks: CMSBlogPost['blocks']): string {
+  private convertBlocksToHTML(blocks: CMSBlogPost['blocks']): string {
     return blocks.map(block => {
       switch (block.type) {
         case 'text':
-          return block.content || '';
+          return `<div class="cms-text">${block.content || ''}</div>`;
         case 'image':
-          return `![${block.alt || 'Imagen'}](${block.src})`;
+          return `<figure class="cms-image"><img src="${block.src}" alt="${block.alt || 'Imagen del blog'}" class="img-fluid rounded my-4" /></figure>`;
         case 'video':
-          return `<iframe src="${block.src}" width="100%" height="315" frameborder="0" allowfullscreen></iframe>`;
+          if (block.src?.includes('tiktok')) {
+            const videoId = block.src.split('/video/')[1];
+            return `<blockquote class="tiktok-embed" cite="${block.src}" data-video-id="${videoId}" style="max-width: 605px;min-width: 325px;"><section><a target="_blank" href="${block.src}">Ver en TikTok</a></section></blockquote>`;
+          }
+          return `<div class="ratio ratio-16x9 my-4"><iframe src="${block.src}" allowfullscreen></iframe></div>`;
         default:
           return '';
       }
-    }).join('\n\n');
+    }).join('');
   }
 
-  private generateSlug(title: string): string {
+  public generateSlug(title: string): string {
     return title
       .toLowerCase()
       .normalize('NFD')
@@ -155,8 +170,9 @@ class HealppyPetsCMSClient {
   }
 
   private estimateReadTime(content: string): number {
+    const textOnly = content.replace(/<[^>]*>/g, '');
     const wordsPerMinute = 200;
-    const words = content.split(' ').length;
+    const words = textOnly.split(' ').length;
     return Math.ceil(words / wordsPerMinute);
   }
 
@@ -173,8 +189,8 @@ class HealppyPetsCMSClient {
     } catch (error) {
       console.error('Error fetching categories:', error);
       // Fallback a categorías estáticas en caso de error
-      return { 
-        categories: ["Nutrición", "Cuidados", "Salud", "Consejos"] 
+      return {
+        categories: ["Nutrición", "Cuidados", "Salud", "Consejos"]
       };
     }
   }

@@ -7,7 +7,7 @@ export async function getAllPosts(options: { limit?: number; category?: string }
   try {
     // Obtener posts del CMS
     const cmsResponse = await cmsClient.getAllBlogs({ limit: 50 });
-    const cmsPosts = cmsResponse.blogs.map(post => 
+    const cmsPosts = cmsResponse.blogs.map(post =>
       cmsClient.convertCMSPostToHealppyFormat(post)
     );
 
@@ -20,8 +20,8 @@ export async function getAllPosts(options: { limit?: number; category?: string }
     // Filtrar por categoría si se especifica
     let filteredPosts = allPosts;
     if (options.category && options.category !== 'Todos') {
-      filteredPosts = allPosts.filter(post => 
-        post.category === options.category || 
+      filteredPosts = allPosts.filter(post =>
+        post.category === options.category ||
         (options.category === 'CMS' && post.isCMSPost)
       );
     }
@@ -44,9 +44,43 @@ export async function getPostBySlugHybrid(slug: string): Promise<BlogPost | null
   // Si es un post del CMS (comienza con 'cms-')
   if (slug.startsWith('cms-')) {
     try {
-      const blogId = slug.replace('cms-', '');
-      const cmsPost = await cmsClient.getBlogById(blogId);
-      return cmsClient.convertCMSPostToHealppyFormat(cmsPost);
+      // FIX: No podemos asumir que el slug contiene el ID directamente si usamos slugs personalizados
+      // En lugar de getBlogById, necesitamos buscar el post que tenga ese slug
+
+      // 1. Obtener la lista de blogs (o implementar un endpoint en CMS para buscar por slug)
+      const allCmsPosts = await cmsClient.getAllBlogs({ limit: 100 });
+
+      // 2. Buscar el post que coincida con el slug generado
+      // El slug en la URL es 'cms-titulo-del-post'
+      // El slug en el CMS es 'titulo-del-post'
+      const targetSlug = slug.replace('cms-', '');
+
+      const foundPost = allCmsPosts.blogs.find(post => {
+        // Opción A: El slug coincide exactamente con el slug del CMS
+        if (post.slug === targetSlug) return true;
+
+        // Opción B: Si no hay slug en CMS, comparamos con el slug generado
+        const generatedSlug = cmsClient.generateSlug(post.title);
+        return generatedSlug === targetSlug;
+      });
+
+      if (foundPost) {
+        return cmsClient.convertCMSPostToHealppyFormat(foundPost);
+      }
+
+      // Si no encontramos por coincidencia de lista, intentamos fallback por ID si el slug fuera un ID
+      // (Para compatibilidad con enlaces viejos si los hubiera)
+      try {
+        const idFallback = slug.replace('cms-', '');
+        const postById = await cmsClient.getBlogById(idFallback);
+        return cmsClient.convertCMSPostToHealppyFormat(postById);
+      } catch (e) {
+        // Ignorar error de fallback
+      }
+
+      console.warn(`CMS Post not found for slug: ${slug}`);
+      return null;
+
     } catch (error) {
       console.error('Error fetching CMS post:', error);
       return null;
@@ -61,13 +95,13 @@ export async function getPostBySlugHybrid(slug: string): Promise<BlogPost | null
 export async function getRelatedPostsHybrid(currentSlug: string, limit: number = 3): Promise<BlogPost[]> {
   const allPosts = await getAllPosts();
   const currentPost = allPosts.find(post => post.slug === currentSlug);
-  
+
   if (!currentPost) return [];
 
   // Buscar posts relacionados por categoría o tags
   const relatedPosts = allPosts
     .filter(post => post.slug !== currentSlug)
-    .filter(post => 
+    .filter(post =>
       post.category === currentPost.category ||
       post.tags.some(tag => currentPost.tags.includes(tag))
     )
@@ -79,7 +113,7 @@ export async function getRelatedPostsHybrid(currentSlug: string, limit: number =
       .filter(post => post.slug !== currentSlug)
       .filter(post => !relatedPosts.includes(post))
       .slice(0, limit - relatedPosts.length);
-    
+
     relatedPosts.push(...recentPosts);
   }
 
@@ -91,14 +125,14 @@ export async function getAvailableCategories(): Promise<string[]> {
   try {
     // Categorías estáticas de HealppyPets
     const staticCategories = new Set(BLOG_POSTS.map(post => post.category));
-    
+
     // Categorías del CMS
     const cmsResponse = await cmsClient.getCategories();
     const cmsCategories = new Set(cmsResponse.categories);
-    
+
     // Combinar ambas
     const allCategories = new Set([...staticCategories, ...cmsCategories]);
-    
+
     return Array.from(allCategories).sort();
   } catch (error) {
     console.error('Error fetching categories:', error);
@@ -112,7 +146,7 @@ export async function getAvailableCategories(): Promise<string[]> {
 export async function getFeaturedPosts(limit: number = 3): Promise<BlogPost[]> {
   const allPosts = await getAllPosts();
   const featuredPosts = allPosts.filter(post => post.featured);
-  
+
   // Si no hay suficientes destacados, completar con los más recientes
   if (featuredPosts.length < limit) {
     const recentPosts = allPosts

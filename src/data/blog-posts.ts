@@ -16,6 +16,8 @@ export interface BlogPost {
   readTime: number;
   tags: string[];
   featured?: boolean;
+  metaTitle?: string;
+  metaDescription?: string;
   isCMSPost?: boolean; // Flag para identificar posts del CMS
 }
 
@@ -789,12 +791,12 @@ export function getFeaturedPosts(): BlogPost[] {
 export function getRelatedPosts(currentSlug: string, limit: number = 3): BlogPost[] {
   const currentPost = getPostBySlug(currentSlug);
   if (!currentPost) return [];
-  
+
   return BLOG_POSTS
-    .filter(post => 
-      post.slug !== currentSlug && 
-      (post.category === currentPost.category || 
-       post.tags.some(tag => currentPost.tags.includes(tag)))
+    .filter(post =>
+      post.slug !== currentSlug &&
+      (post.category === currentPost.category ||
+        post.tags.some(tag => currentPost.tags.includes(tag)))
     )
     .slice(0, limit);
 }

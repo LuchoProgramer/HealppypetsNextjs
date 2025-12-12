@@ -3,10 +3,12 @@ import { Calendar, Clock, Tag, ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getPostBySlugHybrid, getRelatedPostsHybrid } from "@/data/hybrid-blog-posts";
 import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 import { generateMetadata as baseGenerateMetadata } from "@/lib/metadata";
 import { SITE_CONFIG } from "@/lib/constants";
 import WhatsAppButton from "./WhatsAppButton";
 import InternalLinks from "@/components/ui/InternalLinks";
+import TikTokLoader from "@/components/ui/TikTokLoader";
 
 interface BlogPostPageProps {
   params: { slug: string };
@@ -14,8 +16,9 @@ interface BlogPostPageProps {
 
 // Generar metadatos dinámicos para SEO (Server Component)
 export async function generateMetadata({ params }: BlogPostPageProps) {
-  const post = await getPostBySlugHybrid(params.slug);
-  
+  const { slug } = params;
+  const post = await getPostBySlugHybrid(slug);
+
   if (!post) {
     return {
       title: 'Post no encontrado | HealppyPets Blog',
@@ -23,9 +26,13 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     };
   }
 
+  // Priorizar metadatos del CMS si existen
+  const title = post.metaTitle || `${post.title} | Blog HealppyPets`;
+  const description = post.metaDescription || post.excerpt;
+
   return baseGenerateMetadata({
-    title: `${post.title} | Blog HealppyPets`,
-    description: post.excerpt,
+    title,
+    description,
     keywords: [...post.tags, "HealppyPets blog", "cuidado mascotas", "veterinaria Carcelén"],
     image: post.image,
     url: `/blog/${post.slug}`,
@@ -39,7 +46,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     console.error(`Post not found: ${params.slug}`);
     return notFound();
   }
-  
+
   const relatedPosts = await getRelatedPostsHybrid(post.slug, 3);
 
   // Schema.org para artículos
@@ -73,6 +80,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <div className="min-h-screen bg-white">
+      <TikTokLoader />
       {/* Schema.org JSON-LD */}
       <script
         type="application/ld+json"
@@ -83,7 +91,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       {/* Back Button */}
       <div className="bg-gradient-to-b from-white to-gray-50 border-b border-gray-200 sticky top-20 z-40">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <Link 
+          <Link
             href="/blog"
             className="inline-flex items-center text-gray-600 hover:text-[#F2C2EA] transition-colors font-medium"
           >
@@ -150,7 +158,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Main Content */}
           <div className="prose prose-lg max-w-none mb-12 text-gray-700 leading-relaxed space-y-6">
-            <ReactMarkdown>
+            <ReactMarkdown rehypePlugins={[rehypeRaw]}>
               {post.content}
             </ReactMarkdown>
           </div>
@@ -191,7 +199,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       </section>
 
       {/* Internal Links Estratégicos para Blog */}
-      <InternalLinks 
+      <InternalLinks
         currentPage={`/blog/${post.slug}`}
         excludeLinks={[`/blog/${post.slug}`]}
         maxLinks={6}
