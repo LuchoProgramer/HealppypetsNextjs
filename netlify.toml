@@ -1,4 +1,8 @@
 
+# Plugin esencial para Next.js en Netlify
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
 # Redireccionamiento 301 solo desde el subdominio de Netlify al dominio principal
 [[redirects]]
   from = "https://healppypets.netlify.app/*"
