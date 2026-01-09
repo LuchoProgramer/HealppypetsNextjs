@@ -1,13 +1,8 @@
-// Declaración global para window.gtag (evita error TS2339)
-declare global {
-  interface Window {
-    gtag?: (...args: any[]) => void;
-  }
-}
 "use client";
 
 import { useState, useEffect, useRef } from "react";
 import { SITE_CONFIG } from "@/lib/constants";
+import { trackEvent, trackWhatsAppClick } from "@/lib/analytics";
 
 export default function AboutSection() {
   const [visibleSections, setVisibleSections] = useState(new Set());
@@ -110,24 +105,21 @@ export default function AboutSection() {
                 ref={(el) => {
                   sectionRefs.current[index] = el;
                 }}
-                className={`transition-all duration-1000 ${
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-                }`}
+                className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+                  }`}
               >
                 <div
-                  className={`grid lg:grid-cols-2 gap-8 lg:gap-12 items-center ${
-                    !isEven ? "lg:grid-flow-dense" : ""
-                  }`}
+                  className={`grid lg:grid-cols-2 gap-8 lg:gap-12 items-center ${!isEven ? "lg:grid-flow-dense" : ""
+                    }`}
                 >
                   {/* Image Side */}
                   <div
-                    className={`${!isEven ? "lg:col-start-2" : ""} ${
-                      isVisible
-                        ? isEven
-                          ? "animate-fade-in"
-                          : "animate-fade-in"
-                        : ""
-                    }`}
+                    className={`${!isEven ? "lg:col-start-2" : ""} ${isVisible
+                      ? isEven
+                        ? "animate-fade-in"
+                        : "animate-fade-in"
+                      : ""
+                      }`}
                   >
                     <div className="relative group">
                       {/* Glow Background */}
@@ -241,14 +233,7 @@ export default function AboutSection() {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] text-gray-900 font-semibold rounded-full hover:shadow-2xl transition-all hover:scale-105"
-              onClick={() => {
-                if (typeof window !== 'undefined' && window.gtag) {
-                  window.gtag('event', 'click_agendar_carla', {
-                    event_category: 'about',
-                    event_label: 'Agenda Con Carla Ahora',
-                  });
-                }
-              }}
+              onClick={() => trackWhatsAppClick('About Section CTA')}
             >
               <span className="mr-2">💬</span>
               Agenda Con Carla Ahora
@@ -256,14 +241,11 @@ export default function AboutSection() {
             <a
               href="#servicios"
               className="inline-flex items-center justify-center px-8 py-4 bg-white border-2 border-gray-300 text-gray-700 font-semibold rounded-full hover:bg-gray-50 transition-all"
-              onClick={() => {
-                if (typeof window !== 'undefined' && window.gtag) {
-                  window.gtag('event', 'click_ver_servicios', {
-                    event_category: 'about',
-                    event_label: 'Ver Servicios',
-                  });
-                }
-              }}
+              onClick={() => trackEvent({
+                action: 'click_ver_servicios',
+                category: 'about',
+                label: 'About View Services'
+              })}
             >
               Ver Servicios
             </a>

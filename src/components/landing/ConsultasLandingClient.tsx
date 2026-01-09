@@ -1,14 +1,10 @@
-// Declaración global para window.gtag (evita error TS2339 en TSX)
-declare global {
-  interface Window {
-    gtag?: (...args: any[]) => void;
-  }
-}
+
 "use client";
 
 import { useState } from "react";
 import Image from "next/image";
 import { Check, Stethoscope, Star, ArrowRight } from "lucide-react";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 export default function ConsultasLandingClient() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
@@ -64,14 +60,7 @@ export default function ConsultasLandingClient() {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] text-gray-900 font-bold rounded-full hover:shadow-2xl transition-all hover:scale-105 text-lg"
-              onClick={() => {
-                if (typeof window !== 'undefined' && window.gtag) {
-                  window.gtag('event', 'consultas_click_whatsapp', {
-                    event_category: 'consultas_cta',
-                    event_label: 'WhatsApp Agendar Consulta Hero',
-                  });
-                }
-              }}
+              onClick={() => trackWhatsAppClick('Consultas Hero CTA')}
             >
               <span>💬</span>
               Agendar Consulta Ahora
@@ -203,14 +192,7 @@ export default function ConsultasLandingClient() {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-4 bg-white text-gray-900 font-bold rounded-full hover:shadow-xl transition-all hover:scale-105"
-            onClick={() => {
-              if (typeof window !== 'undefined' && window.gtag) {
-                window.gtag('event', 'consultas_click_whatsapp_final', {
-                  event_category: 'consultas_cta',
-                  event_label: 'WhatsApp Agendar Consulta Final',
-                });
-              }
-            }}
+            onClick={() => trackWhatsAppClick('Consultas Bottom CTA')}
           >
             <span>💬</span>
             Agendar Consulta

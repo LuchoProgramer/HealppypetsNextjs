@@ -1,17 +1,13 @@
 "use client";
 
-// Declaración global para window.gtag (evita error TS2339 en TSX)
-declare global {
-  interface Window {
-    gtag?: (...args: any[]) => void;
-  }
-}
+
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Search, Calendar, Clock, Tag, ArrowRight, Loader2 } from "lucide-react";
 import { getAllPosts, getAvailableCategories } from "@/data/hybrid-blog-posts";
 import { BlogPost } from "@/data/blog-posts";
+import { trackEvent, trackWhatsAppClick } from "@/lib/analytics";
 
 export default function BlogPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -30,7 +26,7 @@ export default function BlogPage() {
           getAllPosts(),
           getAvailableCategories()
         ]);
-        
+
         setPosts(allPosts);
         setCategories(['Todos', ...availableCategories]);
         setError(null);
@@ -49,7 +45,7 @@ export default function BlogPage() {
   const filteredPosts = posts.filter(post => {
     const matchesCategory = selectedCategory === "Todos" || post.category === selectedCategory;
     const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+      post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
@@ -69,8 +65,8 @@ export default function BlogPage() {
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <p className="text-red-600 mb-4">{error}</p>
-          <button 
-            onClick={() => window.location.reload()} 
+          <button
+            onClick={() => window.location.reload()}
             className="px-4 py-2 bg-[#F2C2EA] text-gray-900 rounded-lg hover:bg-[#F2C9E7] transition-colors"
           >
             Reintentar
@@ -128,11 +124,10 @@ export default function BlogPage() {
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-6 py-2 rounded-full font-semibold transition-all duration-300 ${
-                selectedCategory === category
+              className={`px-6 py-2 rounded-full font-semibold transition-all duration-300 ${selectedCategory === category
                   ? "bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] text-gray-900 shadow-lg"
                   : "bg-white text-gray-700 border-2 border-gray-200 hover:border-[#F2C2EA]"
-              }`}
+                }`}
             >
               {category}
               {category === 'CMS' && (
@@ -148,17 +143,12 @@ export default function BlogPage() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredPosts.map((post: BlogPost) => (
             <Link key={post.slug} href={`/blog/${post.slug}`}
-              onClick={() => {
-                if (typeof window !== 'undefined' && window.gtag) {
-                  window.gtag('event', 'blog_click_leer_mas', {
-                    event_category: 'blog',
-                    event_label: post.title,
-                    custom_parameters: {
-                      source: post.isCMSPost ? 'cms' : 'static'
-                    }
-                  });
-                }
-              }}
+              onClick={() => trackEvent({
+                action: 'blog_click_leer_mas',
+                category: 'blog',
+                label: post.title,
+                value: post.isCMSPost ? 1 : 0
+              })}
             >
               <article className="bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 h-full flex flex-col border border-gray-100">
                 {/* Image */}
@@ -249,14 +239,7 @@ export default function BlogPage() {
           <a
             href="#contacto"
             className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] text-gray-900 font-semibold rounded-full hover:shadow-xl transition-all hover:scale-105"
-            onClick={() => {
-              if (typeof window !== 'undefined' && window.gtag) {
-                window.gtag('event', 'blog_click_contacto', {
-                  event_category: 'blog',
-                  event_label: 'CTA Contactar Ahora',
-                });
-              }
-            }}
+            onClick={() => trackWhatsAppClick('Blog Page Bottom CTA')}
           >
             <span className="mr-2">💬</span>
             Contactar Ahora

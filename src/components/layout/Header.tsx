@@ -1,9 +1,4 @@
-// Declaración global para window.gtag (evita error TS2339)
-declare global {
-  interface Window {
-    gtag?: (...args: any[]) => void;
-  }
-}
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -11,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { SITE_CONFIG, WORKING_HOURS } from "@/lib/constants";
 import useBusinessStatus from "@/hooks/useBusinessStatus";
+import { trackWhatsAppClick, trackPhoneClick } from "@/lib/analytics";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -30,7 +26,7 @@ export default function Header() {
 
     window.addEventListener("scroll", handleScroll);
     document.addEventListener("click", handleClickOutside);
-    
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
       document.removeEventListener("click", handleClickOutside);
@@ -43,9 +39,8 @@ export default function Header() {
     <>
       {/* Header Superior */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? "bg-white shadow-lg" : "bg-white/95 backdrop-blur-sm"
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-white shadow-lg" : "bg-white/95 backdrop-blur-sm"
+          }`}
       >
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
@@ -69,14 +64,12 @@ export default function Header() {
             {/* Badges Mobile/Tablet */}
             <div className="flex items-center gap-2 lg:hidden">
               {/* Badge Estado */}
-              <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${
-                businessStatus.isOpen 
-                  ? "bg-green-100 text-green-700" 
+              <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${businessStatus.isOpen
+                  ? "bg-green-100 text-green-700"
                   : "bg-red-100 text-red-700"
-              }`}>
-                <span className={`w-2 h-2 rounded-full ${
-                  businessStatus.isOpen ? "bg-green-500" : "bg-red-500"
-                } animate-pulse`} />
+                }`}>
+                <span className={`w-2 h-2 rounded-full ${businessStatus.isOpen ? "bg-green-500" : "bg-red-500"
+                  } animate-pulse`} />
                 <span className="hidden sm:inline">{businessStatus.message}</span>
               </div>
 
@@ -119,7 +112,7 @@ export default function Header() {
               <Link href="/" className="text-gray-700 hover:text-[#F2C2EA] transition-colors font-medium">
                 Inicio
               </Link>
-              
+
               {/* Servicios Dropdown */}
               <div className="relative">
                 <button
@@ -134,15 +127,15 @@ export default function Header() {
                     ▼
                   </span>
                 </button>
-                
+
                 {isServicesOpen && (
-                  <div 
+                  <div
                     className="absolute top-full left-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-50"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <div className="p-2">
-                      <Link 
-                        href="/servicios/vacunas" 
+                      <Link
+                        href="/servicios/vacunas"
                         className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-green-50 text-gray-700 hover:text-green-700 transition-colors"
                         onClick={() => setIsServicesOpen(false)}
                       >
@@ -152,8 +145,8 @@ export default function Header() {
                           <div className="text-xs text-gray-500">Plan completo en Carcelén</div>
                         </div>
                       </Link>
-                      <Link 
-                        href="/servicios/desparasitacion" 
+                      <Link
+                        href="/servicios/desparasitacion"
                         className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-orange-50 text-gray-700 hover:text-orange-700 transition-colors"
                         onClick={() => setIsServicesOpen(false)}
                       >
@@ -163,8 +156,8 @@ export default function Header() {
                           <div className="text-xs text-gray-500">Interna y externa</div>
                         </div>
                       </Link>
-                      <Link 
-                        href="/servicios/gatos" 
+                      <Link
+                        href="/servicios/gatos"
                         className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-purple-50 text-gray-700 hover:text-purple-700 transition-colors"
                         onClick={() => setIsServicesOpen(false)}
                       >
@@ -174,8 +167,8 @@ export default function Header() {
                           <div className="text-xs text-gray-500">Medicina felina en Carcelén</div>
                         </div>
                       </Link>
-                      <Link 
-                        href="/#servicios" 
+                      <Link
+                        href="/#servicios"
                         className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-700 transition-colors"
                         onClick={() => setIsServicesOpen(false)}
                       >
@@ -210,14 +203,12 @@ export default function Header() {
             {/* Desktop CTAs */}
             <div className="flex items-center gap-3">
               {/* Badge Estado Desktop */}
-              <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium ${
-                businessStatus.isOpen 
-                  ? "bg-green-100 text-green-700" 
+              <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium ${businessStatus.isOpen
+                  ? "bg-green-100 text-green-700"
                   : "bg-red-100 text-red-700"
-              }`}>
-                <span className={`w-2 h-2 rounded-full ${
-                  businessStatus.isOpen ? "bg-green-500" : "bg-red-500"
-                } animate-pulse`} />
+                }`}>
+                <span className={`w-2 h-2 rounded-full ${businessStatus.isOpen ? "bg-green-500" : "bg-red-500"
+                  } animate-pulse`} />
                 <span>{businessStatus.message}</span>
               </div>
 
@@ -263,14 +254,7 @@ export default function Header() {
             target="_blank"
             rel="noopener noreferrer"
             className="flex flex-col items-center justify-center flex-1 py-2 -mt-4"
-            onClick={() => {
-              if (typeof window !== 'undefined' && window.gtag) {
-                window.gtag('event', 'click_agendar_cita', {
-                  event_category: 'navbar_mobile',
-                  event_label: 'Cita WhatsApp',
-                });
-              }
-            }}
+            onClick={() => trackWhatsAppClick('Mobile Navbar')}
           >
             <div className="bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow">
               <span className="text-3xl">💬</span>
@@ -288,14 +272,7 @@ export default function Header() {
           <a
             href={`tel:${SITE_CONFIG.phone}`}
             className="flex flex-col items-center justify-center flex-1 py-2 text-gray-600 hover:text-[#F2C2EA] transition-colors group"
-            onClick={() => {
-              if (typeof window !== 'undefined' && window.gtag) {
-                window.gtag('event', 'click_llamar', {
-                  event_category: 'navbar_mobile',
-                  event_label: 'Llamar',
-                });
-              }
-            }}
+            onClick={() => trackPhoneClick('Mobile Navbar')}
           >
             <span className="text-2xl mb-0.5">📞</span>
             <span className="text-xs font-medium">Llamar</span>
@@ -303,8 +280,8 @@ export default function Header() {
         </div>
       </nav>
 
-  {/* Spacer para evitar que el contenido quede detrás del header */}
-  <div className="h-16 lg:h-32" /> {/* Spacer para el header */}
+      {/* Spacer para evitar que el contenido quede detrás del header */}
+      <div className="h-16 lg:h-32" /> {/* Spacer para el header */}
     </>
   );
 }

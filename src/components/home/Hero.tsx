@@ -1,22 +1,18 @@
-// Declaración global para window.gtag (evita error TS2339)
-declare global {
-  interface Window {
-    gtag?: (...args: any[]) => void;
-  }
-}
+
 "use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { SITE_CONFIG } from "@/lib/constants";
+import { trackEvent, trackWhatsAppClick } from "@/lib/analytics";
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
     {
-  title: "Cuidado Veterinario de Confianza ",
-  titleHighlight: "en Carcelén",
+      title: "Cuidado Veterinario de Confianza ",
+      titleHighlight: "en Carcelén",
       subtitle: "Grooming rápido, vacunas y más",
       description: "Tu mascota merece atención profesional sin complicaciones. Agenda por WhatsApp y obtén 20% OFF en tu primera visita.",
       image: "https://res.cloudinary.com/tu-cloud/image/upload/hero-principal.jpg", // Reemplaza con tu URL
@@ -65,17 +61,16 @@ export default function Hero() {
   };
 
   return (
-  <section className="relative h-screen min-h-[700px] max-h-[900px] overflow-hidden pt-0 lg:pt-32">
+    <section className="relative h-screen min-h-[700px] max-h-[900px] overflow-hidden pt-0 lg:pt-32">
       {/* SEO: H1 único y oculto para crawlers */}
       <h1 className="sr-only">HealppyPets - Veterinaria en Carcelén, Quito - Grooming, Consultas y Vacunación</h1>
-      
+
       {/* Background Slides */}
       {slides.map((slide, index) => (
         <div
           key={index}
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            index === currentSlide ? "opacity-100" : "opacity-0"
-          }`}
+          className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? "opacity-100" : "opacity-0"
+            }`}
         >
           {/* Background Image with Overlay */}
           <div className="absolute inset-0">
@@ -94,19 +89,17 @@ export default function Hero() {
           {/* Content */}
           <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
             <div
-              className={`max-w-2xl lg:max-w-3xl space-y-6 lg:space-y-8 transition-all duration-1000 ${
-                index === currentSlide
+              className={`max-w-2xl lg:max-w-3xl space-y-6 lg:space-y-8 transition-all duration-1000 ${index === currentSlide
                   ? "translate-x-0 opacity-100"
                   : "-translate-x-10 opacity-0"
-              }`}
+                }`}
             >
               {/* Animated Badge */}
               <div
-                className={`inline-flex items-center space-x-2 ${slide.badgeColor} backdrop-blur-md rounded-full px-4 py-2 shadow-lg transition-all duration-700 delay-100 ${
-                  index === currentSlide
+                className={`inline-flex items-center space-x-2 ${slide.badgeColor} backdrop-blur-md rounded-full px-4 py-2 shadow-lg transition-all duration-700 delay-100 ${index === currentSlide
                     ? "translate-y-0 opacity-100"
                     : "translate-y-4 opacity-0"
-                }`}
+                  }`}
               >
                 <span className="text-white text-sm lg:text-base font-semibold">
                   {slide.badge}
@@ -115,11 +108,10 @@ export default function Hero() {
 
               {/* Main Title */}
               <div
-                className={`transition-all duration-700 delay-200 ${
-                  index === currentSlide
+                className={`transition-all duration-700 delay-200 ${index === currentSlide
                     ? "translate-y-0 opacity-100"
                     : "translate-y-4 opacity-0"
-                }`}
+                  }`}
               >
                 <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight">
                   {slide.title}
@@ -131,50 +123,41 @@ export default function Hero() {
 
               {/* Subtitle */}
               <p
-                className={`text-xl sm:text-2xl lg:text-3xl text-[#F2DFED] font-medium transition-all duration-700 delay-300 ${
-                  index === currentSlide
+                className={`text-xl sm:text-2xl lg:text-3xl text-[#F2DFED] font-medium transition-all duration-700 delay-300 ${index === currentSlide
                     ? "translate-y-0 opacity-100"
                     : "translate-y-4 opacity-0"
-                }`}
+                  }`}
               >
                 {slide.subtitle}
               </p>
 
               {/* Description */}
               <p
-                className={`text-base sm:text-lg lg:text-xl text-gray-200 leading-relaxed transition-all duration-700 delay-400 ${
-                  index === currentSlide
+                className={`text-base sm:text-lg lg:text-xl text-gray-200 leading-relaxed transition-all duration-700 delay-400 ${index === currentSlide
                     ? "translate-y-0 opacity-100"
                     : "translate-y-4 opacity-0"
-                }`}
+                  }`}
               >
                 {slide.description}
               </p>
 
               {/* CTA Buttons */}
               <div
-                className={`flex flex-col sm:flex-row gap-3 sm:gap-4 transition-all duration-700 delay-500 ${
-                  index === currentSlide
+                className={`flex flex-col sm:flex-row gap-3 sm:gap-4 transition-all duration-700 delay-500 ${index === currentSlide
                     ? "translate-y-0 opacity-100"
                     : "translate-y-4 opacity-0"
-                }`}
+                  }`}
               >
                 <a
                   href={slide.ctaLink}
                   target={slide.ctaLink.startsWith('http') ? "_blank" : undefined}
                   rel={slide.ctaLink.startsWith('http') ? "noopener noreferrer" : undefined}
                   className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] text-gray-900 font-semibold rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 text-base sm:text-lg"
-                  onClick={() => {
-                    if (typeof window !== 'undefined' && window.gtag) {
-                      window.gtag('event', 'click_cta_hero', {
-                        event_category: 'hero',
-                        event_label: slide.cta,
-                        slide_index: index,
-                        slide_title: slide.title,
-                        cta_link: slide.ctaLink,
-                      });
-                    }
-                  }}
+                  onClick={() => trackEvent({
+                    action: 'click_cta_hero',
+                    category: 'hero',
+                    label: `${slide.cta} - Slide ${index + 1}`
+                  })}
                 >
                   {slide.cta}
                   <span className="ml-2">→</span>
@@ -184,16 +167,7 @@ export default function Hero() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-white/10 backdrop-blur-md border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-gray-900 transition-all duration-300 text-base sm:text-lg"
-                  onClick={() => {
-                    if (typeof window !== 'undefined' && window.gtag) {
-                      window.gtag('event', 'click_whatsapp_hero', {
-                        event_category: 'hero',
-                        event_label: 'Chatea con nosotros',
-                        slide_index: index,
-                        slide_title: slide.title,
-                      });
-                    }
-                  }}
+                  onClick={() => trackWhatsAppClick(`Hero Chat Button - Slide ${index + 1}`)}
                 >
                   <span className="mr-2">💬</span>
                   Chatea con nosotros
@@ -202,11 +176,10 @@ export default function Hero() {
 
               {/* Stats - Simplificados y reales */}
               <div
-                className={`flex flex-wrap gap-6 lg:gap-8 pt-6 lg:pt-8 border-t border-white/20 transition-all duration-700 delay-600 ${
-                  index === currentSlide
+                className={`flex flex-wrap gap-6 lg:gap-8 pt-6 lg:pt-8 border-t border-white/20 transition-all duration-700 delay-600 ${index === currentSlide
                     ? "translate-y-0 opacity-100"
                     : "translate-y-4 opacity-0"
-                }`}
+                  }`}
               >
                 {[
                   { icon: "🐾", value: "300+", label: "Mascotas Felices" },
@@ -238,9 +211,8 @@ export default function Hero() {
         ].map((item, i) => (
           <div
             key={i}
-            className={`bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-2xl hover:scale-105 transition-all duration-300 ${
-              currentSlide === i ? 'ring-2 ring-[#F2C2EA]' : ''
-            }`}
+            className={`bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-2xl hover:scale-105 transition-all duration-300 ${currentSlide === i ? 'ring-2 ring-[#F2C2EA]' : ''
+              }`}
           >
             <div className="flex items-center gap-3">
               <span className="text-3xl">{item.icon}</span>
@@ -259,11 +231,10 @@ export default function Hero() {
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`transition-all duration-300 rounded-full ${
-              index === currentSlide
+            className={`transition-all duration-300 rounded-full ${index === currentSlide
                 ? "w-10 sm:w-12 h-3 bg-[#F2C2EA]"
                 : "w-3 h-3 bg-white/50 hover:bg-white/75"
-            }`}
+              }`}
             aria-label={`Ir a slide ${index + 1}`}
           />
         ))}

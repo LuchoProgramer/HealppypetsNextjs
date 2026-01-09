@@ -1,9 +1,4 @@
-// Declaración global para window.gtag (evita error TS2339 en TSX)
-declare global {
-  interface Window {
-    gtag?: (...args: any[]) => void;
-  }
-}
+
 "use client";
 
 import React from "react";
@@ -14,6 +9,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Check, Clock, Star, ArrowRight } from "lucide-react";
 import InternalLinks from "@/components/ui/InternalLinks";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 export default function GroomingLandingClient() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
@@ -74,14 +70,7 @@ export default function GroomingLandingClient() {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] text-gray-900 font-bold rounded-full hover:shadow-2xl transition-all hover:scale-105 text-lg"
-              onClick={() => {
-                if (typeof window !== 'undefined' && window.gtag) {
-                  window.gtag('event', 'grooming_click_whatsapp', {
-                    event_category: 'grooming_cta',
-                    event_label: 'WhatsApp Agendar Grooming Hero',
-                  });
-                }
-              }}
+              onClick={() => trackWhatsAppClick('Grooming Hero CTA')}
             >
               <span>💬</span>
               Agendar Grooming Ahora
@@ -146,14 +135,7 @@ export default function GroomingLandingClient() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block w-full bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] text-gray-900 font-bold py-3 rounded-full hover:shadow-lg transition-all text-center"
-                  onClick={() => {
-                    if (typeof window !== 'undefined' && window.gtag) {
-                      window.gtag('event', 'grooming_click_whatsapp_plan', {
-                        event_category: 'grooming_cta',
-                        event_label: 'WhatsApp Agendar Grooming Plan',
-                      });
-                    }
-                  }}
+                  onClick={() => trackWhatsAppClick(`Grooming Plan CTA - ${plan.size}`)}
                 >
                   Seleccionar
                 </a>
@@ -227,23 +209,16 @@ export default function GroomingLandingClient() {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-4 bg-white text-gray-900 font-bold rounded-full hover:shadow-xl transition-all hover:scale-105"
-            onClick={() => {
-              if (typeof window !== 'undefined' && window.gtag) {
-                window.gtag('event', 'grooming_click_whatsapp_final', {
-                  event_category: 'grooming_cta',
-                  event_label: 'WhatsApp Agendar Grooming Final',
-                });
-              }
-            }}
+            onClick={() => trackWhatsAppClick('Grooming Bottom CTA')}
           >
             <span>💬</span>
             Agendar por WhatsApp
             <ArrowRight className="w-5 h-5" />
           </a>
         </section>
-        
+
         {/* Internal Links Estratégicos para Grooming */}
-        <InternalLinks 
+        <InternalLinks
           currentPage="/grooming"
           excludeLinks={['/grooming']}
           maxLinks={6}

@@ -1,15 +1,11 @@
-// Declaración global para window.gtag (evita error TS2339)
-declare global {
-  interface Window {
-    gtag?: (...args: any[]) => void;
-  }
-}
+
 "use client";
 
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { SITE_CONFIG, SERVICES, ServiceType } from "@/lib/constants";
+import { trackEvent, trackWhatsAppClick } from "@/lib/analytics";
 
 type Service = {
   title: string;
@@ -78,18 +74,16 @@ export default function ServicesSection() {
                 ref={(el) => {
                   cardRefs.current[index] = el;
                 }}
-                className={`group transition-all duration-700 ${
-                  isVisible
+                className={`group transition-all duration-700 ${isVisible
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-10"
-                }`}
+                  }`}
                 onMouseEnter={() => setActiveService(service.id)}
                 onMouseLeave={() => setActiveService(null)}
               >
                 {/* Card */}
-                <div className={`relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col ${
-                  isActive ? "ring-2 ring-[#F2C2EA] ring-offset-2" : ""
-                }`}>
+                <div className={`relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col ${isActive ? "ring-2 ring-[#F2C2EA] ring-offset-2" : ""
+                  }`}>
                   {/* Image Section */}
                   <div className="relative h-48 overflow-hidden">
                     <Image
@@ -101,10 +95,10 @@ export default function ServicesSection() {
                       className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                       priority={index < 3}
                     />
-                    
+
                     {/* Gradient Overlay */}
                     <div className={`absolute inset-0 bg-gradient-to-r ${service.color} opacity-0 group-hover:opacity-30 transition-opacity duration-500`} />
-                    
+
                     {/* Icon Badge */}
                     <div className={`absolute top-4 right-4 w-12 h-12 bg-gradient-to-r ${service.color} rounded-xl shadow-lg flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500`}>
                       <span className="text-2xl">{service.icon}</span>
@@ -132,14 +126,13 @@ export default function ServicesSection() {
                     </div>
 
                     {/* Description */}
-                      <p className="text-gray-600 text-sm leading-relaxed flex-grow">
+                    <p className="text-gray-600 text-sm leading-relaxed flex-grow">
                       {service.shortDescription || service.description}
                     </p>
 
                     {/* Features - Show on Hover/Active */}
-                    <div className={`space-y-2 transition-all duration-500 overflow-hidden ${
-                      isActive ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-                    }`}>
+                    <div className={`space-y-2 transition-all duration-500 overflow-hidden ${isActive ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                      }`}>
                       <p className="font-semibold text-gray-800 text-sm pt-2 flex items-center gap-1">
                         <span>✨</span> Incluye:
                       </p>
@@ -210,39 +203,29 @@ export default function ServicesSection() {
         <div className="text-center mt-12 lg:mt-16 space-y-4">
           <div className="inline-block bg-gradient-to-r from-green-50 to-green-100 rounded-full px-6 py-2 border border-green-200">
             <p className="text-green-700 font-semibold flex items-center justify-center gap-2">
-              <span>❤️</span> 
+              <span>❤️</span>
               ¿Primera vez? Obtén 20% de descuento
             </p>
           </div>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <a 
+            <a
               href={`https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent("Hola! Quiero mi 20% de descuento en la primera visita 🐾")}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] text-gray-900 font-semibold rounded-full hover:shadow-xl transition-all duration-300 hover:scale-105"
-              onClick={() => {
-                if (typeof window !== 'undefined' && window.gtag) {
-                  window.gtag('event', 'click_agendar_primera_cita', {
-                    event_category: 'services',
-                    event_label: 'Agendar Mi Primera Cita',
-                  });
-                }
-              }}
+              onClick={() => trackWhatsAppClick('Services Section Promo CTA')}
             >
               <span className="mr-2">💬</span>
               Agendar Mi Primera Cita
             </a>
-            <a 
+            <a
               href="#contacto"
               className="inline-flex items-center justify-center px-8 py-3 bg-white border-2 border-gray-300 text-gray-700 font-semibold rounded-full hover:bg-gray-50 transition-all duration-300"
-              onClick={() => {
-                if (typeof window !== 'undefined' && window.gtag) {
-                  window.gtag('event', 'click_ver_mas_informacion', {
-                    event_category: 'services',
-                    event_label: 'Ver Más Información',
-                  });
-                }
-              }}
+              onClick={() => trackEvent({
+                action: 'click_ver_mas_informacion',
+                category: 'services',
+                label: 'Services Section More Info'
+              })}
             >
               Ver Más Información
             </a>

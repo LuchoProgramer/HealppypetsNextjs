@@ -1,14 +1,10 @@
-// Declaración global para window.gtag (evita error TS2339 en TSX)
-declare global {
-  interface Window {
-    gtag?: (...args: any[]) => void;
-  }
-}
+
 "use client";
 
 import { useState } from "react";
 import Image from "next/image";
 import { Check, Shield, Calendar, Star, ArrowRight } from "lucide-react";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 export default function VacunacionLandingClient() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
@@ -62,14 +58,7 @@ export default function VacunacionLandingClient() {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] text-gray-900 font-bold rounded-full hover:shadow-2xl transition-all hover:scale-105 text-lg"
-              onClick={() => {
-                if (typeof window !== 'undefined' && window.gtag) {
-                  window.gtag('event', 'vacunacion_click_whatsapp', {
-                    event_category: 'vacunacion_cta',
-                    event_label: 'WhatsApp Agendar Vacunación Hero',
-                  });
-                }
-              }}
+              onClick={() => trackWhatsAppClick('Vacunación Hero CTA')}
             >
               <span>💬</span>
               Agendar Vacunación Ahora
@@ -204,14 +193,7 @@ export default function VacunacionLandingClient() {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-4 bg-white text-gray-900 font-bold rounded-full hover:shadow-xl transition-all hover:scale-105"
-            onClick={() => {
-              if (typeof window !== 'undefined' && window.gtag) {
-                window.gtag('event', 'vacunacion_click_whatsapp_final', {
-                  event_category: 'vacunacion_cta',
-                  event_label: 'WhatsApp Agendar Vacunación Final',
-                });
-              }
-            }}
+            onClick={() => trackWhatsAppClick('Vacunación Bottom CTA')}
           >
             <span>💬</span>
             Agendar Vacunación

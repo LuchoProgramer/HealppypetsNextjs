@@ -1,14 +1,10 @@
-// Declaración global para window.gtag (evita error TS2339)
-declare global {
-  interface Window {
-    gtag?: (...args: any[]) => void;
-  }
-}
+
 "use client";
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { SITE_CONFIG, TESTIMONIALS, TestimonialType } from "@/lib/constants";
+import { trackEvent, trackWhatsAppClick } from "@/lib/analytics";
 
 export default function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -64,11 +60,10 @@ export default function Testimonials() {
             {TESTIMONIALS.map((testimonial: TestimonialType, index) => (
               <div
                 key={testimonial.id}
-                className={`transition-all duration-700 ${
-                  index === activeIndex
+                className={`transition-all duration-700 ${index === activeIndex
                     ? "opacity-100 translate-x-0 scale-100"
                     : "opacity-0 absolute inset-0 translate-x-8 scale-95 pointer-events-none"
-                }`}
+                  }`}
               >
                 <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-12">
                   <div className="flex flex-col sm:flex-row gap-8 items-center sm:items-start">
@@ -77,7 +72,7 @@ export default function Testimonials() {
                       <div className="relative">
                         {/* Glow effect */}
                         <div className="absolute inset-0 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] blur-2xl opacity-40 rounded-full w-32 h-32 -z-10" />
-                        
+
                         {/* Image container */}
                         <div className="relative w-32 h-32 lg:w-40 lg:h-40 rounded-full overflow-hidden border-4 border-white shadow-lg">
                           <Image
@@ -134,11 +129,10 @@ export default function Testimonials() {
               <button
                 key={index}
                 onClick={() => goToTestimonial(index)}
-                className={`transition-all duration-300 rounded-full ${
-                  index === activeIndex
+                className={`transition-all duration-300 rounded-full ${index === activeIndex
                     ? "w-10 h-3 bg-[#F2C2EA]"
                     : "w-3 h-3 bg-gray-300 hover:bg-gray-400"
-                }`}
+                  }`}
                 aria-label={`Ir al testimonio ${index + 1}`}
               />
             ))}
@@ -182,14 +176,7 @@ export default function Testimonials() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] text-gray-900 font-semibold rounded-full hover:shadow-xl transition-all hover:scale-105"
-                onClick={() => {
-                  if (typeof window !== 'undefined' && window.gtag) {
-                    window.gtag('event', 'click_agenda_testimonio', {
-                      event_category: 'testimonials',
-                      event_label: 'Agenda Ahora',
-                    });
-                  }
-                }}
+                onClick={() => trackWhatsAppClick('Testimonial CTA Button')}
               >
                 <span className="mr-2">💬</span>
                 Agenda Ahora
@@ -197,14 +184,11 @@ export default function Testimonials() {
               <a
                 href="#servicios"
                 className="inline-flex items-center justify-center px-8 py-3 bg-white border-2 border-gray-300 text-gray-700 font-semibold rounded-full hover:bg-gray-50 transition-all"
-                onClick={() => {
-                  if (typeof window !== 'undefined' && window.gtag) {
-                    window.gtag('event', 'click_ver_servicios_testimonio', {
-                      event_category: 'testimonials',
-                      event_label: 'Ver Servicios',
-                    });
-                  }
-                }}
+                onClick={() => trackEvent({
+                  action: 'click_ver_servicios_testimonio',
+                  category: 'testimonials',
+                  label: 'Testimonials View Services'
+                })}
               >
                 Ver Servicios
               </a>

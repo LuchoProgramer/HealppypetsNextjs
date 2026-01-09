@@ -1,5 +1,8 @@
 "use client";
 
+import { trackWhatsAppClick } from "@/lib/analytics";
+import React from 'react';
+
 interface WhatsAppButtonProps {
   postTitle: string;
 }
@@ -11,14 +14,7 @@ export default function WhatsAppButton({ postTitle }: WhatsAppButtonProps) {
       target="_blank"
       rel="noopener noreferrer"
       className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] text-gray-900 font-semibold rounded-full hover:shadow-xl transition-all hover:scale-105"
-      onClick={() => {
-        if (typeof window !== 'undefined' && window.gtag) {
-          window.gtag('event', 'blog_post_click_whatsapp', {
-            event_category: 'blog_post',
-            event_label: postTitle,
-          });
-        }
-      }}
+      onClick={() => trackWhatsAppClick(`Blog Post - ${postTitle}`)}
     >
       <span className="mr-2">💬</span>
       Consultar por WhatsApp
