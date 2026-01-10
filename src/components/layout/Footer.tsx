@@ -309,16 +309,16 @@ export function WhatsAppFloat() {
         href={`https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent(SITE_CONFIG.whatsappMessage)}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative flex items-center justify-center w-14 h-14 lg:w-16 lg:h-16 bg-green-500 hover:bg-green-600 rounded-full shadow-2xl transition-all hover:scale-110 active:scale-95"
+        className="group relative flex items-center justify-center w-14 h-14 lg:w-16 lg:h-16 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] rounded-full shadow-2xl transition-all hover:scale-110 active:scale-95 border border-[#F2C2EA]"
         aria-label="Chatear por WhatsApp"
         onClick={() => trackWhatsAppClick('Floating Button Mobile')}
       >
         {/* Pulse Animation */}
-        <span className="absolute inset-0 rounded-full bg-green-400 animate-ping opacity-75" />
+        <span className="absolute inset-0 rounded-full bg-[#F2C9E7] animate-ping opacity-75" />
 
         {/* WhatsApp Icon */}
         <svg
-          className="relative w-8 h-8 lg:w-9 lg:h-9 text-white"
+          className="relative w-8 h-8 lg:w-9 lg:h-9 text-gray-900"
           fill="currentColor"
           viewBox="0 0 24 24"
         >

@@ -46,10 +46,10 @@ export default function WhatsAppButton() {
         onClick={() => trackWhatsAppClick('Floating Button Desktop')}
       >
         {/* Pulse Animation */}
-        <div className="absolute inset-0 bg-success-500 rounded-full animate-ping opacity-75" />
+        <div className="absolute inset-0 bg-[#F2C9E7] rounded-full animate-ping opacity-75" />
 
         {/* Button */}
-        <div className="relative bg-success-500 hover:bg-success-600 text-white w-16 h-16 rounded-full shadow-strong flex items-center justify-center transition-all duration-300 hover:scale-110">
+        <div className="relative bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] text-gray-900 w-16 h-16 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 border border-[#F2C2EA]">
           <svg
             className="w-8 h-8"
             fill="currentColor"
@@ -63,8 +63,8 @@ export default function WhatsAppButton() {
         {/* Tooltip */}
         <div
           className={`absolute right-full mr-4 top-1/2 -translate-y-1/2 bg-dark-800 text-white px-4 py-2 rounded-lg text-sm whitespace-nowrap shadow-strong transition-all duration-300 ${isHovered
-              ? "opacity-100 translate-x-0"
-              : "opacity-0 translate-x-2 pointer-events-none"
+            ? "opacity-100 translate-x-0"
+            : "opacity-0 translate-x-2 pointer-events-none"
             }`}
         >
           ¡Chatea con nosotros!
