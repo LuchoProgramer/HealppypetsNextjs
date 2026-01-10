@@ -114,6 +114,7 @@ export default function RootLayout({
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-T2KBL64FPR');
+            gtag('config', 'AW-17864442859');
           `}
         </Script>
         {/* Google Tag Manager */}
