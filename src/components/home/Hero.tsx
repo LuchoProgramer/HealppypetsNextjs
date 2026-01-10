@@ -14,12 +14,12 @@ export default function Hero() {
       title: "Cuidado Veterinario de Confianza ",
       titleHighlight: "en Carcelén",
       subtitle: "Grooming rápido, vacunas y más",
-      description: "Tu mascota merece atención profesional sin complicaciones. Agenda por WhatsApp y obtén 20% OFF en tu primera visita.",
+      description: "Tu mascota merece atención profesional sin complicaciones. Agenda por WhatsApp y obtén 10% OFF en tu primera visita.",
       image: "https://res.cloudinary.com/tu-cloud/image/upload/hero-principal.jpg", // Reemplaza con tu URL
       imagePlaceholder: "https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=1920&q=80",
       cta: "Agendar Mi Cita",
       ctaLink: `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent(SITE_CONFIG.whatsappPromo)}`,
-      badge: "🎁 20% OFF Primera Visita",
+      badge: "🎁 10% OFF Primera Visita",
       badgeColor: "bg-green-500/90"
     },
     {
@@ -90,15 +90,15 @@ export default function Hero() {
           <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
             <div
               className={`max-w-2xl lg:max-w-3xl space-y-6 lg:space-y-8 transition-all duration-1000 ${index === currentSlide
-                  ? "translate-x-0 opacity-100"
-                  : "-translate-x-10 opacity-0"
+                ? "translate-x-0 opacity-100"
+                : "-translate-x-10 opacity-0"
                 }`}
             >
               {/* Animated Badge */}
               <div
                 className={`inline-flex items-center space-x-2 ${slide.badgeColor} backdrop-blur-md rounded-full px-4 py-2 shadow-lg transition-all duration-700 delay-100 ${index === currentSlide
-                    ? "translate-y-0 opacity-100"
-                    : "translate-y-4 opacity-0"
+                  ? "translate-y-0 opacity-100"
+                  : "translate-y-4 opacity-0"
                   }`}
               >
                 <span className="text-white text-sm lg:text-base font-semibold">
@@ -109,8 +109,8 @@ export default function Hero() {
               {/* Main Title */}
               <div
                 className={`transition-all duration-700 delay-200 ${index === currentSlide
-                    ? "translate-y-0 opacity-100"
-                    : "translate-y-4 opacity-0"
+                  ? "translate-y-0 opacity-100"
+                  : "translate-y-4 opacity-0"
                   }`}
               >
                 <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight">
@@ -124,8 +124,8 @@ export default function Hero() {
               {/* Subtitle */}
               <p
                 className={`text-xl sm:text-2xl lg:text-3xl text-[#F2DFED] font-medium transition-all duration-700 delay-300 ${index === currentSlide
-                    ? "translate-y-0 opacity-100"
-                    : "translate-y-4 opacity-0"
+                  ? "translate-y-0 opacity-100"
+                  : "translate-y-4 opacity-0"
                   }`}
               >
                 {slide.subtitle}
@@ -134,8 +134,8 @@ export default function Hero() {
               {/* Description */}
               <p
                 className={`text-base sm:text-lg lg:text-xl text-gray-200 leading-relaxed transition-all duration-700 delay-400 ${index === currentSlide
-                    ? "translate-y-0 opacity-100"
-                    : "translate-y-4 opacity-0"
+                  ? "translate-y-0 opacity-100"
+                  : "translate-y-4 opacity-0"
                   }`}
               >
                 {slide.description}
@@ -144,8 +144,8 @@ export default function Hero() {
               {/* CTA Buttons */}
               <div
                 className={`flex flex-col sm:flex-row gap-3 sm:gap-4 transition-all duration-700 delay-500 ${index === currentSlide
-                    ? "translate-y-0 opacity-100"
-                    : "translate-y-4 opacity-0"
+                  ? "translate-y-0 opacity-100"
+                  : "translate-y-4 opacity-0"
                   }`}
               >
                 <a
@@ -177,8 +177,8 @@ export default function Hero() {
               {/* Stats - Simplificados y reales */}
               <div
                 className={`flex flex-wrap gap-6 lg:gap-8 pt-6 lg:pt-8 border-t border-white/20 transition-all duration-700 delay-600 ${index === currentSlide
-                    ? "translate-y-0 opacity-100"
-                    : "translate-y-4 opacity-0"
+                  ? "translate-y-0 opacity-100"
+                  : "translate-y-4 opacity-0"
                   }`}
               >
                 {[
@@ -232,8 +232,8 @@ export default function Hero() {
             key={index}
             onClick={() => goToSlide(index)}
             className={`transition-all duration-300 rounded-full ${index === currentSlide
-                ? "w-10 sm:w-12 h-3 bg-[#F2C2EA]"
-                : "w-3 h-3 bg-white/50 hover:bg-white/75"
+              ? "w-10 sm:w-12 h-3 bg-[#F2C2EA]"
+              : "w-3 h-3 bg-white/50 hover:bg-white/75"
               }`}
             aria-label={`Ir a slide ${index + 1}`}
           />

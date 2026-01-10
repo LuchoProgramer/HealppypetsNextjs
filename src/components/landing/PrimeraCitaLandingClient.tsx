@@ -10,7 +10,7 @@ export default function PrimeraCitaLandingClient() {
 
   const OFFER_INCLUDES = [
     "Grooming, Consulta o Vacunación",
-    "20% de descuento en el servicio",
+    "10% de descuento en el servicio",
     "Atención personalizada de Carla",
     "Carnet de servicios gratis",
     "Recordatorio para próximas citas",
@@ -18,17 +18,17 @@ export default function PrimeraCitaLandingClient() {
   ];
 
   const BEFORE_AFTER = [
-    { before: "$20", after: "$16", service: "Grooming Express" },
-    { before: "$15", after: "$12", service: "Consulta Veterinaria" },
-    { before: "$20", after: "$16", service: "Vacunación Completa" }
+    { before: "$20", after: "$18", service: "Grooming Express" },
+    { before: "$15", after: "$13.50", service: "Consulta Veterinaria" },
+    { before: "$20", after: "$18", service: "Vacunación Completa" }
   ];
 
   const FAQ_ITEMS = [
     { q: "¿Quién puede usar esta promoción?", a: "Cualquier mascota que sea su primera visita a Healppypets. Solo se aplica una vez por mascota." },
-    { q: "¿Hasta cuándo es válida la promoción?", a: "La promoción es permanente. Todos los nuevos clientes reciben 20% OFF en su primera cita." },
+    { q: "¿Hasta cuándo es válida la promoción?", a: "La promoción es permanente. Todos los nuevos clientes reciben 10% OFF en su primera cita." },
     { q: "¿Puedo combinarla con otros descuentos?", a: "Esta es nuestra promoción principal. No se acumula con otros descuentos, pero es la mejor oferta que tenemos." },
     { q: "¿Cómo la aplican?", a: "Solo agendar por WhatsApp mencionando que es tu primera visita. Carla aplicará el descuento automáticamente." },
-    { q: "¿Qué pasa si tengo más de una mascota?", a: "El descuento aplica a cada mascota una sola vez. Si tienes varias mascotas nuevas, todas obtienen 20% OFF en su primer servicio." },
+    { q: "¿Qué pasa si tengo más de una mascota?", a: "El descuento aplica a cada mascota una sola vez. Si tienes varias mascotas nuevas, todas obtienen 10% OFF en su primer servicio." },
     { q: "¿Válido solo para grooming?", a: "No, aplica para cualquier servicio: Grooming, Consulta, Vacunación, Desparasitación. ¡Elige el que necesites!" }
   ];
 
@@ -52,7 +52,7 @@ export default function PrimeraCitaLandingClient() {
 
             {/* MASSIVE DISCOUNT */}
             <h1 className="text-6xl sm:text-7xl font-black text-transparent bg-gradient-to-r from-red-600 to-[#F2C2EA] bg-clip-text mb-4">
-              20% OFF
+              10% OFF
             </h1>
 
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
@@ -65,14 +65,14 @@ export default function PrimeraCitaLandingClient() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <a
-                href="https://wa.me/593987005084?text=Hola! Quiero mi 20% de descuento en la primera visita 🐾"
+                href="https://wa.me/593987005084?text=Hola! Quiero mi 10% de descuento en la primera visita 🐾"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-red-600 to-[#F2C2EA] text-white font-bold rounded-full hover:shadow-2xl transition-all hover:scale-105 text-lg"
                 onClick={() => trackWhatsAppClick('Primera Cita Hero Claim CTA')}
               >
                 <span>💬</span>
-                Reclamar Mi 20% OFF
+                Reclamar Mi 10% OFF
                 <ArrowRight className="w-5 h-5" />
               </a>
               <a
@@ -194,12 +194,12 @@ export default function PrimeraCitaLandingClient() {
         <section className="py-16 bg-gradient-to-r from-red-600 via-[#F2C2EA] to-[#F2C9E7] rounded-2xl text-center mb-16 shadow-2xl">
           <Gift className="w-16 h-16 mx-auto mb-4 text-white" />
           <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">No Esperes Más</h2>
-          <p className="text-xl text-white/90 mb-8 opacity-95">Tu mascota merece el mejor cuidado. Aprovecha tu 20% OFF hoy mismo.</p>
-          <a href="https://wa.me/593987005084?text=Hola! Quiero mi 20% de descuento en la primera visita 🐾" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-10 py-5 bg-white text-gray-900 font-black rounded-full hover:shadow-2xl transition-all hover:scale-110 text-lg"
+          <p className="text-xl text-white/90 mb-8 opacity-95">Tu mascota merece el mejor cuidado. Aprovecha tu 10% OFF hoy mismo.</p>
+          <a href="https://wa.me/593987005084?text=Hola! Quiero mi 10% de descuento en la primera visita 🐾" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-10 py-5 bg-white text-gray-900 font-black rounded-full hover:shadow-2xl transition-all hover:scale-110 text-lg"
             onClick={() => trackWhatsAppClick('Primera Cita Bottom CTA')}
           >
             <span className="text-2xl">🎉</span>
-            Reclamar Mi 20% OFF Ahora
+            Reclamar Mi 10% OFF Ahora
             <ArrowRight className="w-6 h-6" />
           </a>
         </section>

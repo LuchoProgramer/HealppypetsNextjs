@@ -10,7 +10,7 @@ export const SITE_CONFIG = {
   phoneInternational: "+593 98 700 5084", // Formato internacional claro
   whatsapp: "593987005084",
   whatsappMessage: "Hola! Quisiera agendar una cita para mi mascota 🐾",
-  whatsappPromo: "Hola! Quiero mi 20% de descuento en la primera visita 🐾",
+  whatsappPromo: "Hola! Quiero mi 10% de descuento en la primera visita 🐾",
   businessHours: {
     weekdays: "Martes a Sábado: 9:00 AM - 1:00 PM, 3:00 PM - 6:00 PM",
     weekend: "Domingo: 9:00 AM - 2:00 PM",

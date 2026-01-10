@@ -77,8 +77,8 @@ export function getWebsiteJsonLd(): Record<string, unknown> {
 export const primeraCitaSchema = ({
   "@context": "https://schema.org",
   "@type": "Offer",
-  name: "Primera Cita - 20% OFF",
-  description: "Promoción para nuevos clientes: 20% de descuento en la primera cita (grooming, consulta o vacunación).",
+  name: "Primera Cita - 10% OFF",
+  description: "Promoción para nuevos clientes: 10% de descuento en la primera cita (grooming, consulta o vacunación).",
   provider: {
     "@type": "LocalBusiness",
     name: SITE_CONFIG.name,

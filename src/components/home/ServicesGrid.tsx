@@ -58,7 +58,7 @@ export default function ServicesSection() {
             Servicios para tu <span className="bg-gradient-to-r from-[#F2C9E7] via-[#F2C2EA] to-[#F2D8EE] bg-clip-text text-transparent">Mejor Amigo</span>
           </h2>
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
-            Cuidado profesional y rápido en Carcelén. Primera visita con 20% de descuento 🎁
+            Cuidado profesional y rápido en Carcelén. Primera visita con 10% de descuento 🎁
           </p>
         </div>
 
@@ -75,8 +75,8 @@ export default function ServicesSection() {
                   cardRefs.current[index] = el;
                 }}
                 className={`group transition-all duration-700 ${isVisible
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-10"
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-10"
                   }`}
                 onMouseEnter={() => setActiveService(service.id)}
                 onMouseLeave={() => setActiveService(null)}
@@ -166,7 +166,7 @@ export default function ServicesSection() {
             {
               icon: "🎁",
               title: "Primera Visita",
-              description: "20% de descuento en tu primera cita",
+              description: "10% de descuento en tu primera cita",
               color: "from-green-400 to-green-500"
             },
             {
@@ -204,12 +204,12 @@ export default function ServicesSection() {
           <div className="inline-block bg-gradient-to-r from-green-50 to-green-100 rounded-full px-6 py-2 border border-green-200">
             <p className="text-green-700 font-semibold flex items-center justify-center gap-2">
               <span>❤️</span>
-              ¿Primera vez? Obtén 20% de descuento
+              ¿Primera vez? Obtén 10% de descuento
             </p>
           </div>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <a
-              href={`https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent("Hola! Quiero mi 20% de descuento en la primera visita 🐾")}`}
+              href={`https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent("Hola! Quiero mi 10% de descuento en la primera visita 🐾")}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] text-gray-900 font-semibold rounded-full hover:shadow-xl transition-all duration-300 hover:scale-105"

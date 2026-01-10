@@ -3,8 +3,8 @@ import Script from "next/script";
 import PrimeraCitaLandingClient from "@/components/landing/PrimeraCitaLandingClient";
 
 export const metadata = generateMetadata({
-  title: "Primera Cita - 20% OFF | Healppypets",
-  description: "Promoción permanente para nuevos clientes: 20% de descuento en tu primera cita (grooming, consulta o vacunación).",
+  title: "Primera Cita - 10% OFF | Healppypets",
+  description: "Promoción permanente para nuevos clientes: 10% de descuento en tu primera cita (grooming, consulta o vacunación).",
   image: "/og-primera-cita.png", // Opcional: Crea una imagen específica para esta promo
   url: "/primera-cita",
 });
@@ -12,8 +12,8 @@ export const metadata = generateMetadata({
 const primeraCitaSchema = {
   "@context": "https://schema.org",
   "@type": "Offer",
-  name: "Primera Cita - 20% OFF",
-  description: "Promoción permanente para nuevos clientes: 20% de descuento en tu primera cita (grooming, consulta o vacunación).",
+  name: "Primera Cita - 10% OFF",
+  description: "Promoción permanente para nuevos clientes: 10% de descuento en tu primera cita (grooming, consulta o vacunación).",
   priceSpecification: {
     "@type": "PriceSpecification",
     priceCurrency: "USD",

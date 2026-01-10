@@ -34,8 +34,8 @@ export function Footer() {
 
             {/* Status Badge */}
             <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold ${isOpen
-                ? "bg-green-500/20 text-green-300 border border-green-500/30"
-                : "bg-red-500/20 text-red-300 border border-red-500/30"
+              ? "bg-green-500/20 text-green-300 border border-green-500/30"
+              : "bg-red-500/20 text-red-300 border border-red-500/30"
               }`}>
               <span className={`w-2 h-2 rounded-full ${isOpen ? "bg-green-400" : "bg-red-400"} animate-pulse`} />
               {isOpen ? "Abierto Ahora" : "Cerrado"}
@@ -231,9 +231,9 @@ export function Footer() {
         {/* CTA Section */}
         <div className="mt-12 text-center bg-gradient-to-r from-[#F2C9E7]/10 to-[#F2C2EA]/10 rounded-2xl p-8 border border-[#F2C2EA]/20">
           <h3 className="text-2xl font-bold mb-3">¿Listo para cuidar a tu mascota?</h3>
-          <p className="text-gray-300 mb-6">Agenda tu cita por WhatsApp y obtén 20% OFF en tu primera visita</p>
+          <p className="text-gray-300 mb-6">Agenda tu cita por WhatsApp y obtén 10% OFF en tu primera visita</p>
           <a
-            href={`https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent("Hola! Quiero mi 20% de descuento en la primera visita 🐾")}`}
+            href={`https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent("Hola! Quiero mi 10% de descuento en la primera visita 🐾")}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#F2C9E7] to-[#F2C2EA] text-gray-900 font-bold rounded-full hover:shadow-2xl transition-all hover:scale-105"
