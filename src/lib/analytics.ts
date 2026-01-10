@@ -17,8 +17,8 @@ type GTagEvent = {
 const ADS_CONVERSION_MAP: Record<string, string> = {
     // 'nombre_evento_ga4': 'AW-ID_CUENTA/LABEL_CONVERSION'
     'whatsapp_click': 'AW-17864442859/j1bVCIHEj-AbEOuHt8ZC', // Clic WhatsApp Web
-    'generate_lead': 'AW-17864442859/j1bVCIHEj-AbEOuHt8ZC',  // Usamos el mismo por ahora (fallback) o déjalo vacío si vas a crear otro
-    'phone_click': 'AW-17864442859/j1bVCIHEj-AbEOuHt8ZC',    // Usamos el mismo para Phone Click (estrategia de conversión unificada)
+    'generate_lead': 'AW-17864442859/j1bVCIHEj-AbEOuHt8ZC',  // Formulario (mismo que WA por ahora)
+    'phone_click': 'AW-17864442859/-OzVCOyinOAbEOuHt8ZC',    // Nuevo: Clic Telefono Web
     'begin_checkout': '',
 };
 
