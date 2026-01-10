@@ -16,10 +16,10 @@ type GTagEvent = {
 // Cuando tengas tus IDs, solo reemplaza los valores de 'AW-XXXXX/YYYYYY'.
 const ADS_CONVERSION_MAP: Record<string, string> = {
     // 'nombre_evento_ga4': 'AW-ID_CUENTA/LABEL_CONVERSION'
-    'whatsapp_click': '', // Poner aquí Label de WhatsApp p.ej: 'AW-12345/AbC_WxYz'
-    'generate_lead': '',  // Poner aquí Label de Formulario
-    'phone_click': '',    // Poner aquí Label de Teléfono
-    'begin_checkout': '', // Poner aquí Label de Agendar Cita
+    'whatsapp_click': 'AW-17864442859/j1bVCIHEj-AbEOuHt8ZC', // Clic WhatsApp Web
+    'generate_lead': 'AW-17864442859/j1bVCIHEj-AbEOuHt8ZC',  // Usamos el mismo por ahora (fallback) o déjalo vacío si vas a crear otro
+    'phone_click': 'AW-17864442859/j1bVCIHEj-AbEOuHt8ZC',    // Usamos el mismo para Phone Click (estrategia de conversión unificada)
+    'begin_checkout': '',
 };
 
 // Declaración global para evitar errores de TS
